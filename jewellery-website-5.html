@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VED JEWELLERS</title>
+<link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Cinzel:wght@400;500&family=Cinzel+Decorative:wght@400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ivory:#FAF7F0;--iw:#F5EFE3;--id:#EDE4D3;--cream:#E8DFC8;--parch:#DDD0B4;
+  --gold:#9A7B3E;--gm:#B8933A;--gb:#C8A96A;--gl:#DFC28A;
+  --ink:#1C1810;--im:#3A3228;--il:#504840;--if:#6E6458;
+  --border:rgba(154,123,62,.18);--bs:rgba(154,123,62,.09);
+  --ff-d:'Cinzel',serif;--ff-dc:'Cinzel Decorative',serif;--ff-b:'EB Garamond',serif;--ff-u:'Didact Gothic',sans-serif;
+  --mh:36px;--nh:64px;--off:calc(var(--mh) + var(--nh));
+}
+html{scroll-behavior:smooth}*{cursor:none!important}
+/* CURSOR */
+#cur{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;width:8px;height:8px;background:var(--gold);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+#cur.x{width:38px;height:38px;background:rgba(154,123,62,.1);border:1px solid var(--gold)}
+#curt{position:fixed;top:0;left:0;z-index:9998;pointer-events:none;width:30px;height:30px;border:1px solid rgba(154,123,62,.25);border-radius:50%;transform:translate(-50%,-50%);transition:all .16s ease}
+body{font-family:var(--ff-b);background:var(--ivory);color:var(--ink);overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:8000;pointer-events:none;opacity:.016;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px}
+
+/* MARQUEE */
+.mqbar{background:var(--gold);height:var(--mh);display:flex;align-items:center;overflow:hidden;position:relative;z-index:600}
+.mqt{display:flex;width:max-content;animation:march 38s linear infinite}
+.mqt a{font-family:var(--ff-u);font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--ivory);padding:0 40px;white-space:nowrap;text-decoration:none;opacity:.9;transition:opacity .2s;cursor:none!important}
+.mqt a:hover{opacity:1;text-decoration:underline;text-underline-offset:3px}
+.mqt .dot{padding:0;font-size:5px;color:rgba(255,255,255,.5)}
+@keyframes march{to{transform:translateX(-50%)}}
+
+/* NAV */
+.nav-wrap{position:fixed;top:0;left:0;right:0;z-index:500}
+.nav-sp{height:var(--mh)}
+.nav{height:var(--nh);display:flex;align-items:center;justify-content:space-between;padding:0 56px;background:rgba(250,247,240,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--bs);transition:background .4s,border-color .4s}
+.nav.top{background:rgba(250,247,240,.85);border-color:transparent}
+.logo {
+  font-family: var(--ff-dc);
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  color: var(--gm);
+  text-decoration: none;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+  text-shadow: 0 0 32px rgba(184,147,58,.35), 0 1px 0 rgba(184,147,58,.18);
+}
+.logo-s {
+  font-family: var(--ff-u);
+  font-size: 7px;
+  letter-spacing: 6px;
+  color: var(--gb);
+  margin-top: 4px;
+}
+.nl{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:36px}
+.nl a {
+  font-family: var(--ff-d);   /* switches from Didact Gothic → Cinzel */
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--im);
+  text-decoration: none;
+  transition: color .3s;
+  position: relative;
+  padding-bottom: 4px;
+}
+.ni{display:flex;gap:18px;align-items:center}
+.ni button{background:none;border:none;color:var(--il);transition:color .3s;position:relative;display:flex;align-items:center}
+.ni button svg{stroke:var(--il);transition:stroke .3s}
+.ni button:hover{color:var(--gold)}
+.ni button:hover svg{stroke:var(--gold)}
+.bdg{position:absolute;top:-7px;right:-9px;width:15px;height:15px;background:var(--gold);color:var(--ivory);border-radius:50%;font-size:8px;display:flex;align-items:center;justify-content:center;font-family:var(--ff-u)}
+
+/* PAGE SYSTEM */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+.pt{height:var(--off)} /* page top spacer */
+
+/* ── BUTTONS ── */
+.btn{display:inline-block;font-family:var(--ff-u);font-size:8.5px;letter-spacing:3.5px;text-transform:uppercase;padding:15px 40px;text-decoration:none;transition:all .45s;position:relative;overflow:hidden}
+.btn span{position:relative;z-index:1}
+.btn-g{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+.btn-g::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.btn-g:hover::before{transform:scaleX(1)}
+.btn-g:hover{color:var(--ivory)}
+.btn-k{background:var(--ink);border:1px solid var(--ink);color:var(--ivory)}
+.btn-k::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.btn-k:hover::before{transform:scaleX(1)}
+.btn-k:hover{color:var(--ivory)}
+
+/* ── SECTION PATTERNS ── */
+.sec-ey{font-family:var(--ff-u);font-size:8.5px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.sec-t{font-family:var(--ff-d);font-size:clamp(20px,2.8vw,36px);font-weight:400;color:var(--ink);letter-spacing:2px}
+.div{display:flex;align-items:center;gap:18px;padding:0 56px}
+.dl{flex:1;height:1px;background:var(--border)}
+.do{font-family:var(--ff-b);font-size:16px;color:var(--gb)}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .85s ease,transform .85s cubic-bezier(.22,1,.36,1)}
+.rv.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ═══════════════════════════════
+   HOME PAGE
+═══════════════════════════════ */
+.hero{height:100vh;display:flex;align-items:flex-start;position:relative;overflow:hidden;background:var(--ivory)}
+.hero-deco{position:absolute;inset:0;pointer-events:none}
+.hero-deco svg{width:100%;height:100%}
+.hc{position:relative;z-index:2;padding:calc(var(--off) + 20px) 10vw 36px;max-width:640px}
+.h-ey{font-family:var(--ff-u);font-size:8.5px;letter-spacing:6px;text-transform:uppercase;color:var(--gm);margin-bottom:18px;display:flex;align-items:center;gap:12px;opacity:0;animation:rise 1.2s cubic-bezier(.22,1,.36,1) .3s forwards}
+.h-ey::before{content:'';display:block;width:40px;height:1px;background:linear-gradient(to right,transparent,var(--gold))}
+.h-t{font-family:var(--ff-d);font-size:clamp(36px,5.2vw,76px);font-weight:400;line-height:1.05;color:var(--ink);margin-bottom:14px;letter-spacing:2px;opacity:0;animation:rise 1.4s cubic-bezier(.22,1,.36,1) .5s forwards}
+.h-t em{color:var(--gold);font-style:italic;font-family:var(--ff-b);font-size:1.1em;letter-spacing:0}
+.h-rule{width:1px;height:38px;background:linear-gradient(to bottom,var(--gb),transparent);margin:14px 0;opacity:0;animation:rise 1s ease .9s forwards}
+.h-desc{font-family:var(--ff-b);font-size:16px;font-style:italic;line-height:1.75;color:var(--im);max-width:360px;margin-bottom:28px;opacity:0;animation:rise 1.2s ease 1s forwards}
+.h-ctas{display:flex;gap:18px;align-items:center;opacity:0;animation:rise 1s ease 1.2s forwards}
+.h-tl{font-family:var(--ff-u);font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--il);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:2px;transition:all .3s}
+.h-tl:hover{color:var(--gold);border-color:var(--gold)}
+.h-vis{position:absolute;right:0;top:var(--off);bottom:0;width:46%;display:flex;align-items:center;justify-content:center;padding:16px 36px 16px 0}
+.h-fr{position:relative;width:min(330px,35vw);height:min(440px,calc(100vh - var(--off) - 56px))}
+.h-fr::before{content:'';position:absolute;top:-13px;right:-13px;width:100%;height:100%;border:1px solid var(--border);pointer-events:none}
+.h-in{width:100%;height:100%;background:var(--iw);border:1px solid var(--bs);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:16px}
+.float{animation:floatY 8s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0) rotate(0deg)}33%{transform:translateY(-14px) rotate(.7deg)}66%{transform:translateY(-6px) rotate(-.4deg)}}
+.h-cap{position:absolute;bottom:-22px;left:0;font-family:var(--ff-u);font-size:7.5px;letter-spacing:3px;text-transform:uppercase;color:var(--il)}
+.scr-ind{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);text-align:center;opacity:0;animation:rise 1s ease 2.2s forwards}
+.scr-ind span{font-family:var(--ff-u);font-size:7.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px}
+.scr-ln{width:1px;height:26px;background:linear-gradient(to bottom,var(--gold),transparent);margin:0 auto;animation:scrollDrop 2s ease-in-out infinite}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scrollDrop{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.5)}}
+
+/* HOME — CAT STRIP */
+.cats{padding:0 0 80px;border-top:1px solid var(--bs)}
+.cat-scroll{display:flex;gap:3px;padding:0 56px;overflow-x:auto;scrollbar-width:none}
+.cat-scroll::-webkit-scrollbar{display:none}
+.cat-t{flex:0 0 200px;aspect-ratio:2/3;position:relative;overflow:hidden;background:var(--cream);border:1px solid var(--bs);transition:flex .55s cubic-bezier(.22,1,.36,1)}
+.cat-t:hover{flex:0 0 290px}
+.ct-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .75s cubic-bezier(.22,1,.36,1)}
+.cat-t:hover .ct-bg{transform:scale(1.05)}
+.ct-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(250,247,240,.96) 0%,rgba(250,247,240,.15) 55%)}
+.ct-c{position:absolute;bottom:0;left:0;right:0;padding:22px 18px}
+.ct-n{font-family:var(--ff-u);font-size:7.5px;letter-spacing:3px;color:var(--gold);margin-bottom:6px}
+.ct-nm{font-family:var(--ff-d);font-size:13.5px;color:var(--ink);letter-spacing:2px;margin-bottom:3px}
+.ct-sub{font-family:var(--ff-b);font-size:12px;font-style:italic;color:var(--il);opacity:0;transform:translateY(6px);transition:all .4s ease .08s}
+.cat-t:hover .ct-sub{opacity:1;transform:translateY(0)}
+
+/* HOME — EDITORIAL */
+.ed-sec{padding:64px 56px 90px;background:var(--iw);border-top:1px solid var(--bs)}
+.ed-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px}
+.ed-sl{font-family:var(--ff-u);font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--il);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:3px;transition:all .3s}
+.ed-sl:hover{color:var(--gold);border-color:var(--gold)}
+.ed-grid{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto;gap:3px}
+.ed{position:relative;background:var(--cream);overflow:hidden;border:1px solid var(--bs)}
+.ed.lg{grid-column:1/2;grid-row:1/3;min-height:580px}
+.ed.tl{aspect-ratio:9/13}
+.ed.wd{grid-column:2/4;aspect-ratio:16/9}
+.ed-art{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .85s cubic-bezier(.22,1,.36,1)}
+.ed:hover .ed-art{transform:scale(1.04)}
+.ed-vl{position:absolute;inset:0;background:linear-gradient(to top,rgba(237,228,211,.96) 0%,rgba(237,228,211,.15) 55%);pointer-events:none}
+.ed.lg .ed-vl{background:linear-gradient(to right,rgba(237,228,211,.93) 0%,rgba(237,228,211,.06) 68%)}
+.ed.wd .ed-vl{background:linear-gradient(to right,rgba(237,228,211,.93) 0%,rgba(237,228,211,.1) 58%)}
+.ed-c{position:absolute;bottom:0;left:0;right:0;padding:28px 26px}
+.ed.lg .ed-c,.ed.wd .ed-c{top:50%;bottom:auto;transform:translateY(-50%);max-width:240px;padding:0 36px}
+.ed-tag{font-family:var(--ff-u);font-size:7.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.ed-nm{font-family:var(--ff-d);font-size:19px;font-weight:400;color:var(--ink);letter-spacing:1.5px;line-height:1.3;margin-bottom:8px}
+.ed.lg .ed-nm{font-size:28px}
+.ed-ds{font-family:var(--ff-b);font-size:13px;font-style:italic;color:var(--im);line-height:1.7;margin-bottom:14px}
+.ed-cta{font-family:var(--ff-u);font-size:7.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);text-decoration:none;display:inline-flex;align-items:center;gap:10px;opacity:0;transform:translateX(-8px);transition:all .4s}
+.ed-cta::after{content:'';display:block;width:26px;height:1px;background:var(--gold);transition:width .4s}
+.ed:hover .ed-cta{opacity:1;transform:translateX(0)}
+.ed:hover .ed-cta::after{width:46px}
+
+/* HOME — PRODUCTS */
+.prod-sec{padding:64px 56px 90px}
+.ph{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:0}
+.pf-bar{display:flex;gap:0;border-bottom:1px solid var(--border);margin:24px 0 44px}
+.pf{font-family:var(--ff-u);font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--if);padding:12px 24px;border:none;background:transparent;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .3s}
+.pf.on{color:var(--gold);border-bottom-color:var(--gold)}
+.pf:hover{color:var(--gold)}
+.pg{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.pc{position:relative;background:var(--iw);overflow:hidden;border:1px solid var(--bs);transition:background .4s}
+.pc:hover{background:var(--cream)}
+.pc-img{aspect-ratio:3/4;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.pc-art{transition:transform .75s cubic-bezier(.22,1,.36,1)}
+.pc:hover .pc-art{transform:scale(1.05) translateY(-6px)}
+.pc-badge{position:absolute;top:16px;left:16px;font-family:var(--ff-u);font-size:6.5px;letter-spacing:2px;text-transform:uppercase;color:var(--ivory);background:var(--gold);padding:5px 9px}
+.pc-w{position:absolute;top:14px;right:14px;width:32px;height:32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;background:rgba(250,247,240,.85)}
+.pc:hover .pc-w{opacity:1}
+.pc-w.on svg{fill:var(--gold);stroke:var(--gold)}
+.pc-inf{padding:16px 18px 24px;border-top:1px solid var(--bs)}
+.pc-nm{font-family:var(--ff-d);font-size:11.5px;letter-spacing:1.5px;color:var(--ink);margin-bottom:4px}
+.pc-mt{font-family:var(--ff-b);font-size:12.5px;font-style:italic;color:var(--il);margin-bottom:9px}
+.pc-pr{font-family:var(--ff-d);font-size:12.5px;color:var(--gold);display:flex;align-items:center;gap:8px}
+.pc-pr del{font-family:var(--ff-u);font-size:9.5px;color:var(--if);text-decoration:line-through}
+.pc-add{position:absolute;bottom:0;left:0;right:0;background:var(--gold);color:var(--ivory);font-family:var(--ff-u);font-size:7.5px;letter-spacing:3px;text-transform:uppercase;text-align:center;padding:12px;transform:translateY(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);border:none}
+.pc:hover .pc-add{transform:translateY(0)}
+
+/* HOME — USPS */
+.usps{background:var(--iw);border-top:1px solid var(--bs);border-bottom:1px solid var(--bs);display:grid;grid-template-columns:repeat(4,1fr)}
+.usp{padding:48px 32px;border-right:1px solid var(--bs);text-align:center;transition:background .4s}
+.usp:last-child{border-right:none}
+.usp:hover{background:var(--cream)}
+.usp-ic{width:46px;height:46px;border:1px solid var(--border);margin:0 auto 18px;display:flex;align-items:center;justify-content:center}
+.usp-t{font-family:var(--ff-d);font-size:10.5px;letter-spacing:2px;color:var(--ink);margin-bottom:8px}
+.usp-d{font-family:var(--ff-b);font-size:13.5px;font-style:italic;color:var(--im);line-height:1.7}
+
+/* HOME — BANNER */
+.banner{position:relative;height:52vh;min-height:320px;background:var(--parch);display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.bn-c{position:relative;z-index:2}
+.bn-t{font-family:var(--ff-d);font-size:clamp(30px,5.5vw,70px);font-weight:400;color:var(--ink);letter-spacing:5px;margin-bottom:16px;line-height:1.1}
+.bn-t em{color:var(--gold);font-family:var(--ff-b);font-style:italic}
+.bn-s{font-family:var(--ff-b);font-size:16px;font-style:italic;color:var(--im);margin-bottom:36px}
+
+/* HOME — TESTIMONIALS */
+.testi{padding:90px 56px}
+.tl{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;margin-top:60px;max-width:1100px;margin-left:auto;margin-right:auto}
+.t-sp{background:var(--border)}
+.t{padding:0 48px;text-align:center}
+.t-st{color:var(--gold);letter-spacing:5px;font-size:10px;margin-bottom:22px}
+.t-q{font-family:var(--ff-b);font-size:16px;font-style:italic;line-height:1.85;color:var(--im);margin-bottom:22px}
+.t-fr{font-family:var(--ff-u);font-size:7.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gb);margin-bottom:3px}
+.t-nm{font-family:var(--ff-d);font-size:10.5px;letter-spacing:2px;color:var(--ink)}
+
+/* HOME — NEWSLETTER */
+.nl-sec{background:var(--cream);padding:80px 56px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;border-top:1px solid var(--bs)}
+.nl-t{font-family:var(--ff-d);font-size:clamp(20px,2.8vw,32px);color:var(--ink);letter-spacing:2px;margin-bottom:12px}
+.nl-t em{color:var(--gold);font-family:var(--ff-b);font-style:italic}
+.nl-d{font-family:var(--ff-b);font-size:15px;font-style:italic;color:var(--im);line-height:1.8}
+.nl-in{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--ink);font-family:var(--ff-b);font-size:15px;font-style:italic;padding:15px 0;outline:none;margin-bottom:24px;display:block;transition:border-color .3s}
+.nl-in::placeholder{color:var(--if)}
+.nl-in:focus{border-bottom-color:var(--gold)}
+.nl-note{font-family:var(--ff-b);font-size:11.5px;font-style:italic;color:var(--if);margin-top:12px}
+
+/* ═══════════════════════════════
+   COLLECTION / SHOP PAGE
+═══════════════════════════════ */
+.shop-hero{background:var(--iw);padding:calc(var(--off) + 40px) 56px 48px;border-bottom:1px solid var(--border)}
+.shop-title{font-family:var(--ff-d);font-size:clamp(28px,4vw,56px);color:var(--ink);letter-spacing:3px;margin-bottom:10px}
+.shop-desc{font-family:var(--ff-b);font-size:16px;font-style:italic;color:var(--im);max-width:500px;line-height:1.8}
+.shop-main{display:grid;grid-template-columns:220px 1fr;gap:0;min-height:60vh}
+.shop-sidebar{background:var(--iw);border-right:1px solid var(--bs);padding:36px 28px;position:sticky;top:var(--off);height:fit-content}
+.sb-t{font-family:var(--ff-u);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--bs)}
+.sb-g{margin-bottom:28px}
+.sb-gt{font-family:var(--ff-d);font-size:11px;letter-spacing:1.5px;color:var(--ink);margin-bottom:12px}
+.sb-item{display:flex;align-items:center;gap:9px;padding:6px 0;font-family:var(--ff-b);font-size:13.5px;color:var(--il);transition:color .3s}
+.sb-item input{accent-color:var(--gold)}
+.sb-item:hover{color:var(--gold)}
+.sb-item label{font-family:var(--ff-b);font-size:13.5px}
+.pr-slider{width:100%;accent-color:var(--gold);margin:8px 0}
+.pr-vals{font-family:var(--ff-u);font-size:8px;letter-spacing:1.5px;color:var(--if);display:flex;justify-content:space-between}
+.shop-grid{padding:28px 32px}
+.sg-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.sg-cnt{font-family:var(--ff-b);font-size:13.5px;font-style:italic;color:var(--il)}
+.sg-sort{font-family:var(--ff-u);font-size:8px;letter-spacing:2px;background:transparent;border:1px solid var(--border);color:var(--ink);padding:8px 14px;outline:none}
+.shop-pg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+
+/* ═══════════════════════════════
+   PRODUCT DETAIL PAGE
+═══════════════════════════════ */
+.pd-wrap{padding:calc(var(--off) + 32px) 56px 80px;display:grid;grid-template-columns:1fr 1fr;gap:56px;max-width:1300px;margin:0 auto}
+.pd-imgs{position:sticky;top:calc(var(--off) + 16px);height:fit-content}
+.pd-main-img{background:var(--id);display:flex;align-items:center;justify-content:center;aspect-ratio:1;margin-bottom:12px;border:1px solid var(--bs)}
+.pd-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.pd-th{background:var(--iw);aspect-ratio:1;display:flex;align-items:center;justify-content:center;border:1px solid var(--bs);transition:border-color .3s;padding:8px}
+.pd-th.act{border-color:var(--gold)}
+.pd-info{padding:4px 0}
+.pd-bread{font-family:var(--ff-u);font-size:7.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--if);margin-bottom:20px;display:flex;gap:8px;align-items:center}
+.pd-bread a{color:var(--if);text-decoration:none;transition:color .3s}
+.pd-bread a:hover{color:var(--gold)}
+.pd-bread span{color:var(--gb)}
+.pd-cat{font-family:var(--ff-u);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.pd-name{font-family:var(--ff-d);font-size:clamp(22px,2.5vw,34px);font-weight:400;color:var(--ink);letter-spacing:1.5px;margin-bottom:8px;line-height:1.2}
+.pd-mat{font-family:var(--ff-b);font-size:15px;font-style:italic;color:var(--il);margin-bottom:18px}
+.pd-pr{font-family:var(--ff-d);font-size:26px;color:var(--gold);margin-bottom:4px}
+.pd-mrp{font-family:var(--ff-u);font-size:11px;color:var(--if);text-decoration:line-through}
+.pd-save{font-family:var(--ff-u);font-size:10px;color:#5A8A4A;letter-spacing:1px;margin-bottom:24px}
+.pd-divider{height:1px;background:var(--bs);margin:22px 0}
+.pd-label{font-family:var(--ff-u);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--il);margin-bottom:10px}
+.pd-opts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.pd-opt{font-family:var(--ff-u);font-size:8px;letter-spacing:1.5px;padding:8px 16px;border:1px solid var(--border);color:var(--il);transition:all .3s}
+.pd-opt:hover,.pd-opt.sel{border-color:var(--gold);color:var(--gold);background:rgba(154,123,62,.04)}
+.pd-desc{font-family:var(--ff-b);font-size:15px;font-style:italic;color:var(--im);line-height:1.9;margin-bottom:22px}
+.pd-acts{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.pd-acts a{display:block;text-align:center}
+.pd-specs{border-top:1px solid var(--bs);padding-top:22px}
+.pd-spec-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bs)}
+.pd-spec-row:last-child{border-bottom:none}
+.pd-sk{font-family:var(--ff-u);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--if)}
+.pd-sv{font-family:var(--ff-b);font-size:13.5px;color:var(--im)}
+
+/* ═══════════════════════════════
+   MAISON / ABOUT PAGE
+═══════════════════════════════ */
+.about-hero{height:52vh;min-height:340px;background:var(--id);display:flex;align-items:center;justify-content:center;text-align:center;padding:var(--off) 56px 0;position:relative;overflow:hidden}
+.about-grid{padding:80px 56px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;max-width:1300px;margin:0 auto}
+.about-img{aspect-ratio:3/4;background:var(--iw);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative}
+.about-fl{position:absolute;top:20px;right:20px;width:55%;height:55%;border-top:1px solid var(--border);border-right:1px solid var(--border)}
+.timeline{padding:72px 56px;background:var(--iw);border-top:1px solid var(--bs)}
+.tl-items{max-width:700px;margin:48px auto 0;display:flex;flex-direction:column;gap:0}
+.tl-item{display:grid;grid-template-columns:80px 1px 1fr;gap:0 24px;padding-bottom:40px}
+.tl-yr{font-family:var(--ff-d);font-size:14px;color:var(--gold);text-align:right;padding-top:3px}
+.tl-dot-col{display:flex;flex-direction:column;align-items:center}
+.tl-dot{width:9px;height:9px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px}
+.tl-line{flex:1;width:1px;background:var(--border);margin-top:4px}
+.tl-item:last-child .tl-line{display:none}
+.tl-body{padding-bottom:0}
+.tl-ttl{font-family:var(--ff-d);font-size:13.5px;letter-spacing:1.5px;color:var(--ink);margin-bottom:7px}
+.tl-txt{font-family:var(--ff-b);font-size:14px;font-style:italic;color:var(--im);line-height:1.8}
+.values{padding:72px 56px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.val-c{background:var(--iw);padding:44px 36px;border:1px solid var(--bs);transition:background .4s}
+.val-c:hover{background:var(--cream)}
+.val-ic{width:44px;height:44px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.val-t{font-family:var(--ff-d);font-size:13px;letter-spacing:2px;color:var(--ink);margin-bottom:10px}
+.val-d{font-family:var(--ff-b);font-size:14px;font-style:italic;color:var(--im);line-height:1.8}
+.team{padding:72px 56px 90px;background:var(--iw);border-top:1px solid var(--bs)}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:48px}
+.team-card{text-align:center}
+.team-img{aspect-ratio:3/4;background:var(--id);margin-bottom:16px;display:flex;align-items:center;justify-content:center;border:1px solid var(--bs)}
+.team-name{font-family:var(--ff-d);font-size:13px;letter-spacing:1.5px;color:var(--ink);margin-bottom:5px}
+.team-role{font-family:var(--ff-b);font-size:13px;font-style:italic;color:var(--gold)}
+
+/* ═══════════════════════════════
+   GIFTING PAGE
+═══════════════════════════════ */
+.gift-hero{padding:calc(var(--off) + 40px) 56px 56px;background:var(--parch);border-bottom:1px solid var(--border);text-align:center}
+.gift-grid{padding:60px 56px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.gift-card{border:1px solid var(--border);overflow:hidden;transition:box-shadow .3s;background:var(--iw)}
+.gift-card:hover{box-shadow:0 8px 32px rgba(154,123,62,.1)}
+.gift-img{aspect-ratio:4/3;background:var(--id);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--bs)}
+.gift-body{padding:24px 22px}
+.gift-title{font-family:var(--ff-d);font-size:14px;letter-spacing:1.5px;color:var(--ink);margin-bottom:6px}
+.gift-desc{font-family:var(--ff-b);font-size:13.5px;font-style:italic;color:var(--im);margin-bottom:16px;line-height:1.7}
+.gift-price{font-family:var(--ff-d);font-size:13px;color:var(--gold)}
+.gift-occasions{padding:56px 56px 80px;background:var(--iw);border-top:1px solid var(--bs)}
+.occ-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:40px}
+.occ{background:var(--cream);padding:32px 24px;text-align:center;border:1px solid var(--bs);transition:background .35s}
+.occ:hover{background:var(--parch)}
+.occ-ic{font-size:28px;margin-bottom:12px;display:block}
+.occ-t{font-family:var(--ff-d);font-size:12px;letter-spacing:2px;color:var(--ink)}
+
+/* ═══════════════════════════════
+   CONTACT / ATELIER PAGE
+═══════════════════════════════ */
+.contact-wrap{padding:calc(var(--off) + 40px) 56px 80px;display:grid;grid-template-columns:1fr 1fr;gap:64px;max-width:1200px;margin:0 auto}
+.form-group{margin-bottom:20px}
+.form-group label{font-family:var(--ff-u);font-size:7.5px;letter-spacing:3px;text-transform:uppercase;color:var(--il);display:block;margin-bottom:8px}
+.form-group input,.form-group textarea,.form-group select{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--ink);font-family:var(--ff-b);font-size:15px;font-style:italic;padding:12px 0;outline:none;transition:border-color .3s;resize:none}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-bottom-color:var(--gold)}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--if)}
+.form-group select{color:var(--if)}
+.contact-info{padding-top:8px}
+.ci-block{margin-bottom:32px}
+.ci-label{font-family:var(--ff-u);font-size:7.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.ci-val{font-family:var(--ff-b);font-size:15px;font-style:italic;color:var(--im);line-height:1.8}
+.stores{padding:56px 56px 80px;background:var(--iw);border-top:1px solid var(--bs)}
+.store-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.store-card{background:var(--ivory);border:1px solid var(--border);padding:28px 24px}
+.store-city{font-family:var(--ff-d);font-size:15px;letter-spacing:2px;color:var(--ink);margin-bottom:10px}
+.store-addr{font-family:var(--ff-b);font-size:14px;font-style:italic;color:var(--im);line-height:1.8;margin-bottom:12px}
+.store-hrs{font-family:var(--ff-u);font-size:7.5px;letter-spacing:2px;color:var(--gold)}
+
+/* ═══════════════════════════════
+   CARE / SIZE GUIDE PAGE
+═══════════════════════════════ */
+.guide-wrap{padding:calc(var(--off) + 40px) 56px 80px;max-width:880px;margin:0 auto}
+.guide-section{margin-bottom:56px}
+.guide-h2{font-family:var(--ff-d);font-size:20px;letter-spacing:2px;color:var(--ink);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.guide-p{font-family:var(--ff-b);font-size:15px;font-style:italic;color:var(--im);line-height:1.9;margin-bottom:14px}
+.size-table{width:100%;border-collapse:collapse;margin-top:16px}
+.size-table th{font-family:var(--ff-u);font-size:7.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);padding:10px 16px;text-align:left;border-bottom:1px solid var(--border);background:var(--iw)}
+.size-table td{font-family:var(--ff-b);font-size:14px;color:var(--im);padding:10px 16px;border-bottom:1px solid var(--bs)}
+.size-table tr:hover td{background:var(--iw)}
+.tip-box{background:var(--iw);border:1px solid var(--border);padding:20px 22px;margin-top:14px}
+.tip-box p{font-family:var(--ff-b);font-size:14px;font-style:italic;color:var(--im);line-height:1.8}
+.tip-box strong{color:var(--gold);font-style:normal}
+
+/* ═══════════════════════════════
+   CART / CHECKOUT PAGE
+═══════════════════════════════ */
+.cart-page{padding:calc(var(--off) + 32px) 56px 80px;display:grid;grid-template-columns:1fr 360px;gap:48px;max-width:1200px;margin:0 auto;min-height:60vh}
+.cart-items-list{display:flex;flex-direction:column;gap:2px}
+.ci{display:grid;grid-template-columns:100px 1fr auto;gap:20px;background:var(--iw);padding:20px;border:1px solid var(--bs);align-items:start}
+.ci-img2{width:100px;height:120px;background:var(--id);display:flex;align-items:center;justify-content:center;border:1px solid var(--bs)}
+.ci-qty2{display:flex;align-items:center;gap:10px;margin-top:10px}
+.ci-qty2 button{background:none;border:1px solid var(--border);width:26px;height:26px;font-size:14px;color:var(--il);transition:all .3s;display:flex;align-items:center;justify-content:center}
+.ci-qty2 button:hover{border-color:var(--gold);color:var(--gold)}
+.ci-qty2 span{font-family:var(--ff-u);font-size:11px;min-width:20px;text-align:center}
+.ci-rm2{font-family:var(--ff-u);font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:var(--if);background:none;border:none;margin-top:10px;transition:color .3s}
+.ci-rm2:hover{color:var(--gold)}
+.cart-summary{background:var(--iw);border:1px solid var(--border);padding:28px;height:fit-content;position:sticky;top:calc(var(--off) + 16px)}
+.cs-t{font-family:var(--ff-d);font-size:14px;letter-spacing:2px;color:var(--ink);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--bs)}
+.cs-row{display:flex;justify-content:space-between;margin-bottom:12px}
+.cs-lbl{font-family:var(--ff-u);font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:var(--if)}
+.cs-val{font-family:var(--ff-b);font-size:14px;color:var(--im)}
+.cs-total{display:flex;justify-content:space-between;padding-top:14px;border-top:1px solid var(--border);margin-top:10px;margin-bottom:24px}
+.cs-tl{font-family:var(--ff-d);font-size:13px;letter-spacing:2px;color:var(--ink)}
+.cs-tv{font-family:var(--ff-d);font-size:20px;color:var(--gold)}
+.cart-empty-pg{text-align:center;padding:80px 0;grid-column:1/-1}
+.cart-empty-pg p{font-family:var(--ff-b);font-size:18px;font-style:italic;color:var(--il);margin-bottom:24px}
+
+/* ═══════════════════════════════
+   TRACK ORDER PAGE
+═══════════════════════════════ */
+.track-wrap{padding:calc(var(--off) + 60px) 56px 80px;max-width:680px;margin:0 auto;text-align:center}
+.track-form{background:var(--iw);border:1px solid var(--border);padding:40px;margin-top:36px;text-align:left}
+.track-steps{margin-top:32px;display:flex;flex-direction:column;gap:0}
+.ts{display:grid;grid-template-columns:36px 1fr;gap:16px;padding-bottom:28px;align-items:start}
+.ts:last-child{padding-bottom:0}
+.ts-dot-col{display:flex;flex-direction:column;align-items:center}
+.ts-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--border);background:var(--ivory);flex-shrink:0}
+.ts-dot.done{background:var(--gold);border-color:var(--gold)}
+.ts-dot.curr{background:var(--ivory);border-color:var(--gold)}
+.ts-line{flex:1;width:1px;background:var(--border);margin:4px auto 0}
+.ts:last-child .ts-line{display:none}
+.ts-body{padding-top:0}
+.ts-t{font-family:var(--ff-d);font-size:12px;letter-spacing:1.5px;color:var(--ink);margin-bottom:4px}
+.ts-d{font-family:var(--ff-b);font-size:13px;font-style:italic;color:var(--if)}
+
+/* ═══════════════════════════════
+   RETURNS PAGE
+═══════════════════════════════ */
+.returns-wrap{padding:calc(var(--off) + 40px) 56px 80px;display:grid;grid-template-columns:1fr 1fr;gap:56px;max-width:1200px;margin:0 auto}
+.ret-steps{display:flex;flex-direction:column;gap:20px;margin-top:32px}
+.ret-step{display:flex;gap:16px;align-items:flex-start;padding:18px;background:var(--iw);border:1px solid var(--bs)}
+.ret-num{font-family:var(--ff-d);font-size:24px;color:var(--gold);line-height:1;min-width:32px}
+.ret-body .ret-t{font-family:var(--ff-d);font-size:12.5px;letter-spacing:1.5px;color:var(--ink);margin-bottom:5px}
+.ret-body .ret-d{font-family:var(--ff-b);font-size:13.5px;font-style:italic;color:var(--im);line-height:1.7}
+.faq{margin-top:28px;display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:1px solid var(--bs);padding:16px 0}
+.faq-q{font-family:var(--ff-d);font-size:12.5px;letter-spacing:1px;color:var(--ink);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:'▾';color:var(--gold);font-size:11px}
+.faq-a{font-family:var(--ff-b);font-size:13.5px;font-style:italic;color:var(--im);line-height:1.8}
+
+/* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
+footer{background:var(--id);padding:64px 56px 32px;border-top:1px solid var(--border)}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:52px;padding-bottom:48px;border-bottom:1px solid var(--bs);margin-bottom:32px}
+.ft-logo{font-family:var(--ff-dc);font-size:17px;letter-spacing:7px;color:var(--gold);margin-bottom:16px}
+.ft-tag{font-family:var(--ff-b);font-size:13.5px;font-style:italic;color:var(--im);line-height:1.8;max-width:260px;margin-bottom:24px}
+.ft-soc{display:flex;gap:10px}
+.ft-soc a{width:32px;height:32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--il);text-decoration:none;transition:all .3s}
+.ft-soc a:hover{border-color:var(--gold);color:var(--gold)}
+.ft-ct{font-family:var(--ff-u);font-size:7.5px;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.ft-ls{list-style:none;display:flex;flex-direction:column;gap:11px}
+.ft-ls a{font-family:var(--ff-b);font-size:13.5px;color:var(--im);text-decoration:none;transition:color .3s}
+.ft-ls a:hover{color:var(--gold)}
+.ft-bot{display:flex;justify-content:space-between;align-items:center}
+.ft-cp{font-family:var(--ff-u);font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:var(--il)}
+
+/* CART + WISH DRAWERS */
+.ov{position:fixed;inset:0;z-index:2000;background:rgba(28,24,16,.3);opacity:0;pointer-events:none;transition:opacity .4s}
+.ov.open{opacity:1;pointer-events:all}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:400px;max-width:100vw;background:var(--ivory);z-index:2001;transform:translateX(100%);transition:transform .42s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;border-left:1px solid var(--border)}
+.drawer.open{transform:translateX(0)}
+.dr-head{padding:24px 28px;border-bottom:1px solid var(--bs);display:flex;align-items:center;justify-content:space-between}
+.dr-ht{font-family:var(--ff-d);font-size:13px;letter-spacing:2px;color:var(--ink)}
+.dr-cl{background:none;border:none;font-size:18px;color:var(--if)}
+.dr-body{flex:1;overflow-y:auto;padding:20px 28px}
+.dr-empty{text-align:center;padding:50px 0}
+.dr-empty p{font-family:var(--ff-b);font-size:15px;font-style:italic;color:var(--if);margin-bottom:20px}
+.dr-item{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:start;padding:16px 0;border-bottom:1px solid var(--bs)}
+.dri-img{width:72px;height:88px;background:var(--id);display:flex;align-items:center;justify-content:center;border:1px solid var(--bs)}
+.dri-nm{font-family:var(--ff-d);font-size:11px;letter-spacing:1.5px;color:var(--ink);margin-bottom:4px}
+.dri-mt{font-family:var(--ff-b);font-size:12.5px;font-style:italic;color:var(--if);margin-bottom:8px}
+.dri-qty{display:flex;align-items:center;gap:8px}
+.dri-qty button{background:none;border:1px solid var(--border);width:23px;height:23px;font-size:13px;color:var(--il);display:flex;align-items:center;justify-content:center;transition:all .3s}
+.dri-qty button:hover{border-color:var(--gold);color:var(--gold)}
+.dri-qty span{font-family:var(--ff-u);font-size:11px;min-width:16px;text-align:center}
+.dri-pr{font-family:var(--ff-d);font-size:12px;color:var(--gold)}
+.dri-rm{background:none;border:none;color:var(--if);font-size:15px;transition:color .3s;padding:2px}
+.dri-rm:hover{color:var(--gold)}
+.dr-foot{padding:20px 28px;border-top:1px solid var(--bs)}
+.dr-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.drt-l{font-family:var(--ff-u);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--il)}
+.drt-v{font-family:var(--ff-d);font-size:18px;color:var(--gold)}
+
+/* SEARCH */
+.srch-ov{position:fixed;inset:0;z-index:3500;background:rgba(250,247,240,.96);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
+.srch-ov.open{opacity:1;pointer-events:all}
+.srch-box{width:100%;max-width:580px;padding:0 28px;text-align:center}
+.srch-ttl{font-family:var(--ff-d);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--if);margin-bottom:24px}
+.srch-in{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);font-family:var(--ff-b);font-size:26px;font-style:italic;color:var(--ink);padding:12px 0;outline:none;text-align:center}
+.srch-in::placeholder{color:var(--if)}
+.srch-close{position:absolute;top:32px;right:36px;background:none;border:none;font-size:20px;color:var(--il)}
+.srch-close:hover{color:var(--gold)}
+.srch-res{margin-top:20px;text-align:left;max-height:280px;overflow-y:auto}
+.srch-ri{padding:10px 14px;font-family:var(--ff-b);font-size:14px;color:var(--im);border-bottom:1px solid var(--bs);transition:background .25s;display:flex;justify-content:space-between;align-items:center}
+.srch-ri:hover{background:var(--iw)}
+.srch-ri span{color:var(--gold);font-family:var(--ff-d);font-size:13px}
+
+/* PRODUCT MODAL */
+.modal-ov{position:fixed;inset:0;z-index:3000;background:rgba(28,24,16,.45);opacity:0;pointer-events:none;transition:opacity .4s;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-ov.open{opacity:1;pointer-events:all}
+.modal{background:var(--ivory);max-width:860px;width:100%;max-height:88vh;overflow-y:auto;position:relative;display:grid;grid-template-columns:1fr 1fr;opacity:0;transform:translateY(18px);transition:all .42s cubic-bezier(.22,1,.36,1)}
+.modal-ov.open .modal{opacity:1;transform:translateY(0)}
+.modal-img2{background:var(--id);display:flex;align-items:center;justify-content:center;min-height:380px}
+.modal-info2{padding:40px 36px;display:flex;flex-direction:column}
+.modal-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:20px;color:var(--il);z-index:10}
+.modal-close:hover{color:var(--gold)}
+.modal-acts{display:flex;flex-direction:column;gap:9px;margin-top:auto;padding-top:20px}
+.modal-acts a{display:block;text-align:center}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(14px);z-index:9000;background:var(--ink);color:var(--ivory);font-family:var(--ff-u);font-size:8.5px;letter-spacing:2.5px;text-transform:uppercase;padding:13px 26px;opacity:0;transition:all .38s;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:1024px){
+  .shop-main{grid-template-columns:1fr}.shop-sidebar{position:static;border-right:none;border-bottom:1px solid var(--bs)}
+  .shop-pg,.pg{grid-template-columns:1fr 1fr}
+  .ed-grid{grid-template-columns:1fr 1fr}.ed.lg{grid-row:auto;min-height:360px}.ed.wd{grid-column:auto}
+  .usps{grid-template-columns:1fr 1fr}
+  .tl{grid-template-columns:1fr;gap:36px}.t-sp{display:none}.t{padding:0}
+  .nl-sec,.about-grid,.contact-wrap,.returns-wrap,.pd-wrap,.cart-page{grid-template-columns:1fr}
+  .ft{grid-template-columns:1fr 1fr}
+  .nl{display:none}.nav{padding:0 22px}
+  .values,.team-grid{grid-template-columns:1fr 1fr}
+  .gift-grid,.occ-grid,.store-grid{grid-template-columns:1fr 1fr}
+  .div,.cats .cat-scroll,.ed-sec,.prod-sec,.stores,.gift-occasions,.testi,.nl-sec,footer{padding-left:22px;padding-right:22px}
+  .hc,.shop-hero,.guide-wrap,.track-wrap,.about-grid,.contact-wrap,.returns-wrap,.timeline,.values,.team,.gift-hero,.gift-grid,.gift-occasions{padding-left:22px;padding-right:22px}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="curt"></div>
+
+<!-- MARQUEE -->
+<div class="mqbar">
+  <div class="mqt">
+    <a onclick="nav('collections')">Haute Joaillerie</a><span class="dot">◆</span>
+    <a href="https://www.igi.org" target="_blank" rel="noopener">Certified by IGI &amp; GIA</a><span class="dot">◆</span>
+    <a onclick="nav('shop','gold')">BIS Hallmarked Gold</a><span class="dot">◆</span>
+    <a onclick="nav('contact')">Complimentary Insured Delivery</a><span class="dot">◆</span>
+    <a onclick="nav('returns')">30-Day Returns</a><span class="dot">◆</span>
+    <a onclick="nav('contact')">Bespoke Atelier Service</a><span class="dot">◆</span>
+    <a onclick="nav('collections')">Haute Joaillerie</a><span class="dot">◆</span>
+    <a href="https://www.igi.org" target="_blank" rel="noopener">Certified by IGI &amp; GIA</a><span class="dot">◆</span>
+    <a onclick="nav('shop','gold')">BIS Hallmarked Gold</a><span class="dot">◆</span>
+    <a onclick="nav('contact')">Complimentary Insured Delivery</a><span class="dot">◆</span>
+    <a onclick="nav('returns')">30-Day Returns</a><span class="dot">◆</span>
+    <a onclick="nav('contact')">Bespoke Atelier Service</a><span class="dot">◆</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-sp"></div>
+  <nav class="nav" id="mainNav">
+    <a onclick="nav('home')" class="logo">VED JEWELLERS<span class="logo-s">Haute Joaillerie</span></a>
+    <div class="nl">
+      <a onclick="nav('collections')" id="nl-collections">Collections</a>
+      <a onclick="nav('shop','diamond')" id="nl-diamond">Diamond</a>
+      <a onclick="nav('shop','gold')" id="nl-gold">Gold</a>
+      <a onclick="nav('shop','solitaire')" id="nl-solitaire">Solitaire</a>
+      <a onclick="nav('gifting')" id="nl-gifting">Gifting</a>
+      <a onclick="nav('maison')" id="nl-maison">Maison</a>
+    </div>
+    <div class="ni">
+      <button onclick="openSearch()" title="Search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke-width="1.3"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+      <button onclick="openWish()" title="Wishlist" style="position:relative"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="bdg" id="wc" style="display:none">0</span></button>
+      <button onclick="nav('cart')" title="Cart" style="position:relative"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="bdg" id="cc" style="display:none">0</span></button>
+    </div>
+  </nav>
+</div>
+
+<!-- ═══════════ HOME PAGE ═══════════ -->
+<div class="page active" id="page-home">
+  <div style="height:0"></div>
+  <section class="hero">
+    <div class="hero-deco"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"><line x1="720" y1="0" x2="720" y2="900" stroke="rgba(154,123,62,.04)" stroke-width="1"/><ellipse cx="1080" cy="450" rx="290" ry="370" fill="none" stroke="rgba(154,123,62,.06)" stroke-width="1"/><ellipse cx="1080" cy="450" rx="195" ry="248" fill="none" stroke="rgba(154,123,62,.05)" stroke-width="1"/><ellipse cx="1080" cy="450" rx="118" ry="150" fill="none" stroke="rgba(154,123,62,.04)" stroke-width="1"/><path d="M0 0 L64 0 L64 8 M0 0 L0 64 L8 64" stroke="rgba(154,123,62,.17)" stroke-width="1" fill="none"/><path d="M1440 0 L1376 0 L1376 8 M1440 0 L1440 64 L1432 64" stroke="rgba(154,123,62,.17)" stroke-width="1" fill="none"/></svg></div>
+    <div class="hc">
+      <div class="h-ey">VED JEWELLERS · Est. 1987</div>
+      <h1 class="h-t">Where Gold<br>Meets<br><em>Eternity</em></h1>
+      <div class="h-rule"></div>
+      <p class="h-desc">Each piece born from the finest certified diamonds and hallmarked gold — jewellery that carries a story across generations.</p>
+      <div class="h-ctas">
+        <a onclick="nav('shop')" class="btn btn-g"><span>Enter the Maison</span></a>
+        <a onclick="nav('collections')" class="h-tl">View Lookbook</a>
+      </div>
+    </div>
+    <div class="h-vis">
+      <div class="h-fr">
+        <div class="h-in">
+          <div class="float" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center">
+            <svg width="100%" height="100%" viewBox="0 0 300 400" fill="none">
+              <defs><radialGradient id="gL" cx="50%" cy="45%" r="45%"><stop offset="0%" stop-color="#9A7B3E" stop-opacity=".1"/><stop offset="100%" stop-color="#9A7B3E" stop-opacity="0"/></radialGradient><linearGradient id="dL" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#B8D8EE" stop-opacity=".9"/><stop offset="50%" stop-color="#88B0D0" stop-opacity=".75"/><stop offset="100%" stop-color="#C8E4F0" stop-opacity=".88"/></linearGradient></defs>
+              <ellipse cx="150" cy="188" rx="130" ry="155" fill="url(#gL)"/>
+              <path d="M38 65 Q150 46 262 65" stroke="#B8933A" stroke-width="1.4" fill="none"/>
+              <path d="M38 65 Q32 138 48 196" stroke="#B8933A" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+              <path d="M262 65 Q268 138 252 196" stroke="#B8933A" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+              <path d="M39 63 Q150 44 261 63" stroke="#DFC28A" stroke-width=".5" fill="none" opacity=".42"/>
+              <circle cx="38" cy="65" r="2.6" fill="#9A7B3E"/><circle cx="262" cy="65" r="2.6" fill="#9A7B3E"/><circle cx="150" cy="48" r="2.6" fill="#9A7B3E"/>
+              <line x1="150" y1="193" x2="150" y2="218" stroke="#9A7B3E" stroke-width="1.7"/>
+              <ellipse cx="150" cy="235" rx="52" ry="15" fill="#7A6030"/>
+              <ellipse cx="150" cy="232" rx="52" ry="15" fill="#9A7B3E" opacity=".87"/>
+              <line x1="130" y1="231" x2="124" y2="200" stroke="#9A7B3E" stroke-width="4" stroke-linecap="round"/>
+              <line x1="170" y1="231" x2="176" y2="200" stroke="#9A7B3E" stroke-width="4" stroke-linecap="round"/>
+              <line x1="141" y1="227" x2="136" y2="196" stroke="#9A7B3E" stroke-width="4" stroke-linecap="round"/>
+              <line x1="159" y1="227" x2="164" y2="196" stroke="#9A7B3E" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="124" cy="198" r="3.2" fill="#DFC28A"/><circle cx="176" cy="198" r="3.2" fill="#DFC28A"/>
+              <circle cx="136" cy="194" r="3.2" fill="#DFC28A"/><circle cx="164" cy="194" r="3.2" fill="#DFC28A"/>
+              <polygon points="150,170 186,199 150,224 114,199" fill="url(#dL)"/>
+              <polygon points="150,170 167,184 150,191 133,184" fill="rgba(255,255,255,.52)"/>
+              <polygon points="150,224 167,211 150,204 133,211" fill="rgba(170,208,235,.38)"/>
+              <line x1="150" y1="170" x2="114" y2="199" stroke="rgba(90,150,200,.16)" stroke-width=".5"/>
+              <line x1="150" y1="170" x2="186" y2="199" stroke="rgba(90,150,200,.16)" stroke-width=".5"/>
+              <line x1="114" y1="199" x2="186" y2="199" stroke="rgba(90,150,200,.1)" stroke-width=".5"/>
+              <ellipse cx="140" cy="181" rx="6.5" ry="3.8" fill="rgba(255,255,255,.48)" transform="rotate(-30 140 181)"/>
+              <polygon points="106,199 96,207 106,212 116,207" fill="rgba(170,208,235,.68)" stroke="#9A7B3E" stroke-width=".7"/>
+              <polygon points="194,199 204,207 194,212 184,207" fill="rgba(170,208,235,.68)" stroke="#9A7B3E" stroke-width=".7"/>
+              <circle cx="80" cy="100" r="4" fill="rgba(155,75,95,.5)" stroke="#9A7B3E" stroke-width=".65"/>
+              <circle cx="228" cy="114" r="3.5" fill="rgba(55,105,170,.46)" stroke="#9A7B3E" stroke-width=".65"/>
+              <line x1="70" y1="84" x2="70" y2="96" stroke="#9A7B3E" stroke-width=".7" opacity=".5"/>
+              <line x1="64" y1="90" x2="76" y2="90" stroke="#9A7B3E" stroke-width=".7" opacity=".5"/>
+              <line x1="238" y1="130" x2="238" y2="140" stroke="#B8933A" stroke-width=".6" opacity=".42"/>
+              <line x1="233" y1="135" x2="243" y2="135" stroke="#B8933A" stroke-width=".6" opacity=".42"/>
+            </svg>
+          </div>
+        </div>
+        <div class="h-cap">The Éternelle Necklace — 18K Gold &amp; Diamond</div>
+      </div>
+    </div>
+    <div class="scr-ind"><span>Scroll</span><div class="scr-ln"></div></div>
+  </section>
+
+  <div class="div"><div class="dl"></div><div class="do">◆</div><div class="dl"></div></div>
+
+  <!-- MAISON STATEMENT -->
+  <section style="padding:80px 56px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;max-width:1300px;margin:0 auto" id="maison-s">
+    <div class="rv">
+      <div style="font-family:var(--ff-d);font-size:9px;letter-spacing:4px;color:var(--if);margin-bottom:28px;display:flex;align-items:center;gap:12px">01 <span style="font-family:var(--ff-b);font-style:italic;color:var(--if)">Our Philosophy</span><span style="flex:0 0 32px;height:1px;background:var(--gb);display:block"></span></div>
+      <h2 style="font-family:var(--ff-d);font-size:clamp(24px,3.2vw,42px);color:var(--ink);line-height:1.2;margin-bottom:22px;letter-spacing:1px">Crafted with<br><em style="color:var(--gold);font-family:var(--ff-b)">reverence</em> for<br>the timeless</h2>
+      <p style="font-family:var(--ff-b);font-size:16px;font-style:italic;line-height:2;color:var(--im);margin-bottom:28px">Every creation at VED JEWELLERS begins with a single obsession — perfection. From the mine to the maison, we trace every stone, every gram of gold, every facet of every setting.</p>
+      <a onclick="nav('maison')" class="btn btn-g"><span>Discover the Maison</span></a>
+      <div style="display:flex;gap:40px;padding-top:32px;border-top:1px solid var(--border);margin-top:32px">
+        <div><div style="font-family:var(--ff-d);font-size:28px;color:var(--gold);margin-bottom:3px">37</div><div style="font-family:var(--ff-u);font-size:7.5px;letter-spacing:3px;text-transform:uppercase;color:var(--il);line-height:1.5">Years of<br>Excellence</div></div>
+        <div><div style="font-family:var(--ff-d);font-size:28px;color:var(--gold);margin-bottom:3px">12K+</div><div style="font-family:var(--ff-u);font-size:7.5px;letter-spacing:3px;text-transform:uppercase;color:var(--il);line-height:1.5">Pieces<br>Crafted</div></div>
+        <div><div style="font-family:var(--ff-d);font-size:28px;color:var(--gold);margin-bottom:3px">100%</div><div style="font-family:var(--ff-u);font-size:7.5px;letter-spacing:3px;text-transform:uppercase;color:var(--il);line-height:1.5">Certified<br>Stones</div></div>
+      </div>
+    </div>
+    <div style="position:relative;aspect-ratio:3/4;background:var(--iw);border:1px solid var(--border);overflow:hidden" class="rv d2">
+      <div style="position:absolute;top:20px;right:20px;width:58%;height:58%;border-top:1px solid var(--border);border-right:1px solid var(--border)"></div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+        <svg width="230" height="280" viewBox="0 0 230 280" fill="none"><defs><linearGradient id="rs" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#DFC28A" stop-opacity=".88"/><stop offset="100%" stop-color="#8A6F3E" stop-opacity=".78"/></linearGradient></defs><ellipse cx="115" cy="208" rx="66" ry="19" fill="none" stroke="#9A7B3E" stroke-width="1.1" opacity=".28"/><path d="M49 208 Q43 174 58 159" stroke="url(#rs)" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M181 208 Q187 174 172 159" stroke="url(#rs)" stroke-width="11" stroke-linecap="round" fill="none"/><ellipse cx="115" cy="159" rx="59" ry="16" fill="#9A7B3E" opacity=".85"/><circle cx="115" cy="140" r="23" fill="#EDE4D3" stroke="#9A7B3E" stroke-width="1.3"/><polygon points="115,119 135,138 115,148 95,138" fill="rgba(140,190,220,.8)" stroke="#9A7B3E" stroke-width=".75"/><polygon points="115,119 125,128 115,133 105,128" fill="rgba(255,255,255,.6)"/><circle cx="83" cy="156" r="7" fill="#EDE4D3" stroke="#9A7B3E" stroke-width=".75"/><polygon points="83,149 89,156 83,160 77,156" fill="rgba(140,190,220,.62)"/><circle cx="147" cy="156" r="7" fill="#EDE4D3" stroke="#9A7B3E" stroke-width=".75"/><polygon points="147,149 153,156 147,160 141,156" fill="rgba(140,190,220,.62)"/><line x1="38" y1="126" x2="38" y2="137" stroke="#9A7B3E" stroke-width=".7" opacity=".46"/><line x1="32" y1="131" x2="44" y2="131" stroke="#9A7B3E" stroke-width=".7" opacity=".46"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"><div class="dl"></div><div class="do">◇</div><div class="dl"></div></div>
+
+  <!-- CATEGORIES -->
+  <section class="cats" id="cat-s">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;padding:60px 56px 44px">
+      <div class="rv"><div class="sec-ey">The Collection</div><div class="sec-t">Shop by Category</div></div>
+      <a onclick="nav('shop')" class="ed-sl rv">View All</a>
+    </div>
+    <div class="cat-scroll">
+      <div class="cat-t" onclick="nav('shop','rings')"><div class="ct-bg" style="background:linear-gradient(155deg,#EDE0C8,#E4D4B4)"><svg width="90" height="126" viewBox="0 0 90 126" fill="none" style="opacity:.52"><ellipse cx="45" cy="92" rx="27" ry="7" fill="none" stroke="#9A7B3E" stroke-width=".7" opacity=".35"/><path d="M18 92 Q14 76 25 67" stroke="#9A7B3E" stroke-width="5.5" stroke-linecap="round"/><path d="M72 92 Q76 76 65 67" stroke="#9A7B3E" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="45" cy="67" rx="18" ry="5.5" fill="#9A7B3E" opacity=".8"/><polygon points="45,41 62,59 45,67 28,59" fill="rgba(120,175,215,.82)" stroke="#9A7B3E" stroke-width=".7"/><polygon points="45,46 52,53 45,57 38,53" fill="rgba(255,255,255,.58)"/></svg></div><div class="ct-ov"></div><div class="ct-c"><div class="ct-n">01</div><div class="ct-nm">Rings</div><div class="ct-sub">142 designs</div></div></div>
+      <div class="cat-t" onclick="nav('shop','earrings')"><div class="ct-bg" style="background:linear-gradient(155deg,#E0E8F0,#CED9E8)"><svg width="72" height="126" viewBox="0 0 72 126" fill="none" style="opacity:.52"><circle cx="36" cy="22" r="9" stroke="#9A7B3E" stroke-width="1.1" fill="rgba(154,123,62,.07)"/><circle cx="36" cy="22" r="4.5" fill="rgba(120,175,215,.72)" stroke="#7A6030" stroke-width=".7"/><line x1="36" y1="31" x2="36" y2="47" stroke="#9A7B3E" stroke-width="1.6"/><path d="M21 47 Q36 41 51 47 L47 92 Q36 101 25 92 Z" stroke="#9A7B3E" stroke-width="1.1" fill="rgba(154,123,62,.05)"/><circle cx="36" cy="70" r="7.5" fill="rgba(160,80,100,.42)" stroke="#9A7B3E" stroke-width=".7"/></svg></div><div class="ct-ov"></div><div class="ct-c"><div class="ct-n">02</div><div class="ct-nm">Earrings</div><div class="ct-sub">218 designs</div></div></div>
+      <div class="cat-t" onclick="nav('shop','necklaces')"><div class="ct-bg" style="background:linear-gradient(155deg,#EDE0C8,#E8D8B8)"><svg width="90" height="126" viewBox="0 0 90 126" fill="none" style="opacity:.52"><path d="M14 23 Q45 16 76 23" stroke="#9A7B3E" stroke-width="1.1" fill="none"/><path d="M14 23 L21 70" stroke="#7A6030" stroke-width="1.1"/><path d="M76 23 L69 70" stroke="#7A6030" stroke-width="1.1"/><path d="M21 70 Q45 76 69 70" stroke="#9A7B3E" stroke-width="1.1" fill="none"/><line x1="45" y1="75" x2="45" y2="90" stroke="#9A7B3E" stroke-width="1.3"/><polygon points="45,82 56,91 45,99 34,91" fill="rgba(120,175,215,.6)" stroke="#9A7B3E" stroke-width=".8"/></svg></div><div class="ct-ov"></div><div class="ct-c"><div class="ct-n">03</div><div class="ct-nm">Necklaces</div><div class="ct-sub">96 designs</div></div></div>
+      <div class="cat-t" onclick="nav('shop','bangles')"><div class="ct-bg" style="background:linear-gradient(155deg,#E8EEE8,#D8E4D8)"><svg width="92" height="92" viewBox="0 0 92 92" fill="none" style="opacity:.52"><circle cx="46" cy="46" r="34" stroke="#9A7B3E" stroke-width="7" fill="none"/><circle cx="46" cy="46" r="34" stroke="#DFC28A" stroke-width="1" fill="none" opacity=".3" stroke-dasharray="2 7"/><circle cx="46" cy="12" r="5.5" fill="rgba(120,175,215,.68)" stroke="#9A7B3E" stroke-width=".7"/><circle cx="80" cy="46" r="3.8" fill="rgba(154,123,62,.42)" stroke="#7A6030" stroke-width=".7"/><circle cx="12" cy="46" r="3.8" fill="rgba(154,123,62,.42)" stroke="#7A6030" stroke-width=".7"/></svg></div><div class="ct-ov"></div><div class="ct-c"><div class="ct-n">04</div><div class="ct-nm">Bangles</div><div class="ct-sub">167 designs</div></div></div>
+      <div class="cat-t" onclick="nav('shop','diamond')"><div class="ct-bg" style="background:linear-gradient(155deg,#EEE8F0,#E4D8EC)"><svg width="90" height="126" viewBox="0 0 90 126" fill="none" style="opacity:.52"><path d="M14 40 Q45 30 76 40 L76 88 Q45 102 14 88 Z" stroke="#9A7B3E" stroke-width="1.1" fill="rgba(154,123,62,.04)"/><ellipse cx="45" cy="64" rx="19" ry="19" fill="rgba(120,175,215,.52)" stroke="#9A7B3E" stroke-width=".8"/><polygon points="45,46 62,63 45,72 28,63" fill="rgba(255,255,255,.44)"/></svg></div><div class="ct-ov"></div><div class="ct-c"><div class="ct-n">05</div><div class="ct-nm">Diamond</div><div class="ct-sub">389 designs</div></div></div>
+      <div class="cat-t" onclick="nav('shop','gold')"><div class="ct-bg" style="background:linear-gradient(155deg,#F0ECE0,#E8E0CC)"><svg width="90" height="92" viewBox="0 0 90 92" fill="none" style="opacity:.52"><circle cx="45" cy="46" r="30" fill="rgba(154,123,62,.11)" stroke="#9A7B3E" stroke-width="1.1"/><circle cx="45" cy="46" r="20" fill="rgba(154,123,62,.09)" stroke="#7A6030" stroke-width=".75"/><circle cx="45" cy="46" r="10" fill="rgba(154,123,62,.18)" stroke="#9A7B3E" stroke-width=".75"/><path d="M45 16 L47 30 L45 32 L43 30 Z" fill="#9A7B3E"/></svg></div><div class="ct-ov"></div><div class="ct-c"><div class="ct-n">06</div><div class="ct-nm">Gold Coins</div><div class="ct-sub">32 designs</div></div></div>
+      <div class="cat-t" onclick="nav('shop','gemstone')"><div class="ct-bg" style="background:linear-gradient(155deg,#F0E8E8,#E8D8D8)"><svg width="76" height="110" viewBox="0 0 76 110" fill="none" style="opacity:.52"><path d="M12 24 Q38 14 64 24 L58 82 Q38 93 18 82 Z" stroke="#9A7B3E" stroke-width="1.1" fill="rgba(154,123,62,.04)"/><circle cx="38" cy="53" r="12" fill="rgba(160,80,80,.38)" stroke="#9A7B3E" stroke-width=".75"/><circle cx="38" cy="53" r="6.5" fill="rgba(190,50,50,.3)" stroke="#7A6030" stroke-width=".65"/></svg></div><div class="ct-ov"></div><div class="ct-c"><div class="ct-n">07</div><div class="ct-nm">Gemstone</div><div class="ct-sub">211 designs</div></div></div>
+      <div class="cat-t" onclick="nav('shop','solitaire')"><div class="ct-bg" style="background:linear-gradient(155deg,#F0F0E8,#E8E8D8)"><svg width="76" height="110" viewBox="0 0 76 110" fill="none" style="opacity:.52"><path d="M38 14 L46 36 L66 38 L51 52 L55 72 L38 61 L21 72 L25 52 L10 38 L30 36 Z" stroke="#9A7B3E" stroke-width="1.1" fill="rgba(154,123,62,.07)"/><path d="M38 20 L43 33 L55 35 L46 44 L48 56 L38 50 L28 56 L30 44 L21 35 L33 33 Z" fill="rgba(120,175,215,.27)"/></svg></div><div class="ct-ov"></div><div class="ct-c"><div class="ct-n">08</div><div class="ct-nm">Solitaire</div><div class="ct-sub">74 designs</div></div></div>
+    </div>
+  </section>
+
+  <!-- EDITORIAL -->
+  <section class="ed-sec" id="collections-s">
+    <div class="ed-hdr">
+      <div class="rv"><div class="sec-ey">New Season</div><div class="sec-t">The Collections</div></div>
+      <a onclick="nav('collections')" class="ed-sl rv">All Collections</a>
+    </div>
+    <div class="ed-grid">
+      <div class="ed lg"><div class="ed-art" style="background:linear-gradient(135deg,#E8DCC8,#DDD0B4)"><svg width="210" height="320" viewBox="0 0 210 320" fill="none" style="opacity:.58"><defs><radialGradient id="eg"><stop offset="0%" stop-color="#9A7B3E" stop-opacity=".15"/><stop offset="100%" stop-color="#9A7B3E" stop-opacity="0"/></radialGradient></defs><ellipse cx="105" cy="175" rx="96" ry="130" fill="url(#eg)"/><path d="M38 50 Q105 32 172 50" stroke="#7A6030" stroke-width="1.3" fill="none"/><path d="M38 50 Q31 132 47 200" stroke="#7A6030" stroke-width="1.3"/><path d="M172 50 Q179 132 163 200" stroke="#7A6030" stroke-width="1.3"/><path d="M47 200 Q105 218 163 200" stroke="#7A6030" stroke-width="1.3" fill="none"/><line x1="105" y1="216" x2="105" y2="243" stroke="#9A7B3E" stroke-width="1.7"/><polygon points="105,218 142,252 105,268 68,252" fill="rgba(120,175,215,.76)" stroke="#9A7B3E" stroke-width=".95"/><polygon points="105,218 122,235 105,243 88,235" fill="rgba(255,255,255,.55)"/><circle cx="68" cy="250" r="8.2" fill="rgba(120,175,215,.52)" stroke="#9A7B3E" stroke-width=".7"/><circle cx="142" cy="250" r="8.2" fill="rgba(120,175,215,.52)" stroke="#9A7B3E" stroke-width=".7"/><line x1="34" y1="86" x2="34" y2="97" stroke="#9A7B3E" stroke-width=".62" opacity=".48"/><line x1="28" y1="91" x2="40" y2="91" stroke="#9A7B3E" stroke-width=".62" opacity=".48"/></svg></div><div class="ed-vl"></div><div class="ed-c"><div class="ed-tag">Haute Collection · 2025</div><div class="ed-nm">Lumina<br>Éternelle</div><div class="ed-ds">A symphony of light and gold, where each diamond tells a chapter of your story.</div><a onclick="nav('shop','diamond')" class="ed-cta">Explore</a></div></div>
+      <div class="ed tl"><div class="ed-art" style="background:linear-gradient(160deg,#D8E4F0,#C8D8EC)"><svg width="115" height="165" viewBox="0 0 115 165" fill="none" style="opacity:.58"><circle cx="57" cy="83" r="46" stroke="#9A7B3E" stroke-width="1.3" fill="none"/><circle cx="57" cy="83" r="32" stroke="#7A6030" stroke-width=".8" fill="rgba(154,123,62,.04)"/><polygon points="57,43 79,67 71,99 43,99 35,67" fill="rgba(120,175,215,.62)" stroke="#9A7B3E" stroke-width=".85"/><polygon points="57,43 69,56 65,68 49,68 45,56" fill="rgba(255,255,255,.5)"/></svg></div><div class="ed-vl"></div><div class="ed-c"><div class="ed-tag">Diamond</div><div class="ed-nm">Solitaire Prestige</div><a onclick="nav('shop','solitaire')" class="ed-cta">Explore</a></div></div>
+      <div class="ed tl"><div class="ed-art" style="background:linear-gradient(160deg,#F0DCD8,#E8C8C4)"><svg width="115" height="165" viewBox="0 0 115 165" fill="none" style="opacity:.58"><ellipse cx="57" cy="108" rx="39" ry="10.5" fill="none" stroke="#9A7B3E" stroke-width=".85" opacity=".35"/><path d="M18 108 Q14 90 26 80" stroke="#9A7B3E" stroke-width="6" stroke-linecap="round"/><path d="M96 108 Q100 90 88 80" stroke="#9A7B3E" stroke-width="6" stroke-linecap="round"/><ellipse cx="57" cy="80" rx="32" ry="9" fill="#9A7B3E" opacity=".8"/><circle cx="57" cy="66" r="15" fill="#EDE4D3" stroke="#9A7B3E" stroke-width="1.3"/><polygon points="57,52 70,65 57,73 44,65" fill="rgba(190,70,70,.68)" stroke="#7A6030" stroke-width=".75"/></svg></div><div class="ed-vl"></div><div class="ed-c"><div class="ed-tag">Gemstone</div><div class="ed-nm">Ruby Reverie</div><a onclick="nav('shop','gemstone')" class="ed-cta">Explore</a></div></div>
+      <div class="ed wd"><div class="ed-art" style="background:linear-gradient(160deg,#E8ECD8,#DDE4C8);width:100%;height:100%"><svg width="340" height="165" viewBox="0 0 340 165" fill="none" style="opacity:.5"><path d="M30 82 Q170 58 310 82" stroke="#7A6030" stroke-width="1.1" fill="none"/><path d="M30 82 Q170 106 310 82" stroke="#7A6030" stroke-width=".65" fill="none" opacity=".35"/><circle cx="170" cy="72" r="18" fill="rgba(120,175,215,.5)" stroke="#9A7B3E" stroke-width=".85"/><polygon points="170,56 182,71 170,78 158,71" fill="rgba(255,255,255,.52)"/><circle cx="102" cy="78" r="11" fill="rgba(154,123,62,.2)" stroke="#9A7B3E" stroke-width=".85"/><circle cx="238" cy="78" r="11" fill="rgba(154,123,62,.2)" stroke="#9A7B3E" stroke-width=".85"/></svg></div><div class="ed-vl" style="background:linear-gradient(to right,rgba(232,236,216,.93) 0%,rgba(232,236,216,.1) 55%)"></div><div class="ed-c"><div class="ed-tag">Mangalsutra</div><div class="ed-nm">Sacred Thread<br>Collection</div><a onclick="nav('shop','necklaces')" class="ed-cta">Explore</a></div></div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="prod-sec" id="prod-s">
+    <div class="ph rv">
+      <div><div class="sec-ey">Most Coveted</div><div class="sec-t">Bestsellers</div></div>
+      <div class="pf-bar">
+        <button class="pf on" onclick="setPF(this,'all')">All</button>
+        <button class="pf" onclick="setPF(this,'diamond')">Diamond</button>
+        <button class="pf" onclick="setPF(this,'gold')">Gold</button>
+        <button class="pf" onclick="setPF(this,'solitaire')">Solitaire</button>
+        <button class="pf" onclick="setPF(this,'gemstone')">Gemstone</button>
+      </div>
+    </div>
+    <div class="pg" id="hProdGrid"></div>
+    <div style="text-align:center;margin-top:52px"><a onclick="nav('shop')" class="btn btn-g"><span>View All Jewellery</span></a></div>
+  </section>
+
+  <!-- USPS -->
+  <div class="usps">
+    <div class="usp"><div class="usp-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9A7B3E" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="usp-t">IGI &amp; GIA Certified</div><div class="usp-d">Every diamond traceable, every certification verifiable</div></div>
+    <div class="usp"><div class="usp-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9A7B3E" stroke-width="1"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="usp-t">BIS Hallmarked</div><div class="usp-d">All gold certified under Bureau of Indian Standards</div></div>
+    <div class="usp" onclick="nav('contact')" style="cursor:none"><div class="usp-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9A7B3E" stroke-width="1"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div><div class="usp-t">Insured Delivery</div><div class="usp-d">Complimentary insured shipping on every order</div></div>
+    <div class="usp" onclick="nav('returns')" style="cursor:none"><div class="usp-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9A7B3E" stroke-width="1"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><div class="usp-t">30-Day Returns</div><div class="usp-d">No questions asked returns within thirty days</div></div>
+  </div>
+
+  <!-- BANNER -->
+  <div class="banner">
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;opacity:.07"><ellipse cx="720" cy="250" rx="440" ry="330" fill="none" stroke="#9A7B3E" stroke-width="1"/><ellipse cx="720" cy="250" rx="300" ry="226" fill="none" stroke="#9A7B3E" stroke-width="1"/><line x1="0" y1="250" x2="1440" y2="250" stroke="#9A7B3E" stroke-width=".5"/><line x1="720" y1="0" x2="720" y2="500" stroke="#9A7B3E" stroke-width=".5"/></svg></div>
+    <div class="bn-c rv">
+      <div style="font-family:var(--ff-u);font-size:8.5px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:22px">Bespoke Atelier</div>
+      <div class="bn-t">A Piece Made<br>Only for <em>You</em></div>
+      <div class="bn-s">Commission a one-of-a-kind creation with our master craftsmen</div>
+      <a onclick="nav('contact')" class="btn btn-g"><span>Begin Your Commission</span></a>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <section class="testi">
+    <div class="rv" style="text-align:center"><div class="sec-ey" style="text-align:center">Voices of Joy</div><div class="sec-t" style="text-align:center">What Our Patrons Say</div></div>
+    <div class="tl">
+      <div class="t rv"><div class="t-st">★★★★★</div><p class="t-q">"My engagement ring from VED JEWELLERS is everything I dreamed of. The diamond clarity is breathtaking, and the setting is beyond perfection."</p><div class="t-fr">— Mumbai</div><div class="t-nm">Priya Mehta</div></div>
+      <div class="t-sp"></div>
+      <div class="t rv d1"><div class="t-st">★★★★★</div><p class="t-q">"The bespoke necklace I commissioned for my mother's 60th made her weep with joy. VED JEWELLERS doesn't make jewellery — they make heirlooms."</p><div class="t-fr">— Delhi</div><div class="t-nm">Karan Sharma</div></div>
+      <div class="t-sp"></div>
+      <div class="t rv d2"><div class="t-st">★★★★★</div><p class="t-q">"From the consultation to unboxing, every moment felt like an experience. This is what luxury truly means."</p><div class="t-fr">— Bengaluru</div><div class="t-nm">Deepa Rajan</div></div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="nl-sec">
+    <div class="rv"><div class="sec-ey">The Inner Circle</div><div class="nl-t">First Access to<br><em>New Creations</em></div><p class="nl-d">Join our private circle for early access to new collections, invitations to exclusive events, and the stories behind each piece.</p></div>
+    <div class="rv d1"><input class="nl-in" id="nlEmail" type="email" placeholder="Your email address"/><a onclick="subscribeNL()" class="btn btn-g"><span>Join the Circle</span></a><p class="nl-note">We respect your privacy. Unsubscribe anytime.</p></div>
+  </section>
+
+  <footer>
+    <div class="ft">
+      <div><div class="ft-logo">VED JEWELLERS</div><p class="ft-tag">Haute joaillerie crafted with reverence for the timeless. BIS hallmarked gold, IGI &amp; GIA certified diamonds, delivered across India.</p><div class="ft-soc"><a href="#">✦</a><a href="#">◆</a><a href="#">◇</a></div></div>
+      <div><div class="ft-ct">Maison</div><ul class="ft-ls"><li><a onclick="nav('maison')">Our Story</a></li><li><a onclick="nav('maison')">Atelier</a></li><li><a onclick="nav('maison')">Sustainability</a></li><li><a onclick="nav('contact')">Press</a></li><li><a onclick="showToast('Careers page coming soon')">Careers</a></li></ul></div>
+      <div><div class="ft-ct">Collections</div><ul class="ft-ls"><li><a onclick="nav('shop','diamond')">Diamond</a></li><li><a onclick="nav('shop','gold')">Gold</a></li><li><a onclick="nav('shop','solitaire')">Solitaire</a></li><li><a onclick="nav('shop','gemstone')">Gemstone</a></li><li><a onclick="nav('shop','necklaces')">Mangalsutra</a></li><li><a onclick="nav('shop')">Men's</a></li></ul></div>
+      <div><div class="ft-ct">Client Care</div><ul class="ft-ls"><li><a onclick="nav('contact')">Book a Consultation</a></li><li><a onclick="nav('track')">Track Order</a></li><li><a onclick="nav('returns')">Returns &amp; Exchanges</a></li><li><a onclick="nav('size-guide')">Size Guide</a></li><li><a onclick="nav('care-guide')">Jewellery Care</a></li><li><a onclick="nav('contact')">Store Locations</a></li></ul></div>
+    </div>
+    <div class="ft-bot"><div class="ft-cp">© 2025 VED JEWELLERS Jewels Pvt. Ltd. All rights reserved.</div><div class="ft-cp">BIS Hallmarked · IGI Certified · Secure Payments</div></div>
+  </footer>
+</div>
+
+<!-- ═══════════ SHOP / COLLECTION PAGE ═══════════ -->
+<div class="page" id="page-shop">
+  <div class="pt"></div>
+  <div class="shop-hero">
+    <div class="sec-ey" id="shopEy">The Collection</div>
+    <h1 class="shop-title" id="shopTitle">All Jewellery</h1>
+    <p class="shop-desc" id="shopDesc">Explore our complete collection of certified diamond jewellery, BIS hallmarked gold, gemstones and solitaires.</p>
+  </div>
+  <div class="shop-main">
+    <aside class="shop-sidebar">
+      <div class="sb-t">Filters</div>
+      <div class="sb-g">
+        <div class="sb-gt">Category</div>
+        <label class="sb-item"><input type="checkbox" id="f-rings" onchange="applyFilters()"> Rings</label>
+        <label class="sb-item"><input type="checkbox" id="f-earrings" onchange="applyFilters()"> Earrings</label>
+        <label class="sb-item"><input type="checkbox" id="f-necklaces" onchange="applyFilters()"> Necklaces</label>
+        <label class="sb-item"><input type="checkbox" id="f-bangles" onchange="applyFilters()"> Bangles</label>
+      </div>
+      <div class="sb-g">
+        <div class="sb-gt">Material</div>
+        <label class="sb-item"><input type="checkbox" id="f-diamond" onchange="applyFilters()"> Diamond</label>
+        <label class="sb-item"><input type="checkbox" id="f-gold" onchange="applyFilters()"> Gold</label>
+        <label class="sb-item"><input type="checkbox" id="f-gemstone" onchange="applyFilters()"> Gemstone</label>
+        <label class="sb-item"><input type="checkbox" id="f-solitaire" onchange="applyFilters()"> Solitaire</label>
+      </div>
+      <div class="sb-g">
+        <div class="sb-gt">Price Range</div>
+        <input type="range" class="pr-slider" id="prSlider" min="0" max="250000" step="5000" value="250000" oninput="updatePrSlider(this.value)">
+        <div class="pr-vals"><span>₹0</span><span id="prVal">₹2,50,000+</span></div>
+      </div>
+      <a onclick="clearFilters()" style="font-family:var(--ff-u);font-size:7.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--if);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:2px;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--if)'">Clear Filters</a>
+    </aside>
+    <div class="shop-grid">
+      <div class="sg-top">
+        <span class="sg-cnt" id="sgCnt">8 pieces</span>
+        <select class="sg-sort" onchange="sortProducts(this.value)"><option value="featured">Featured</option><option value="price-asc">Price: Low to High</option><option value="price-desc">Price: High to Low</option><option value="newest">Newest</option></select>
+      </div>
+      <div class="shop-pg" id="shopGrid"></div>
+    </div>
+  </div>
+  <footer>
+    <div class="ft">
+      <div><div class="ft-logo">VED JEWELLERS</div><p class="ft-tag">Haute joaillerie crafted with reverence for the timeless.</p><div class="ft-soc"><a href="#">✦</a><a href="#">◆</a><a href="#">◇</a></div></div>
+      <div><div class="ft-ct">Maison</div><ul class="ft-ls"><li><a onclick="nav('maison')">Our Story</a></li><li><a onclick="nav('contact')">Atelier</a></li></ul></div>
+      <div><div class="ft-ct">Help</div><ul class="ft-ls"><li><a onclick="nav('track')">Track Order</a></li><li><a onclick="nav('returns')">Returns</a></li><li><a onclick="nav('contact')">Contact</a></li></ul></div>
+      <div><div class="ft-ct">Info</div><ul class="ft-ls"><li><a onclick="nav('size-guide')">Size Guide</a></li><li><a onclick="nav('care-guide')">Care Guide</a></li></ul></div>
+    </div>
+    <div class="ft-bot"><div class="ft-cp">© 2025 VED JEWELLERS Jewels Pvt. Ltd.</div><div class="ft-cp">BIS Hallmarked · IGI Certified</div></div>
+  </footer>
+</div>
+
+<!-- ═══════════ PRODUCT DETAIL PAGE ═══════════ -->
+<div class="page" id="page-product">
+  <div class="pt"></div>
+  <div class="pd-wrap" id="pdWrap"></div>
+  <footer>
+    <div class="ft">
+      <div><div class="ft-logo">VED JEWELLERS</div><p class="ft-tag">Haute joaillerie crafted with reverence for the timeless.</p></div>
+      <div><div class="ft-ct">Help</div><ul class="ft-ls"><li><a onclick="nav('size-guide')">Size Guide</a></li><li><a onclick="nav('care-guide')">Care Guide</a></li><li><a onclick="nav('returns')">Returns</a></li></ul></div>
+      <div><div class="ft-ct">Shop</div><ul class="ft-ls"><li><a onclick="nav('shop','diamond')">Diamond</a></li><li><a onclick="nav('shop','gold')">Gold</a></li><li><a onclick="nav('shop','solitaire')">Solitaire</a></li></ul></div>
+      <div><div class="ft-ct">Contact</div><ul class="ft-ls"><li><a onclick="nav('contact')">Book Consultation</a></li><li><a onclick="nav('track')">Track Order</a></li></ul></div>
+    </div>
+    <div class="ft-bot"><div class="ft-cp">© 2025 VED JEWELLERS Jewels Pvt. Ltd.</div></div>
+  </footer>
+</div>
+
+<!-- ═══════════ MAISON PAGE ═══════════ -->
+<div class="page" id="page-maison">
+  <div class="pt"></div>
+  <div class="about-hero">
+    <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(237,228,211,0),rgba(237,228,211,.6))"></div>
+    <div style="position:relative;z-index:2;text-align:center">
+      <div class="sec-ey" style="text-align:center;margin-bottom:16px">Est. 1987</div>
+      <h1 style="font-family:var(--ff-d);font-size:clamp(32px,5vw,64px);font-weight:400;color:var(--ink);letter-spacing:4px;margin-bottom:14px">The Maison</h1>
+      <p style="font-family:var(--ff-b);font-size:17px;font-style:italic;color:var(--im);max-width:520px;margin:0 auto;line-height:1.9">A jewellery house born from a love of beauty, precision, and the stories that gemstones carry across generations.</p>
+    </div>
+  </div>
+  <div class="about-grid">
+    <div class="rv">
+      <div class="sec-ey">Our Story</div>
+      <h2 style="font-family:var(--ff-d);font-size:clamp(22px,2.8vw,36px);color:var(--ink);letter-spacing:1.5px;margin-bottom:20px;line-height:1.2">From a Single Atelier<br>to India's <em style="color:var(--gold);font-family:var(--ff-b)">Finest</em> Maison</h2>
+      <p style="font-family:var(--ff-b);font-size:15px;font-style:italic;color:var(--im);line-height:1.9;margin-bottom:16px">VED JEWELLERS was founded in 1987 by master goldsmith Rajan Mehta in the heart of Jaipur's jewellery quarter. What began as a single workshop bench has grown into India's most celebrated fine jewellery house, with ateliers in Mumbai, Delhi, and Bengaluru.</p>
+      <p style="font-family:var(--ff-b);font-size:15px;font-style:italic;color:var(--im);line-height:1.9;margin-bottom:28px">Every piece we make carries the same obsession that started it all — that jewellery should be more than beautiful. It should be alive with meaning, built to last centuries, and worthy of the stories it will one day tell.</p>
+      <a onclick="nav('contact')" class="btn btn-g"><span>Visit Our Atelier</span></a>
+    </div>
+    <div class="about-img rv d2">
+      <div class="about-fl"></div>
+      <svg width="260" height="300" viewBox="0 0 260 300" fill="none"><defs><linearGradient id="aboutRing" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#DFC28A" stop-opacity=".88"/><stop offset="100%" stop-color="#8A6F3E" stop-opacity=".78"/></linearGradient></defs><ellipse cx="130" cy="220" rx="70" ry="20" fill="none" stroke="#9A7B3E" stroke-width="1.1" opacity=".28"/><path d="M60 220 Q54 186 70 171" stroke="url(#aboutRing)" stroke-width="12" stroke-linecap="round" fill="none"/><path d="M200 220 Q206 186 190 171" stroke="url(#aboutRing)" stroke-width="12" stroke-linecap="round" fill="none"/><ellipse cx="130" cy="171" rx="64" ry="18" fill="#9A7B3E" opacity=".85"/><circle cx="130" cy="150" r="25" fill="#EDE4D3" stroke="#9A7B3E" stroke-width="1.4"/><polygon points="130,128 150,148 130,158 110,148" fill="rgba(140,190,220,.82)" stroke="#9A7B3E" stroke-width=".8"/><polygon points="130,128 140,138 130,143 120,138" fill="rgba(255,255,255,.62)"/><ellipse cx="122" cy="135" rx="6" ry="3.5" fill="rgba(255,255,255,.52)" transform="rotate(-28 122 135)"/><circle cx="95" cy="168" r="7.5" fill="#EDE4D3" stroke="#9A7B3E" stroke-width=".8"/><polygon points="95,161 101,168 95,172 89,168" fill="rgba(140,190,220,.65)"/><circle cx="165" cy="168" r="7.5" fill="#EDE4D3" stroke="#9A7B3E" stroke-width=".8"/><polygon points="165,161 171,168 165,172 159,168" fill="rgba(140,190,220,.65)"/></svg>
+    </div>
+  </div>
+  <section class="timeline">
+    <div style="text-align:center"><div class="sec-ey" style="text-align:center">Our Journey</div><div class="sec-t" style="text-align:center">37 Years of Excellence</div></div>
+    <div class="tl-items">
+      <div class="tl-item"><div class="tl-yr">1987</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-ttl">The First Workshop</div><div class="tl-txt">Rajan Mehta opens a small atelier in Jaipur's MI Road, with a single bench and a commitment to handmade excellence.</div></div></div>
+      <div class="tl-item"><div class="tl-yr">1994</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-ttl">Diamond Certification</div><div class="tl-txt">VED JEWELLERS becomes one of the first Indian jewellers to adopt IGI certification for all diamond pieces.</div></div></div>
+      <div class="tl-item"><div class="tl-yr">2002</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-ttl">Mumbai Flagship</div><div class="tl-txt">The flagship atelier opens in Worli, Mumbai, bringing VED JEWELLERS's handcrafted tradition to India's fashion capital.</div></div></div>
+      <div class="tl-item"><div class="tl-yr">2011</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-ttl">Royal Commission</div><div class="tl-txt">Commissioned to create the bridal jewellery suite for the Mewar royal wedding — a milestone that defines our bespoke legacy.</div></div></div>
+      <div class="tl-item"><div class="tl-yr">2024</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body"><div class="tl-ttl">12,000 Pieces Crafted</div><div class="tl-txt">VED JEWELLERS marks 37 years and 12,000+ handcrafted pieces, remaining independent, family-led, and obsessively dedicated to quality.</div></div></div>
+    </div>
+  </section>
+  <section class="values">
+    <div class="val-c rv"><div class="val-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9A7B3E" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="val-t">Uncompromising Quality</div><div class="val-d">Every stone is individually selected. Every setting is hand-finished. We reject anything that falls short of our standards.</div></div>
+    <div class="val-c rv d1"><div class="val-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9A7B3E" stroke-width="1"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="val-t">Responsible Sourcing</div><div class="val-d">All our diamonds are conflict-free. Our gold is ethically mined. We trace every material back to its origin.</div></div>
+    <div class="val-c rv d2"><div class="val-ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#9A7B3E" stroke-width="1"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div class="val-t">Living Heritage</div><div class="val-d">We work alongside master craftsmen who carry techniques passed down through five generations of Indian jewellery tradition.</div></div>
+  </section>
+  <section class="team">
+    <div style="text-align:center"><div class="sec-ey" style="text-align:center">The People</div><div class="sec-t" style="text-align:center">Behind Every Piece</div></div>
+    <div class="team-grid">
+      <div class="team-card rv"><div class="team-img"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="18" fill="#C8A96A" opacity=".3" stroke="#9A7B3E" stroke-width="1"/><ellipse cx="40" cy="70" rx="28" ry="16" fill="#C8A96A" opacity=".2" stroke="#9A7B3E" stroke-width="1"/></svg></div><div class="team-name">Rajan Mehta</div><div class="team-role">Founder &amp; Master Goldsmith</div></div>
+      <div class="team-card rv d1"><div class="team-img"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="18" fill="#C8A96A" opacity=".28" stroke="#9A7B3E" stroke-width="1"/><ellipse cx="40" cy="70" rx="28" ry="16" fill="#C8A96A" opacity=".18" stroke="#9A7B3E" stroke-width="1"/></svg></div><div class="team-name">Priya Mehta</div><div class="team-role">Creative Director</div></div>
+      <div class="team-card rv d2"><div class="team-img"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="18" fill="#C8A96A" opacity=".26" stroke="#9A7B3E" stroke-width="1"/><ellipse cx="40" cy="70" rx="28" ry="16" fill="#C8A96A" opacity=".16" stroke="#9A7B3E" stroke-width="1"/></svg></div><div class="team-name">Arjun Nair</div><div class="team-role">Head of Diamond Sourcing</div></div>
+    </div>
+  </section>
+  <footer>
+    <div class="ft">
+      <div><div class="ft-logo">VED JEWELLERS</div><p class="ft-tag">Haute joaillerie crafted with reverence for the timeless.</p></div>
+      <div><div class="ft-ct">Navigate</div><ul class="ft-ls"><li><a onclick="nav('home')">Home</a></li><li><a onclick="nav('shop')">Collections</a></li><li><a onclick="nav('contact')">Contact</a></li><li><a onclick="nav('gifting')">Gifting</a></li></ul></div>
+      <div><div class="ft-ct">Help</div><ul class="ft-ls"><li><a onclick="nav('track')">Track Order</a></li><li><a onclick="nav('returns')">Returns</a></li><li><a onclick="nav('size-guide')">Size Guide</a></li></ul></div>
+      <div><div class="ft-ct">Legal</div><ul class="ft-ls"><li><a onclick="showToast('Privacy Policy — coming soon')">Privacy Policy</a></li><li><a onclick="showToast('Terms — coming soon')">Terms &amp; Conditions</a></li></ul></div>
+    </div>
+    <div class="ft-bot"><div class="ft-cp">© 2025 VED JEWELLERS Jewels Pvt. Ltd.</div></div>
+  </footer>
+</div>
+
+<!-- ═══════════ GIFTING PAGE ═══════════ -->
+<div class="page" id="page-gifting">
+  <div class="pt"></div>
+  <div class="gift-hero">
+    <div class="sec-ey" style="text-align:center;margin-bottom:14px">For Every Moment</div>
+    <h1 style="font-family:var(--ff-d);font-size:clamp(28px,4vw,54px);color:var(--ink);letter-spacing:3px;margin-bottom:12px">The Gift of Gold</h1>
+    <p style="font-family:var(--ff-b);font-size:16px;font-style:italic;color:var(--im);max-width:480px;margin:0 auto;line-height:1.8">From first anniversaries to milestone birthdays — a piece of VED JEWELLERS jewellery is the gift that endures.</p>
+  </div>
+  <div class="gift-grid">
+    <div class="gift-card" onclick="nav('shop','diamond')"><div class="gift-img"><svg width="90" height="90" viewBox="0 0 90 90" fill="none"><polygon points="45,15 72,38 62,68 28,68 18,38" fill="rgba(120,175,215,.55)" stroke="#9A7B3E" stroke-width="1"/><polygon points="45,15 58,28 53,45 37,45 32,28" fill="rgba(255,255,255,.55)"/></svg></div><div class="gift-body"><div class="gift-title">Under ₹30,000</div><div class="gift-desc">Elegant earrings, delicate pendants, and gold coins that make thoughtful, memorable gifts for any occasion.</div><div class="gift-price">From ₹15,000 ↗</div></div></div>
+    <div class="gift-card" onclick="nav('shop','gold')"><div class="gift-img"><svg width="90" height="90" viewBox="0 0 90 90" fill="none"><circle cx="45" cy="45" r="32" stroke="#9A7B3E" stroke-width="7" fill="none"/><circle cx="45" cy="45" r="20" stroke="#DFC28A" stroke-width="3" fill="none" opacity=".5"/><circle cx="45" cy="13" r="5" fill="#C8A96A"/></svg></div><div class="gift-body"><div class="gift-title">₹30,000 – ₹80,000</div><div class="gift-desc">Bracelets, necklaces, and ring sets — the perfect expression of love for anniversaries and milestones.</div><div class="gift-price">From ₹31,800 ↗</div></div></div>
+    <div class="gift-card" onclick="nav('shop','solitaire')"><div class="gift-img"><svg width="90" height="90" viewBox="0 0 90 90" fill="none"><ellipse cx="45" cy="60" rx="28" ry="8" fill="none" stroke="#9A7B3E" stroke-width=".8" opacity=".4"/><path d="M17 60 Q13 44 24 36" stroke="#9A7B3E" stroke-width="5.5" stroke-linecap="round"/><path d="M73 60 Q77 44 66 36" stroke="#9A7B3E" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="45" cy="36" rx="20" ry="6" fill="#9A7B3E" opacity=".82"/><polygon points="45,16 62,33 45,40 28,33" fill="rgba(120,175,215,.82)" stroke="#9A7B3E" stroke-width=".8"/></svg></div><div class="gift-body"><div class="gift-title">Above ₹80,000</div><div class="gift-desc">Solitaire rings, diamond necklaces, and bespoke pieces for life's most defining chapters — the ultimate expression.</div><div class="gift-price">From ₹58,500 ↗</div></div></div>
+  </div>
+  <section class="gift-occasions">
+    <div style="text-align:center"><div class="sec-ey" style="text-align:center">Perfect For</div><div class="sec-t" style="text-align:center">Every Occasion</div></div>
+    <div class="occ-grid">
+      <div class="occ" onclick="nav('shop','diamond')"><span class="occ-ic">💍</span><div class="occ-t">Engagement</div></div>
+      <div class="occ" onclick="nav('shop','gold')"><span class="occ-ic">💛</span><div class="occ-t">Anniversary</div></div>
+      <div class="occ" onclick="nav('shop','gemstone')"><span class="occ-ic">🎂</span><div class="occ-t">Birthday</div></div>
+      <div class="occ" onclick="nav('shop','necklaces')"><span class="occ-ic">✨</span><div class="occ-t">Wedding</div></div>
+    </div>
+    <div style="text-align:center;margin-top:48px"><p style="font-family:var(--ff-b);font-size:16px;font-style:italic;color:var(--im);margin-bottom:20px">Need help choosing? Our concierge team is here.</p><a onclick="nav('contact')" class="btn btn-g"><span>Talk to a Specialist</span></a></div>
+  </section>
+  <footer>
+    <div class="ft">
+      <div><div class="ft-logo">VED JEWELLERS</div><p class="ft-tag">Haute joaillerie crafted with reverence for the timeless.</p></div>
+      <div><div class="ft-ct">Shop</div><ul class="ft-ls"><li><a onclick="nav('shop','diamond')">Diamond</a></li><li><a onclick="nav('shop','gold')">Gold</a></li><li><a onclick="nav('shop','solitaire')">Solitaire</a></li></ul></div>
+      <div><div class="ft-ct">Help</div><ul class="ft-ls"><li><a onclick="nav('contact')">Contact</a></li><li><a onclick="nav('track')">Track Order</a></li><li><a onclick="nav('returns')">Returns</a></li></ul></div>
+      <div><div class="ft-ct">Maison</div><ul class="ft-ls"><li><a onclick="nav('maison')">Our Story</a></li><li><a onclick="nav('contact')">Atelier</a></li></ul></div>
+    </div>
+    <div class="ft-bot"><div class="ft-cp">© 2025 VED JEWELLERS Jewels Pvt. Ltd.</div></div>
+  </footer>
+</div>
+
+<!-- ═══════════ COLLECTIONS PAGE ═══════════ -->
+<div class="page" id="page-collections">
+  <div class="pt"></div>
+  <div class="shop-hero"><div class="sec-ey">2025 Lookbook</div><h1 class="shop-title">The Collections</h1><p class="shop-desc">Each season, we craft a collection that tells a story — of light, of love, of the extraordinary beauty of precious things.</p></div>
+  <section class="ed-sec" style="background:var(--ivory);border-top:none">
+    <div class="ed-grid">
+      <div class="ed lg" onclick="nav('shop','diamond')"><div class="ed-art" style="background:linear-gradient(135deg,#E8DCC8,#DDD0B4)"><svg width="200" height="300" viewBox="0 0 200 300" fill="none" style="opacity:.58"><ellipse cx="100" cy="165" rx="90" ry="120" fill="rgba(154,123,62,.1)"/><path d="M35 47 Q100 30 165 47" stroke="#7A6030" stroke-width="1.3" fill="none"/><path d="M35 47 Q28 124 44 188" stroke="#7A6030" stroke-width="1.3"/><path d="M165 47 Q172 124 156 188" stroke="#7A6030" stroke-width="1.3"/><path d="M44 188 Q100 206 156 188" stroke="#7A6030" stroke-width="1.3" fill="none"/><line x1="100" y1="204" x2="100" y2="228" stroke="#9A7B3E" stroke-width="1.7"/><polygon points="100,206 134,238 100,252 66,238" fill="rgba(120,175,215,.75)" stroke="#9A7B3E" stroke-width=".95"/><ellipse cx="66" cy="236" rx="7.5" ry="7.5" fill="rgba(120,175,215,.5)" stroke="#9A7B3E" stroke-width=".7"/><ellipse cx="134" cy="236" rx="7.5" ry="7.5" fill="rgba(120,175,215,.5)" stroke="#9A7B3E" stroke-width=".7"/></svg></div><div class="ed-vl"></div><div class="ed-c"><div class="ed-tag">Diamond · 2025</div><div class="ed-nm">Lumina Éternelle</div><div class="ed-ds">Where light becomes eternal. A collection built around the perfect diamond.</div><a onclick="nav('shop','diamond')" class="ed-cta">Explore</a></div></div>
+      <div class="ed tl" onclick="nav('shop','solitaire')"><div class="ed-art" style="background:linear-gradient(160deg,#D8E4F0,#C8D8EC)"><svg width="110" height="155" viewBox="0 0 110 155" fill="none" style="opacity:.6"><circle cx="55" cy="78" r="44" stroke="#9A7B3E" stroke-width="1.3" fill="none"/><polygon points="55,36 78,62 70,96 40,96 32,62" fill="rgba(120,175,215,.62)" stroke="#9A7B3E" stroke-width=".85"/><polygon points="55,36 68,49 64,62 46,62 42,49" fill="rgba(255,255,255,.5)"/></svg></div><div class="ed-vl"></div><div class="ed-c"><div class="ed-tag">Solitaire</div><div class="ed-nm">The Prestige Edit</div><a onclick="nav('shop','solitaire')" class="ed-cta">Explore</a></div></div>
+      <div class="ed tl" onclick="nav('shop','gemstone')"><div class="ed-art" style="background:linear-gradient(160deg,#F0DCD8,#E8C8C4)"><svg width="110" height="155" viewBox="0 0 110 155" fill="none" style="opacity:.6"><ellipse cx="55" cy="102" rx="36" ry="9" fill="none" stroke="#9A7B3E" stroke-width=".8" opacity=".35"/><path d="M19 102 Q15 86 27 76" stroke="#9A7B3E" stroke-width="6" stroke-linecap="round"/><path d="M91 102 Q95 86 83 76" stroke="#9A7B3E" stroke-width="6" stroke-linecap="round"/><ellipse cx="55" cy="76" rx="30" ry="8.5" fill="#9A7B3E" opacity=".8"/><circle cx="55" cy="61" r="14" fill="#EDE4D3" stroke="#9A7B3E" stroke-width="1.3"/><polygon points="55,47 68,60 55,67 42,60" fill="rgba(190,70,70,.68)" stroke="#7A6030" stroke-width=".75"/></svg></div><div class="ed-vl"></div><div class="ed-c"><div class="ed-tag">Gemstone</div><div class="ed-nm">Ruby Reverie</div><a onclick="nav('shop','gemstone')" class="ed-cta">Explore</a></div></div>
+      <div class="ed wd" onclick="nav('shop','necklaces')"><div class="ed-art" style="background:linear-gradient(160deg,#E8ECD8,#DDE4C8);width:100%;height:100%"><svg width="320" height="155" viewBox="0 0 320 155" fill="none" style="opacity:.52"><path d="M28 77 Q160 54 292 77" stroke="#7A6030" stroke-width="1.1" fill="none"/><circle cx="160" cy="68" r="17" fill="rgba(120,175,215,.5)" stroke="#9A7B3E" stroke-width=".85"/><circle cx="96" cy="73" r="10.5" fill="rgba(154,123,62,.2)" stroke="#9A7B3E" stroke-width=".85"/><circle cx="224" cy="73" r="10.5" fill="rgba(154,123,62,.2)" stroke="#9A7B3E" stroke-width=".85"/></svg></div><div class="ed-vl" style="background:linear-gradient(to right,rgba(232,236,216,.93) 0%,rgba(232,236,216,.1) 55%)"></div><div class="ed-c"><div class="ed-tag">Mangalsutra</div><div class="ed-nm">Sacred Thread Collection</div><a onclick="nav('shop','necklaces')" class="ed-cta">Explore</a></div></div>
+      <div class="ed tl" onclick="nav('shop','gold')"><div class="ed-art" style="background:linear-gradient(160deg,#F0ECE0,#E8E0CC)"><svg width="110" height="155" viewBox="0 0 110 155" fill="none" style="opacity:.6"><circle cx="55" cy="78" r="36" fill="rgba(154,123,62,.12)" stroke="#9A7B3E" stroke-width="1.2"/><circle cx="55" cy="78" r="24" fill="rgba(154,123,62,.1)" stroke="#7A6030" stroke-width=".8"/><circle cx="55" cy="78" r="12" fill="rgba(154,123,62,.18)" stroke="#9A7B3E" stroke-width=".8"/><path d="M55 42 L57 56 L55 58 L53 56 Z" fill="#9A7B3E"/></svg></div><div class="ed-vl"></div><div class="ed-c"><div class="ed-tag">Plain Gold</div><div class="ed-nm">Bold Gold</div><a onclick="nav('shop','gold')" class="ed-cta">Explore</a></div></div>
+      <div class="ed tl" onclick="nav('shop','bangles')"><div class="ed-art" style="background:linear-gradient(160deg,#E8EEE8,#D8E4D8)"><svg width="110" height="110" viewBox="0 0 110 110" fill="none" style="opacity:.6"><circle cx="55" cy="55" r="38" stroke="#9A7B3E" stroke-width="7.5" fill="none"/><circle cx="55" cy="55" r="38" stroke="#DFC28A" stroke-width="1.1" fill="none" opacity=".3" stroke-dasharray="2 7"/><circle cx="55" cy="17" r="6" fill="rgba(120,175,215,.7)" stroke="#9A7B3E" stroke-width=".8"/></svg></div><div class="ed-vl"></div><div class="ed-c"><div class="ed-tag">Bangles</div><div class="ed-nm">Auric Classics</div><a onclick="nav('shop','bangles')" class="ed-cta">Explore</a></div></div>
+    </div>
+  </section>
+  <footer>
+    <div class="ft">
+      <div><div class="ft-logo">VED JEWELLERS</div><p class="ft-tag">Haute joaillerie crafted with reverence for the timeless.</p></div>
+      <div><div class="ft-ct">Shop</div><ul class="ft-ls"><li><a onclick="nav('shop','diamond')">Diamond</a></li><li><a onclick="nav('shop','gold')">Gold</a></li><li><a onclick="nav('shop','solitaire')">Solitaire</a></li></ul></div>
+      <div><div class="ft-ct">Info</div><ul class="ft-ls"><li><a onclick="nav('maison')">Maison</a></li><li><a onclick="nav('contact')">Contact</a></li></ul></div>
+      <div></div>
+    </div>
+    <div class="ft-bot"><div class="ft-cp">© 2025 VED JEWELLERS Jewels Pvt. Ltd.</div></div>
+  </footer>
+</div>
+
+<!-- ═══════════ CONTACT / ATELIER PAGE ═══════════ -->
+<div class="page" id="page-contact">
+  <div class="pt"></div>
+  <div style="padding:calc(var(--off) + 20px) 56px 20px;background:var(--iw);border-bottom:1px solid var(--border)"><div class="sec-ey">Get in Touch</div><h1 class="shop-title" style="margin-bottom:8px">Book a Consultation</h1><p class="shop-desc">Visit us at one of our ateliers, or let us come to you. Every enquiry is handled personally.</p></div>
+  <div class="contact-wrap">
+    <div>
+      <h2 style="font-family:var(--ff-d);font-size:18px;letter-spacing:2px;color:var(--ink);margin-bottom:28px">Send an Enquiry</h2>
+      <div class="form-group"><label>Full Name</label><input type="text" id="cName" placeholder="Your name"/></div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="cEmail" placeholder="your@email.com"/></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" id="cPhone" placeholder="+91 00000 00000"/></div>
+      <div class="form-group"><label>Interest</label><select id="cInterest"><option>Select an option</option><option>Engagement Ring</option><option>Bespoke Commission</option><option>Bridal Suite</option><option>Diamond Purchase</option><option>General Enquiry</option></select></div>
+      <div class="form-group"><label>Message</label><textarea id="cMsg" rows="4" placeholder="Tell us more about what you have in mind…"></textarea></div>
+      <a onclick="submitContact()" class="btn btn-g"><span>Send Enquiry</span></a>
+    </div>
+    <div class="contact-info">
+      <h2 style="font-family:var(--ff-d);font-size:18px;letter-spacing:2px;color:var(--ink);margin-bottom:28px">Reach Us Directly</h2>
+      <div class="ci-block"><div class="ci-label">Phone</div><div class="ci-val">+91 1800 419 0066<br><span style="font-size:12px;color:var(--if)">Mon–Sat, 10am–7pm IST</span></div></div>
+      <div class="ci-block"><div class="ci-label">Email</div><div class="ci-val">hello@aurea.in<br>bespoke@aurea.in</div></div>
+      <div class="ci-block"><div class="ci-label">Flagship Atelier</div><div class="ci-val">VED JEWELLERS House, 14 Bhulabhai Desai Road<br>Breach Candy, Mumbai 400 026</div></div>
+      <div class="ci-block"><div class="ci-label">Jaipur Workshop</div><div class="ci-val">MI Road, Pink City Quarter<br>Jaipur, Rajasthan 302 001</div></div>
+      <div style="margin-top:8px"><a onclick="nav('track')" class="btn btn-k" style="display:inline-block"><span>Track My Order</span></a></div>
+    </div>
+  </div>
+  <section class="stores">
+    <div style="text-align:center"><div class="sec-ey" style="text-align:center">Find Us</div><div class="sec-t" style="text-align:center">Our Ateliers</div></div>
+    <div class="store-grid">
+      <div class="store-card"><div class="store-city">Mumbai</div><div class="store-addr">14 Bhulabhai Desai Road<br>Breach Candy, Mumbai 400 026</div><div class="store-hrs">Mon–Sat 10am – 7pm · Sun 11am – 5pm</div></div>
+      <div class="store-card"><div class="store-city">Delhi</div><div class="store-addr">The Crescent, DLF Emporio<br>Nelson Mandela Marg, New Delhi 110 070</div><div class="store-hrs">Mon–Sat 10am – 8pm · Sun 11am – 6pm</div></div>
+      <div class="store-card"><div class="store-city">Bengaluru</div><div class="store-addr">UB City, Vittal Mallya Road<br>Bengaluru 560 001</div><div class="store-hrs">Mon–Sat 10am – 8pm · Sun 12pm – 6pm</div></div>
+    </div>
+  </section>
+  <footer>
+    <div class="ft">
+      <div><div class="ft-logo">VED JEWELLERS</div><p class="ft-tag">Haute joaillerie crafted with reverence for the timeless.</p></div>
+      <div><div class="ft-ct">Navigate</div><ul class="ft-ls"><li><a onclick="nav('home')">Home</a></li><li><a onclick="nav('shop')">Collections</a></li><li><a onclick="nav('maison')">Maison</a></li><li><a onclick="nav('gifting')">Gifting</a></li></ul></div>
+      <div><div class="ft-ct">Help</div><ul class="ft-ls"><li><a onclick="nav('track')">Track Order</a></li><li><a onclick="nav('returns')">Returns</a></li><li><a onclick="nav('size-guide')">Size Guide</a></li></ul></div>
+      <div></div>
+    </div>
+    <div class="ft-bot"><div class="ft-cp">© 2025 VED JEWELLERS Jewels Pvt. Ltd.</div></div>
+  </footer>
+</div>
+
+<!-- ═══════════ TRACK ORDER PAGE ═══════════ -->
+<div class="page" id="page-track">
+  <div class="pt"></div>
+  <div class="track-wrap">
+    <div class="sec-ey" style="text-align:center;margin-bottom:14px">Client Services</div>
+    <h1 style="font-family:var(--ff-d);font-size:clamp(24px,3.5vw,44px);color:var(--ink);letter-spacing:3px;margin-bottom:10px">Track Your Order</h1>
+    <p style="font-family:var(--ff-b);font-size:15px;font-style:italic;color:var(--im);line-height:1.8">Enter your order number and email to see the latest status of your VED JEWELLERS piece.</p>
+    <div class="track-form">
+      <div class="form-group"><label>Order Number</label><input type="text" id="trackOrd" placeholder="AUR-2025-00000"/></div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="trackEmail" placeholder="your@email.com"/></div>
+      <a onclick="trackOrder()" class="btn btn-g" style="display:block;text-align:center;margin-top:8px"><span>Track Order</span></a>
+    </div>
+    <div id="trackResult" style="display:none;margin-top:32px">
+      <h3 style="font-family:var(--ff-d);font-size:14px;letter-spacing:2px;color:var(--ink);margin-bottom:6px">Order AUR-2025-01234</h3>
+      <p style="font-family:var(--ff-b);font-size:13px;font-style:italic;color:var(--il);margin-bottom:24px">The Céleste Ring — 18K White Gold · 0.50ct Diamond</p>
+      <div class="track-steps">
+        <div class="ts"><div class="ts-dot-col"><div class="ts-dot done"></div><div class="ts-line"></div></div><div class="ts-body"><div class="ts-t">Order Confirmed</div><div class="ts-d">March 26, 2025 · 11:32am</div></div></div>
+        <div class="ts"><div class="ts-dot-col"><div class="ts-dot done"></div><div class="ts-line"></div></div><div class="ts-body"><div class="ts-t">In Crafting</div><div class="ts-d">Piece entered our Jaipur atelier</div></div></div>
+        <div class="ts"><div class="ts-dot-col"><div class="ts-dot curr"></div><div class="ts-line"></div></div><div class="ts-body"><div class="ts-t">Quality Check</div><div class="ts-d">Diamond certification being verified</div></div></div>
+        <div class="ts"><div class="ts-dot-col"><div class="ts-dot"></div><div class="ts-line"></div></div><div class="ts-body"><div class="ts-t">Dispatched</div><div class="ts-d">Expected March 31, 2025</div></div></div>
+        <div class="ts"><div class="ts-dot-col"><div class="ts-dot"></div></div><div class="ts-body"><div class="ts-t">Delivered</div><div class="ts-d">Expected April 2, 2025</div></div></div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="ft">
+      <div><div class="ft-logo">VED JEWELLERS</div><p class="ft-tag">Haute joaillerie crafted with reverence for the timeless.</p></div>
+      <div><div class="ft-ct">Help</div><ul class="ft-ls"><li><a onclick="nav('returns')">Returns</a></li><li><a onclick="nav('contact')">Contact</a></li><li><a onclick="nav('care-guide')">Care Guide</a></li></ul></div>
+      <div><div class="ft-ct">Shop</div><ul class="ft-ls"><li><a onclick="nav('shop')">All Jewellery</a></li><li><a onclick="nav('gifting')">Gifting</a></li></ul></div>
+      <div></div>
+    </div>
+    <div class="ft-bot"><div class="ft-cp">© 2025 VED JEWELLERS Jewels Pvt. Ltd.</div></div>
+  </footer>
+</div>
+
+<!-- ═══════════ RETURNS PAGE ═══════════ -->
+<div class="page" id="page-returns">
+  <div class="pt"></div>
+  <div style="padding:calc(var(--off) + 20px) 56px 20px;background:var(--iw);border-bottom:1px solid var(--border)"><div class="sec-ey">Client Care</div><h1 class="shop-title" style="margin-bottom:8px">Returns &amp; Exchanges</h1><p class="shop-desc">We stand behind every piece we make. Our 30-day return policy is simple and completely hassle-free.</p></div>
+  <div class="returns-wrap">
+    <div>
+      <h2 style="font-family:var(--ff-d);font-size:17px;letter-spacing:2px;color:var(--ink);margin-bottom:6px">How It Works</h2>
+      <p style="font-family:var(--ff-b);font-size:14px;font-style:italic;color:var(--im);line-height:1.8;margin-bottom:20px">Return any piece within 30 days for a full refund or exchange — no questions asked.</p>
+      <div class="ret-steps">
+        <div class="ret-step"><div class="ret-num">01</div><div class="ret-body"><div class="ret-t">Initiate Your Return</div><div class="ret-d">Email returns@aurea.in or call 1800 419 0066 within 30 days of delivery.</div></div></div>
+        <div class="ret-step"><div class="ret-num">02</div><div class="ret-body"><div class="ret-t">We Arrange Pickup</div><div class="ret-d">Our insured courier will collect the piece from your address at no charge.</div></div></div>
+        <div class="ret-step"><div class="ret-num">03</div><div class="ret-body"><div class="ret-t">Inspection &amp; Refund</div><div class="ret-d">Once received and inspected, your refund is processed within 5–7 business days.</div></div></div>
+      </div>
+    </div>
+    <div>
+      <h2 style="font-family:var(--ff-d);font-size:17px;letter-spacing:2px;color:var(--ink);margin-bottom:20px">Frequently Asked</h2>
+      <div class="faq">
+        <div class="faq-item"><div class="faq-q">Can I return a bespoke commission?</div><div class="faq-a">Bespoke and customised pieces are not eligible for returns as they are made to order. However, we work with you throughout the process to ensure you love the result.</div></div>
+        <div class="faq-item"><div class="faq-q">What condition must the piece be in?</div><div class="faq-a">The piece must be unworn, in its original packaging, with all certificates and receipts. We inspect every return upon arrival.</div></div>
+        <div class="faq-item"><div class="faq-q">How long does a refund take?</div><div class="faq-a">5–7 business days after we receive and inspect the piece. Refunds go to the original payment method.</div></div>
+        <div class="faq-item"><div class="faq-q">Can I exchange for a different piece?</div><div class="faq-a">Yes. We offer full-value exchanges on any piece in our collection. If the new piece is of higher value, you simply pay the difference.</div></div>
+        <div class="faq-item"><div class="faq-q">What about resizing?</div><div class="faq-a">We offer one complimentary resize within 60 days of purchase. Contact our team to arrange it.</div></div>
+      </div>
+      <div style="margin-top:28px"><a onclick="nav('contact')" class="btn btn-g"><span>Contact Client Care</span></a></div>
+    </div>
+  </div>
+  <footer>
+    <div class="ft">
+      <div><div class="ft-logo">VED JEWELLERS</div><p class="ft-tag">Haute joaillerie crafted with reverence for the timeless.</p></div>
+      <div><div class="ft-ct">Help</div><ul class="ft-ls"><li><a onclick="nav('track')">Track Order</a></li><li><a onclick="nav('contact')">Contact</a></li><li><a onclick="nav('size-guide')">Size Guide</a></li></ul></div>
+      <div><div class="ft-ct">Shop</div><ul class="ft-ls"><li><a onclick="nav('shop')">All Jewellery</a></li><li><a onclick="nav('gifting')">Gifting</a></li></ul></div>
+      <div></div>
+    </div>
+    <div class="ft-bot"><div class="ft-cp">© 2025 VED JEWELLERS Jewels Pvt. Ltd.</div></div>
+  </footer>
+</div>
+
+<!-- ═══════════ SIZE GUIDE PAGE ═══════════ -->
+<div class="page" id="page-size-guide">
+  <div class="pt"></div>
+  <div class="guide-wrap">
+    <div class="sec-ey" style="margin-bottom:14px">Client Reference</div>
+    <h1 style="font-family:var(--ff-d);font-size:clamp(24px,3.5vw,44px);color:var(--ink);letter-spacing:3px;margin-bottom:32px">Size Guide</h1>
+    <div class="guide-section">
+      <div class="guide-h2">Ring Sizes</div>
+      <p class="guide-p">To find your ring size, measure the inner diameter of an existing ring, or wrap a strip of paper around your finger, mark where it overlaps, and measure the length in mm.</p>
+      <table class="size-table">
+        <thead><tr><th>India Size</th><th>US Size</th><th>UK Size</th><th>Diameter (mm)</th><th>Circumference (mm)</th></tr></thead>
+        <tbody>
+          <tr><td>5</td><td>3</td><td>F</td><td>14.1</td><td>44.2</td></tr>
+          <tr><td>7</td><td>4</td><td>H</td><td>14.9</td><td>46.8</td></tr>
+          <tr><td>9</td><td>5</td><td>J</td><td>15.7</td><td>49.3</td></tr>
+          <tr><td>11</td><td>6</td><td>L</td><td>16.5</td><td>51.9</td></tr>
+          <tr><td>13</td><td>7</td><td>N</td><td>17.3</td><td>54.4</td></tr>
+          <tr><td>15</td><td>8</td><td>P</td><td>18.2</td><td>57.2</td></tr>
+          <tr><td>17</td><td>9</td><td>R</td><td>19.0</td><td>59.7</td></tr>
+          <tr><td>19</td><td>10</td><td>T</td><td>19.8</td><td>62.1</td></tr>
+        </tbody>
+      </table>
+      <div class="tip-box"><p><strong>Pro Tip:</strong> Fingers are larger in the evening and in warm weather. Measure at the end of the day for the most accurate size.</p></div>
+    </div>
+    <div class="guide-section">
+      <div class="guide-h2">Bangle Sizes</div>
+      <p class="guide-p">Measure the widest part of your hand (around the knuckles) when your fingers are pressed together. This is your bangle size.</p>
+      <table class="size-table">
+        <thead><tr><th>Size</th><th>Inner Diameter</th><th>Fits Wrist</th></tr></thead>
+        <tbody>
+          <tr><td>Small (S)</td><td>58mm</td><td>Up to 6 inches</td></tr>
+          <tr><td>Medium (M)</td><td>62mm</td><td>6 – 6.5 inches</td></tr>
+          <tr><td>Large (L)</td><td>66mm</td><td>6.5 – 7 inches</td></tr>
+          <tr><td>Extra Large (XL)</td><td>70mm</td><td>7+ inches</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="guide-section">
+      <div class="guide-h2">Necklace Lengths</div>
+      <table class="size-table">
+        <thead><tr><th>Length</th><th>Style</th><th>Falls At</th></tr></thead>
+        <tbody>
+          <tr><td>14 inches (35cm)</td><td>Collar</td><td>Base of throat</td></tr>
+          <tr><td>16 inches (40cm)</td><td>Choker</td><td>Below collarbone</td></tr>
+          <tr><td>18 inches (45cm)</td><td>Princess</td><td>Mid-chest</td></tr>
+          <tr><td>20–24 inches (50–60cm)</td><td>Matinee</td><td>Mid to lower chest</td></tr>
+          <tr><td>28–36 inches (70–90cm)</td><td>Opera</td><td>Below the bust</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-family:var(--ff-b);font-size:14px;font-style:italic;color:var(--im)">Not sure of your size? <a onclick="nav('contact')" style="color:var(--gold);text-decoration:none">Book a consultation</a> and we'll measure you at our atelier.</p>
+  </div>
+  <footer>
+    <div class="ft">
+      <div><div class="ft-logo">VED JEWELLERS</div><p class="ft-tag">Haute joaillerie crafted with reverence for the timeless.</p></div>
+      <div><div class="ft-ct">Help</div><ul class="ft-ls"><li><a onclick="nav('care-guide')">Care Guide</a></li><li><a onclick="nav('returns')">Returns</a></li><li><a onclick="nav('track')">Track Order</a></li></ul></div>
+      <div><div class="ft-ct">Shop</div><ul class="ft-ls"><li><a onclick="nav('shop','rings')">Rings</a></li><li><a onclick="nav('shop','bangles')">Bangles</a></li><li><a onclick="nav('shop','necklaces')">Necklaces</a></li></ul></div>
+      <div></div>
+    </div>
+    <div class="ft-bot"><div class="ft-cp">© 2025 VED JEWELLERS Jewels Pvt. Ltd.</div></div>
+  </footer>
+</div>
+
+<!-- ═══════════ CARE GUIDE PAGE ═══════════ -->
+<div class="page" id="page-care-guide">
+  <div class="pt"></div>
+  <div class="guide-wrap">
+    <div class="sec-ey" style="margin-bottom:14px">Client Reference</div>
+    <h1 style="font-family:var(--ff-d);font-size:clamp(24px,3.5vw,44px);color:var(--ink);letter-spacing:3px;margin-bottom:32px">Jewellery Care Guide</h1>
+    <div class="guide-section">
+      <div class="guide-h2">Caring for Gold</div>
+      <p class="guide-p">Gold jewellery is durable but benefits from simple care routines to maintain its lustre for generations.</p>
+      <p class="guide-p">Clean with warm water, a drop of mild dish soap, and a soft toothbrush. Rinse thoroughly and dry with a lint-free cloth. Avoid harsh chemicals, chlorine, and perfume contact.</p>
+      <div class="tip-box"><p><strong>Golden Rule:</strong> Put your jewellery on last when getting ready, and take it off first. Avoid contact with hairspray, lotions, and perfumes.</p></div>
+    </div>
+    <div class="guide-section">
+      <div class="guide-h2">Caring for Diamonds</div>
+      <p class="guide-p">Diamonds attract grease and oils, which reduce their brilliance. Clean regularly to keep them sparkling.</p>
+      <p class="guide-p">Soak in a solution of warm water and gentle dish soap for 20–30 minutes. Use a soft brush to clean around the setting and under the stone. Rinse in warm water and pat dry.</p>
+      <div class="tip-box"><p><strong>Important:</strong> Avoid ultrasonic cleaners if your diamond has inclusions — the vibration can enlarge fractures. When in doubt, bring it to our atelier for professional cleaning.</p></div>
+    </div>
+    <div class="guide-section">
+      <div class="guide-h2">Caring for Gemstones</div>
+      <p class="guide-p">Different gemstones have different hardness and sensitivities. Always clean gemstone jewellery gently with a soft, damp cloth. Avoid soaking — many gemstones (especially emeralds, opals, and pearls) are sensitive to water and chemicals.</p>
+      <table class="size-table">
+        <thead><tr><th>Gemstone</th><th>Hardness (Mohs)</th><th>Care Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Diamond</td><td>10</td><td>Durable; clean with soap and brush</td></tr>
+          <tr><td>Ruby / Sapphire</td><td>9</td><td>Very durable; gentle soap and water</td></tr>
+          <tr><td>Emerald</td><td>7.5–8</td><td>Avoid ultrasonic; wipe gently</td></tr>
+          <tr><td>Amethyst</td><td>7</td><td>Avoid prolonged sunlight; soft cloth</td></tr>
+          <tr><td>Opal</td><td>5.5–6.5</td><td>Very delicate; dry cloth only, no water</td></tr>
+          <tr><td>Pearl</td><td>2.5–4.5</td><td>Wipe after wearing; never soak</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="guide-section">
+      <div class="guide-h2">Storage</div>
+      <p class="guide-p">Store each piece separately in the velvet pouch or box it came in. This prevents scratching between pieces. Keep away from direct sunlight and humidity. Diamonds can scratch other gems and metals — always store separately.</p>
+    </div>
+    <p style="font-family:var(--ff-b);font-size:14px;font-style:italic;color:var(--im)">We offer complimentary professional cleaning at any of our <a onclick="nav('contact')" style="color:var(--gold);text-decoration:none">three ateliers</a>.</p>
+  </div>
+  <footer>
+    <div class="ft">
+      <div><div class="ft-logo">VED JEWELLERS</div><p class="ft-tag">Haute joaillerie crafted with reverence for the timeless.</p></div>
+      <div><div class="ft-ct">Help</div><ul class="ft-ls"><li><a onclick="nav('size-guide')">Size Guide</a></li><li><a onclick="nav('returns')">Returns</a></li><li><a onclick="nav('track')">Track Order</a></li></ul></div>
+      <div><div class="ft-ct">Shop</div><ul class="ft-ls"><li><a onclick="nav('shop')">All Jewellery</a></li><li><a onclick="nav('gifting')">Gifting</a></li></ul></div>
+      <div></div>
+    </div>
+    <div class="ft-bot"><div class="ft-cp">© 2025 VED JEWELLERS Jewels Pvt. Ltd.</div></div>
+  </footer>
+</div>
+
+<!-- ═══════════ CART PAGE ═══════════ -->
+<div class="page" id="page-cart">
+  <div class="pt"></div>
+  <div style="padding:calc(var(--off) + 20px) 56px 20px;border-bottom:1px solid var(--border)"><div class="sec-ey">Your Selection</div><h1 class="shop-title" style="margin-bottom:0">Your Bag</h1></div>
+  <div class="cart-page" id="cartPageWrap"></div>
+  <footer>
+    <div class="ft">
+      <div><div class="ft-logo">VED JEWELLERS</div><p class="ft-tag">Haute joaillerie crafted with reverence for the timeless.</p></div>
+      <div><div class="ft-ct">Help</div><ul class="ft-ls"><li><a onclick="nav('returns')">Returns</a></li><li><a onclick="nav('contact')">Contact</a></li></ul></div>
+      <div><div class="ft-ct">Shop</div><ul class="ft-ls"><li><a onclick="nav('shop')">Continue Shopping</a></li></ul></div>
+      <div></div>
+    </div>
+    <div class="ft-bot"><div class="ft-cp">© 2025 VED JEWELLERS Jewels Pvt. Ltd.</div></div>
+  </footer>
+</div>
+
+<!-- ═══════════ DRAWERS + OVERLAYS ═══════════ -->
+<div class="ov" id="cartOv" onclick="closeCartDrawer()"></div>
+<div class="drawer" id="cartDr">
+  <div class="dr-head"><div class="dr-ht">Your Bag</div><button class="dr-cl" onclick="closeCartDrawer()">✕</button></div>
+  <div class="dr-body" id="cartDrBody"></div>
+  <div class="dr-foot" id="cartDrFoot" style="display:none">
+    <div class="dr-total"><span class="drt-l">Total</span><span class="drt-v" id="cartDrTotal">₹0</span></div>
+    <a onclick="nav('cart');closeCartDrawer()" class="btn btn-k" style="display:block;text-align:center;margin-bottom:8px"><span>View Bag &amp; Checkout</span></a>
+    <a onclick="closeCartDrawer();nav('shop')" class="btn btn-g" style="display:block;text-align:center"><span>Continue Shopping</span></a>
+  </div>
+</div>
+
+<div class="ov" id="wishOv" onclick="closeWishDrawer()"></div>
+<div class="drawer" id="wishDr">
+  <div class="dr-head"><div class="dr-ht">Wishlist</div><button class="dr-cl" onclick="closeWishDrawer()">✕</button></div>
+  <div class="dr-body" id="wishDrBody"></div>
+</div>
+
+<div class="srch-ov" id="srchOv">
+  <button class="srch-close" onclick="closeSearch()">✕</button>
+  <div class="srch-box">
+    <div class="srch-ttl">Search the Collection</div>
+    <input class="srch-in" id="srchIn" type="text" placeholder="Rings, earrings, gold…" oninput="doSearch(this.value)"/>
+    <div class="srch-res" id="srchRes"></div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modalOv"><div class="modal" id="modal"><button class="modal-close" onclick="closeModal()">✕</button><div class="modal-img2" id="mImg"></div><div class="modal-info2" id="mInfo"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════ DATA ═══════════════ */
+const P = [
+  {id:1,name:"The Céleste Ring",mat:"18K White Gold · 0.50ct Diamond",price:58500,mrp:72000,cat:"diamond,rings,solitaire",badge:"New Arrival",bg:"#EDE4D3",
+   svgW:100,svgH:138,svg:`<ellipse cx="50" cy="100" rx="32" ry="8.5" fill="none" stroke="#9A7B3E" stroke-width=".8" opacity=".35"/><path d="M18 100 Q14 82 27 72" stroke="#9A7B3E" stroke-width="7" stroke-linecap="round"/><path d="M82 100 Q86 82 73 72" stroke="#9A7B3E" stroke-width="7" stroke-linecap="round"/><ellipse cx="50" cy="72" rx="21" ry="6.5" fill="#9A7B3E" opacity=".82"/><polygon points="50,44 70,63 50,72 30,63" fill="rgba(120,175,215,.82)" stroke="#9A7B3E" stroke-width=".8"/><polygon points="50,50 59,58 50,63 41,58" fill="rgba(255,255,255,.6)"/><ellipse cx="44" cy="52" rx="5.5" ry="3" fill="rgba(255,255,255,.5)" transform="rotate(-30 44 52)"/>`,
+   desc:"A timeless solitaire ring featuring a brilliant-cut 0.50ct diamond set in 18K white gold. IGI certified.",specs:{Metal:"18K White Gold",Stone:"0.50ct Diamond",Cert:"IGI Certified",Clarity:"VS1",Colour:"F",Setting:"4-Prong Solitaire"}},
+  {id:2,name:"The Dalia Earrings",mat:"22K Gold · Ruby Drop",price:24300,mrp:0,cat:"earrings,gemstone,gold",badge:"",bg:"#EDE8DC",
+   svgW:82,svgH:132,svg:`<circle cx="41" cy="26" r="10" stroke="#9A7B3E" stroke-width="1.2" fill="rgba(154,123,62,.08)"/><circle cx="41" cy="26" r="5" fill="rgba(120,175,215,.75)" stroke="#7A6030" stroke-width=".8"/><line x1="41" y1="36" x2="41" y2="54" stroke="#9A7B3E" stroke-width="1.8"/><path d="M24 54 Q41 48 58 54 L54 104 Q41 113 28 104 Z" stroke="#9A7B3E" stroke-width="1.2" fill="rgba(154,123,62,.06)"/><circle cx="41" cy="79" r="9" fill="rgba(160,70,90,.45)" stroke="#9A7B3E" stroke-width=".8"/>`,
+   desc:"Hand-crafted drop earrings in 22K yellow gold featuring genuine Burmese rubies. Perfect for festive occasions.",specs:{Metal:"22K Yellow Gold",Stone:"Burmese Ruby",Weight:"4.2g",Setting:"Bezel Set",Occasion:"Festive / Bridal"}},
+  {id:3,name:"The Aria Bangle",mat:"18K Rose Gold · Diamond",price:112000,mrp:140000,cat:"bangles,diamond",badge:"Bestseller",bg:"#E8EEE4",
+   svgW:110,svgH:110,svg:`<circle cx="55" cy="55" r="38" stroke="#9A7B3E" stroke-width="8" fill="none"/><circle cx="55" cy="55" r="38" stroke="#DFC28A" stroke-width="1.2" fill="none" opacity=".35" stroke-dasharray="2 7"/><circle cx="55" cy="17" r="6.5" fill="rgba(120,175,215,.72)" stroke="#9A7B3E" stroke-width=".8"/><polygon points="55,11 60,17 55,21 50,17" fill="rgba(255,255,255,.6)"/><circle cx="55" cy="93" r="4.5" fill="rgba(154,123,62,.45)" stroke="#7A6030" stroke-width=".7"/><circle cx="17" cy="55" r="4.5" fill="rgba(154,123,62,.45)" stroke="#7A6030" stroke-width=".7"/><circle cx="93" cy="55" r="4.5" fill="rgba(154,123,62,.45)" stroke="#7A6030" stroke-width=".7"/>`,
+   desc:"An elegant bangle in 18K rose gold studded with pave-set brilliant-cut diamonds. BIS hallmarked.",specs:{Metal:"18K Rose Gold",Stone:"Pave Diamonds 0.42ct",Cert:"BIS Hallmarked",Size:"Medium",Closure:"Rigid Bangle"}},
+  {id:4,name:"The Sera Pendant",mat:"22K Gold · Sapphire",price:31800,mrp:0,cat:"necklaces,gemstone,gold",badge:"",bg:"#EDE8F0",
+   svgW:130,svgH:130,svg:`<path d="M18 47 Q65 36 112 47 L107 86 Q65 100 23 86 Z" stroke="#9A7B3E" stroke-width="1.2" fill="rgba(154,123,62,.05)"/><ellipse cx="65" cy="67" rx="26" ry="20" fill="rgba(120,175,215,.58)" stroke="#9A7B3E" stroke-width=".9"/><polygon points="65,49 84,66 65,75 46,66" fill="rgba(255,255,255,.5)"/><circle cx="28" cy="67" r="6.5" fill="rgba(60,100,175,.4)" stroke="#9A7B3E" stroke-width=".7"/><circle cx="102" cy="67" r="6.5" fill="rgba(60,100,175,.4)" stroke="#9A7B3E" stroke-width=".7"/>`,
+   desc:"A delicate pendant featuring a natural Ceylon sapphire framed in 22K yellow gold. Comes with a 22K chain.",specs:{Metal:"22K Yellow Gold",Stone:"Ceylon Sapphire",Cert:"GIA Certified",ChainLength:"18 inches",Setting:"Halo"}},
+  {id:5,name:"The Lumina Necklace",mat:"18K White Gold · Diamond",price:185000,mrp:220000,cat:"necklaces,diamond,solitaire",badge:"New Arrival",bg:"#E8EDF4",
+   svgW:140,svgH:120,svg:`<path d="M20 60 Q70 44 120 60" stroke="#B8933A" stroke-width="1.4" fill="none"/><path d="M20 60 Q14 90 30 105" stroke="#B8933A" stroke-width="1.4"/><path d="M120 60 Q126 90 110 105" stroke="#B8933A" stroke-width="1.4"/><path d="M30 105 Q70 114 110 105" stroke="#B8933A" stroke-width="1.4" fill="none"/><circle cx="70" cy="95" r="18" fill="rgba(120,175,215,.65)" stroke="#9A7B3E" stroke-width="1"/><polygon points="70,79 84,93 70,102 56,93" fill="rgba(255,255,255,.55)"/>`,
+   desc:"A statement necklace featuring a principal 1ct diamond in a halo setting on 18K white gold. IGI certified.",specs:{Metal:"18K White Gold",Stone:"1.00ct Diamond",Cert:"IGI Certified",Clarity:"VVS2",Colour:"E",Setting:"Halo"}},
+  {id:6,name:"The Empress Ring",mat:"18K Yellow Gold · Ruby & Diamond",price:76500,mrp:92000,cat:"rings,gemstone,gold",badge:"Bestseller",bg:"#F0E8E4",
+   svgW:110,svgH:138,svg:`<ellipse cx="55" cy="108" rx="34" ry="9" fill="none" stroke="#9A7B3E" stroke-width=".8" opacity=".35"/><path d="M21 108 Q17 88 31 77" stroke="#9A7B3E" stroke-width="7" stroke-linecap="round"/><path d="M89 108 Q93 88 79 77" stroke="#9A7B3E" stroke-width="7" stroke-linecap="round"/><ellipse cx="55" cy="77" rx="23" ry="7" fill="#9A7B3E" opacity=".82"/><circle cx="55" cy="56" r="18" fill="#EDE4D3" stroke="#9A7B3E" stroke-width="1.4"/><polygon points="55,40 68,54 55,62 42,54" fill="rgba(190,70,70,.75)" stroke="#7A6030" stroke-width=".8"/><circle cx="36" cy="72" r="5" fill="rgba(120,175,215,.6)" stroke="#9A7B3E" stroke-width=".7"/><circle cx="74" cy="72" r="5" fill="rgba(120,175,215,.6)" stroke="#9A7B3E" stroke-width=".7"/>`,
+   desc:"A regal cocktail ring with a pigeon-blood ruby flanked by brilliant-cut diamonds in 18K yellow gold.",specs:{Metal:"18K Yellow Gold",CentreStone:"Pigeon-Blood Ruby",SideStones:"0.20ct Diamonds",Origin:"Mozambique",Setting:"Cocktail"}},
+  {id:7,name:"The Solstice Earrings",mat:"18K White Gold · Diamond Studs",price:42600,mrp:52000,cat:"earrings,diamond,solitaire",badge:"",bg:"#ECF0F4",
+   svgW:90,svgH:90,svg:`<circle cx="45" cy="45" r="30" fill="rgba(120,175,215,.15)" stroke="#9A7B3E" stroke-width=".8"/><circle cx="45" cy="45" r="20" fill="rgba(120,175,215,.28)" stroke="#7A6030" stroke-width=".65"/><polygon points="45,28 58,42 45,52 32,42" fill="rgba(120,175,215,.85)" stroke="#9A7B3E" stroke-width=".8"/><polygon points="45,28 53,36 45,41 37,36" fill="rgba(255,255,255,.6)"/>`,
+   desc:"Brilliant-cut diamond stud earrings in 18K white gold. 0.30ct each. IGI certified. A timeless wardrobe essential.",specs:{Metal:"18K White Gold",Stone:"0.30ct each (0.60ct pair)",Cert:"IGI Certified",Clarity:"VS2",Colour:"G",Setting:"Martini"}},
+  {id:8,name:"The Auric Bangle Set",mat:"22K Gold · Plain",price:58900,mrp:0,cat:"bangles,gold",badge:"New Arrival",bg:"#F0EAD8",
+   svgW:120,svgH:100,svg:`<circle cx="60" cy="50" r="38" stroke="#9A7B3E" stroke-width="5" fill="none"/><circle cx="60" cy="50" r="30" stroke="#B8933A" stroke-width="3.5" fill="none" opacity=".6"/><circle cx="60" cy="50" r="22" stroke="#DFC28A" stroke-width="2.5" fill="none" opacity=".4"/>`,
+   desc:"A set of three interlocking 22K gold bangles in graduating widths. BIS hallmarked. Perfect for daily wear.",specs:{Metal:"22K Yellow Gold",Weight:"22g (set of 3)",Cert:"BIS Hallmarked",Size:"S / M / L available",Finish:"High Polish"}},
+];
+
+/* ═══════════════ STATE ═══════════════ */
+let cart=[], wishlist=[], curFilter='all', sortMode='featured', prMax=250000, filterCats=[], curPage='home';
+
+/* ═══════════════ ROUTER ═══════════════ */
+function nav(page, filter){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const el = document.getElementById('page-'+page);
+  if(!el){ showToast('Page coming soon'); return; }
+  el.classList.add('active');
+  curPage = page;
+  window.scrollTo(0,0);
+  // Update active nav link
+  document.querySelectorAll('.nl a').forEach(a=>a.classList.remove('act'));
+  const match = document.getElementById('nl-'+page);
+  if(match) match.classList.add('act');
+  // Nav scroll state reset
+  document.getElementById('mainNav').classList.add('top');
+  // Page-specific setup
+  if(page==='shop'){
+    if(filter){ setShopFilter(filter); } else { renderShopGrid(P); updateShopHeader('all'); }
+  }
+  if(page==='cart') renderCartPage();
+  if(page==='collections') document.getElementById('nl-collections').classList.add('act');
+  if(page==='gifting') document.getElementById('nl-gifting').classList.add('act');
+  if(page==='maison') document.getElementById('nl-maison').classList.add('act');
+  // Reobserve reveal elements on new page
+  setTimeout(()=>observeReveal(), 50);
+}
+
+/* ═══════════════ PRODUCT CARD HTML ═══════════════ */
+function prodCard(p, size='md'){
+  const inW = wishlist.includes(p.id);
+  const sc = size==='lg' ? 'shop-pg' : '';
+  return `<div class="pc" style="cursor:none">
+    <div class="pc-img" style="background:${p.bg}">
+      ${p.badge?`<div class="pc-badge">${p.badge}</div>`:''}
+      <div class="pc-w ${inW?'on':''}" onclick="toggleWish(event,${p.id})">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="${inW?'#9A7B3E':'none'}" stroke="#9A7B3E" stroke-width="1.3"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="pc-art" onclick="openProductPage(${p.id})">
+        <svg width="${p.svgW}" height="${p.svgH}" viewBox="0 0 ${p.svgW} ${p.svgH}" fill="none">${p.svg}</svg>
+      </div>
+      <button class="pc-add" onclick="addToCart(${p.id})">Add to Bag</button>
+    </div>
+    <div class="pc-inf" onclick="openProductPage(${p.id})" style="cursor:none">
+      <div class="pc-nm">${p.name}</div>
+      <div class="pc-mt">${p.mat}</div>
+      <div class="pc-pr">₹${p.price.toLocaleString('en-IN')} ${p.mrp?`<del>₹${p.mrp.toLocaleString('en-IN')}</del>`:''}</div>
+    </div>
+  </div>`;
+}
+
+/* ═══════════════ HOME PRODUCTS ═══════════════ */
+function renderHome(filter='all'){
+  const filtered = filter==='all' ? P : P.filter(p=>p.cat.split(',').some(c=>c.trim()===filter));
+  document.getElementById('hProdGrid').innerHTML = filtered.map(p=>prodCard(p)).join('');
+}
+function setPF(el,cat){
+  document.querySelectorAll('.pf').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  renderHome(cat);
+}
+
+/* ═══════════════ SHOP PAGE ═══════════════ */
+function setShopFilter(cat){
+  curFilter = cat;
+  clearFilters();
+  const cb = document.getElementById('f-'+cat);
+  if(cb){ cb.checked=true; }
+  applyFilters();
+  updateShopHeader(cat);
+}
+function updateShopHeader(cat){
+  const labels = {all:'All Jewellery',rings:'Rings',earrings:'Earrings',necklaces:'Necklaces & Pendants',bangles:'Bangles & Bracelets',diamond:'Diamond Collection',gold:'Gold Collection',gemstone:'Gemstone Collection',solitaire:'Solitaire Collection'};
+  document.getElementById('shopTitle').textContent = labels[cat]||'All Jewellery';
+  document.getElementById('shopEy').textContent = cat==='all'?'The Collection':'Shop · '+cat.charAt(0).toUpperCase()+cat.slice(1);
+  document.getElementById('shopDesc').textContent = cat==='all'?'Explore our complete collection of certified diamond jewellery, BIS hallmarked gold, gemstones and solitaires.':'Discover our curated '+labels[cat]+' — each piece handcrafted and certified.';
+}
+function applyFilters(){
+  let filtered = [...P];
+  const cats = ['rings','earrings','necklaces','bangles'].filter(c=>document.getElementById('f-'+c)?.checked);
+  const mats = ['diamond','gold','gemstone','solitaire'].filter(m=>document.getElementById('f-'+m)?.checked);
+  if(cats.length) filtered = filtered.filter(p=>cats.some(c=>p.cat.includes(c)));
+  if(mats.length) filtered = filtered.filter(p=>mats.some(m=>p.cat.includes(m)));
+  filtered = filtered.filter(p=>p.price<=prMax);
+  filtered = sortList(filtered);
+  renderShopGrid(filtered);
+}
+function sortList(arr){
+  if(sortMode==='price-asc') return arr.slice().sort((a,b)=>a.price-b.price);
+  if(sortMode==='price-desc') return arr.slice().sort((a,b)=>b.price-a.price);
+  if(sortMode==='newest') return arr.slice().sort((a,b)=>b.id-a.id);
+  return arr;
+}
+function sortProducts(v){ sortMode=v; applyFilters(); }
+function updatePrSlider(v){ prMax=parseInt(v); document.getElementById('prVal').textContent='₹'+parseInt(v).toLocaleString('en-IN')+(v>=250000?'+':''); applyFilters(); }
+function clearFilters(){ ['rings','earrings','necklaces','bangles','diamond','gold','gemstone','solitaire'].forEach(c=>{const el=document.getElementById('f-'+c);if(el)el.checked=false;}); prMax=250000; document.getElementById('prSlider').value=250000; document.getElementById('prVal').textContent='₹2,50,000+'; applyFilters(); }
+function renderShopGrid(items){
+  document.getElementById('shopGrid').innerHTML = items.map(p=>prodCard(p,'lg')).join('');
+  document.getElementById('sgCnt').textContent = items.length+' piece'+(items.length!==1?'s':'');
+}
+
+/* ═══════════════ PRODUCT DETAIL PAGE ═══════════════ */
+function openProductPage(id){
+  const p = P.find(x=>x.id===id);
+  const inW = wishlist.includes(id);
+  const saves = p.mrp ? Math.round((1-p.price/p.mrp)*100) : 0;
+  const specs = Object.entries(p.specs||{}).map(([k,v])=>`<div class="pd-spec-row"><span class="pd-sk">${k}</span><span class="pd-sv">${v}</span></div>`).join('');
+  const sizes = p.cat.includes('rings') ? ['5','7','9','11','13','15','17'] : p.cat.includes('bangles') ? ['S','M','L','XL'] : null;
+  const sizeHtml = sizes ? `<div class="pd-label">Select Size <a onclick="nav('size-guide')" style="color:var(--gold);font-family:var(--ff-u);font-size:7.5px;letter-spacing:2px;text-decoration:none;margin-left:8px">Size Guide ↗</a></div><div class="pd-opts">${sizes.map(s=>`<button class="pd-opt" onclick="selectOpt(this)">${s}</button>`).join('')}</div>` : '';
+  document.getElementById('pdWrap').innerHTML = `
+    <div class="pd-imgs">
+      <div class="pd-main-img" style="background:${p.bg}">
+        <svg width="${p.svgW*2.2}" height="${p.svgH*2.2}" viewBox="0 0 ${p.svgW} ${p.svgH}" fill="none">${p.svg}</svg>
+      </div>
+      <div class="pd-thumbs">
+        ${[1,2,3,4].map(i=>`<div class="pd-th ${i===1?'act':''}" onclick="selectThumb(this)"><svg width="${Math.min(p.svgW*.6,52)}" height="${Math.min(p.svgH*.6,64)}" viewBox="0 0 ${p.svgW} ${p.svgH}" fill="none" style="opacity:${i===1?1:0.5+(i*0.1)}">${p.svg}</svg></div>`).join('')}
+      </div>
+    </div>
+    <div class="pd-info">
+      <div class="pd-bread"><a onclick="nav('home')">Home</a><span>›</span><a onclick="nav('shop')">Shop</a><span>›</span><span style="color:var(--gold)">${p.name}</span></div>
+      <div class="pd-cat">${p.cat.split(',')[0].toUpperCase()}</div>
+      <div class="pd-name">${p.name}</div>
+      <div class="pd-mat">${p.mat}</div>
+      <div class="pd-pr">₹${p.price.toLocaleString('en-IN')}</div>
+      ${p.mrp?`<div class="pd-mrp">₹${p.mrp.toLocaleString('en-IN')}</div><div class="pd-save">Save ${saves}%</div>`:''}
+      <div class="pd-divider"></div>
+      ${sizeHtml}
+      <div class="pd-desc">${p.desc}</div>
+      <div class="pd-acts">
+        <a onclick="addToCart(${id})" class="btn btn-k"><span>Add to Bag</span></a>
+        <a onclick="toggleWish(event,${id})" class="btn btn-g"><span>${inW?'Remove from Wishlist':'Add to Wishlist'}</span></a>
+      </div>
+      <div class="pd-specs">${specs}</div>
+      <div style="margin-top:20px;display:flex;gap:28px">
+        <div style="font-family:var(--ff-u);font-size:7.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>BIS Certified</div>
+        <div style="font-family:var(--ff-u);font-size:7.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Free Delivery</div>
+        <div style="font-family:var(--ff-u);font-size:7.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>30-Day Returns</div>
+      </div>
+    </div>`;
+  nav('product');
+}
+function selectOpt(el){ document.querySelectorAll('.pd-opt').forEach(o=>o.classList.remove('sel')); el.classList.add('sel'); }
+function selectThumb(el){ document.querySelectorAll('.pd-th').forEach(t=>t.classList.remove('act')); el.classList.add('act'); }
+
+/* ═══════════════ CART ═══════════════ */
+function addToCart(id){
+  const p=P.find(x=>x.id===id), ex=cart.find(x=>x.id===id);
+  if(ex) ex.qty++; else cart.push({...p,qty:1});
+  updateBadges(); showToast(`${p.name} added to bag`);
+  renderCartDrawer();
+}
+function removeFromCart(id){ cart=cart.filter(x=>x.id!==id); updateBadges(); renderCartDrawer(); if(curPage==='cart') renderCartPage(); }
+function changeQty(id,d){ const it=cart.find(x=>x.id===id); if(it){it.qty+=d; if(it.qty<=0) removeFromCart(id); else{ renderCartDrawer(); if(curPage==='cart') renderCartPage(); } updateBadges(); } }
+function updateBadges(){
+  const t=cart.reduce((s,x)=>s+x.qty,0);
+  const b=document.getElementById('cc'); b.textContent=t; b.style.display=t>0?'flex':'none';
+}
+function cartItemHtml(item, compact=true){
+  const imgSz = compact ? Math.min(item.svgW*.7,48) : Math.min(item.svgW,72);
+  const imgH = compact ? Math.min(item.svgH*.7,60) : Math.min(item.svgH,90);
+  if(compact) return `<div class="dr-item">
+    <div class="dri-img"><svg width="${imgSz}" height="${imgH}" viewBox="0 0 ${item.svgW} ${item.svgH}" fill="none">${item.svg}</svg></div>
+    <div><div class="dri-nm">${item.name}</div><div class="dri-mt">${item.mat}</div><div class="dri-qty"><button onclick="changeQty(${item.id},-1)">−</button><span>${item.qty}</span><button onclick="changeQty(${item.id},1)">+</button></div></div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:7px"><div class="dri-pr">₹${(item.price*item.qty).toLocaleString('en-IN')}</div><button class="dri-rm" onclick="removeFromCart(${item.id})">✕</button></div>
+  </div>`;
+  return `<div class="ci">
+    <div class="ci-img2" style="background:${item.bg}"><svg width="${imgSz}" height="${imgH}" viewBox="0 0 ${item.svgW} ${item.svgH}" fill="none">${item.svg}</svg></div>
+    <div>
+      <div style="font-family:var(--ff-d);font-size:12px;letter-spacing:1.5px;color:var(--ink);margin-bottom:5px">${item.name}</div>
+      <div style="font-family:var(--ff-b);font-size:13px;font-style:italic;color:var(--il);margin-bottom:10px">${item.mat}</div>
+      <div class="ci-qty2"><button onclick="changeQty(${item.id},-1)">−</button><span>${item.qty}</span><button onclick="changeQty(${item.id},1)">+</button></div>
+      <button class="ci-rm2" onclick="removeFromCart(${item.id})">Remove</button>
+    </div>
+    <div style="font-family:var(--ff-d);font-size:14px;color:var(--gold)">₹${(item.price*item.qty).toLocaleString('en-IN')}</div>
+  </div>`;
+}
+function renderCartDrawer(){
+  const body=document.getElementById('cartDrBody'), foot=document.getElementById('cartDrFoot');
+  if(!cart.length){ body.innerHTML=`<div class="dr-empty"><p>Your bag is empty.</p><a onclick="closeCartDrawer();nav('shop')" class="btn btn-g"><span>Explore Jewellery</span></a></div>`; foot.style.display='none'; return; }
+  body.innerHTML=cart.map(i=>cartItemHtml(i,true)).join('');
+  foot.style.display='block';
+  document.getElementById('cartDrTotal').textContent='₹'+cart.reduce((s,x)=>s+(x.price*x.qty),0).toLocaleString('en-IN');
+}
+function renderCartPage(){
+  const wrap=document.getElementById('cartPageWrap');
+  if(!cart.length){ wrap.innerHTML=`<div class="cart-empty-pg"><p>Your bag is empty.</p><a onclick="nav('shop')" class="btn btn-g"><span>Explore Jewellery</span></a></div>`; return; }
+  const sub=cart.reduce((s,x)=>s+(x.price*x.qty),0);
+  const shipping=sub>50000?0:499;
+  const total=sub+shipping;
+  wrap.innerHTML=`<div class="cart-items-list">${cart.map(i=>cartItemHtml(i,false)).join('')}</div>
+  <div class="cart-summary">
+    <div class="cs-t">Order Summary</div>
+    <div class="cs-row"><span class="cs-lbl">Subtotal</span><span class="cs-val">₹${sub.toLocaleString('en-IN')}</span></div>
+    <div class="cs-row"><span class="cs-lbl">Shipping</span><span class="cs-val">${shipping===0?'Free':'₹'+shipping}</span></div>
+    <div class="cs-row"><span class="cs-lbl">Duties &amp; Taxes</span><span class="cs-val">Included</span></div>
+    ${sub<50000?`<div style="font-family:var(--ff-b);font-size:12px;font-style:italic;color:var(--gold);margin-bottom:6px">Add ₹${(50000-sub).toLocaleString('en-IN')} more for free shipping</div>`:'<div style="font-family:var(--ff-b);font-size:12px;font-style:italic;color:#5A8A4A;margin-bottom:6px">✓ You qualify for free shipping</div>'}
+    <div class="cs-total"><span class="cs-tl">Total</span><span class="cs-tv">₹${total.toLocaleString('en-IN')}</span></div>
+    <a onclick="showToast('Secure checkout — coming soon!')" class="btn btn-k" style="display:block;text-align:center;margin-bottom:10px"><span>Proceed to Checkout</span></a>
+    <a onclick="nav('shop')" class="btn btn-g" style="display:block;text-align:center"><span>Continue Shopping</span></a>
+    <div style="margin-top:16px;display:flex;gap:12px;justify-content:center">
+      <div style="font-family:var(--ff-u);font-size:7px;letter-spacing:2px;color:var(--if)">🔒 SECURE PAYMENT</div>
+      <div style="font-family:var(--ff-u);font-size:7px;letter-spacing:2px;color:var(--if)">✓ BIS CERTIFIED</div>
+      <div style="font-family:var(--ff-u);font-size:7px;letter-spacing:2px;color:var(--if)">↩ 30-DAY RETURNS</div>
+    </div>
+  </div>`;
+}
+function openCartDrawer(){ renderCartDrawer(); document.getElementById('cartOv').classList.add('open'); document.getElementById('cartDr').classList.add('open'); }
+function closeCartDrawer(){ document.getElementById('cartOv').classList.remove('open'); document.getElementById('cartDr').classList.remove('open'); }
+
+/* ═══════════════ WISHLIST ═══════════════ */
+function toggleWish(e,id){
+  e.stopPropagation();
+  const p=P.find(x=>x.id===id);
+  if(wishlist.includes(id)){ wishlist=wishlist.filter(x=>x!==id); showToast(`Removed from wishlist`); }
+  else{ wishlist.push(id); showToast(`${p.name} added to wishlist`); }
+  const b=document.getElementById('wc'); b.textContent=wishlist.length; b.style.display=wishlist.length>0?'flex':'none';
+  renderHome(document.querySelector('.pf.on')?.textContent.toLowerCase()||'all');
+  if(curPage==='shop') applyFilters();
+}
+function renderWishDrawer(){
+  const body=document.getElementById('wishDrBody');
+  if(!wishlist.length){ body.innerHTML=`<div class="dr-empty"><p>Your wishlist is empty.</p><a onclick="closeWishDrawer();nav('shop')" class="btn btn-g"><span>Explore Jewellery</span></a></div>`; return; }
+  body.innerHTML=P.filter(p=>wishlist.includes(p.id)).map(p=>`<div class="dr-item">
+    <div class="dri-img" style="background:${p.bg}"><svg width="48" height="60" viewBox="0 0 ${p.svgW} ${p.svgH}" fill="none">${p.svg}</svg></div>
+    <div><div class="dri-nm">${p.name}</div><div class="dri-mt">${p.mat}</div><div class="dri-pr" style="margin-top:8px">₹${p.price.toLocaleString('en-IN')}</div><button class="pc-add" style="position:static;transform:none;padding:8px 14px;font-size:7.5px;margin-top:8px;display:inline-block" onclick="addToCart(${p.id})">Add to Bag</button></div>
+    <button class="dri-rm" onclick="removeWish(${p.id})">✕</button>
+  </div>`).join('');
+}
+function removeWish(id){ wishlist=wishlist.filter(x=>x!==id); const b=document.getElementById('wc'); b.textContent=wishlist.length; b.style.display=wishlist.length>0?'flex':'none'; renderWishDrawer(); }
+function openWish(){ renderWishDrawer(); document.getElementById('wishOv').classList.add('open'); document.getElementById('wishDr').classList.add('open'); }
+function closeWishDrawer(){ document.getElementById('wishOv').classList.remove('open'); document.getElementById('wishDr').classList.remove('open'); }
+
+/* ═══════════════ SEARCH ═══════════════ */
+function openSearch(){ document.getElementById('srchOv').classList.add('open'); setTimeout(()=>document.getElementById('srchIn').focus(),280); }
+function closeSearch(){ document.getElementById('srchOv').classList.remove('open'); document.getElementById('srchIn').value=''; document.getElementById('srchRes').innerHTML=''; }
+function doSearch(q){
+  const res=document.getElementById('srchRes');
+  if(!q.trim()){ res.innerHTML=''; return; }
+  const m=P.filter(p=>p.name.toLowerCase().includes(q.toLowerCase())||p.mat.toLowerCase().includes(q.toLowerCase())||p.cat.toLowerCase().includes(q.toLowerCase()));
+  if(!m.length){ res.innerHTML='<div style="padding:12px 14px;font-family:var(--ff-b);font-size:13.5px;font-style:italic;color:var(--if)">No results found</div>'; return; }
+  res.innerHTML=m.map(p=>`<div class="srch-ri" onclick="closeSearch();openProductPage(${p.id})">${p.name}<span>₹${p.price.toLocaleString('en-IN')}</span></div>`).join('');
+}
+
+/* ═══════════════ MODAL (quick view) ═══════════════ */
+function openModal(id){
+  const p=P.find(x=>x.id===id);
+  document.getElementById('mImg').innerHTML=`<div style="width:100%;min-height:360px;background:${p.bg};display:flex;align-items:center;justify-content:center;padding:24px"><svg width="${p.svgW*1.7}" height="${p.svgH*1.7}" viewBox="0 0 ${p.svgW} ${p.svgH}" fill="none">${p.svg}</svg></div>`;
+  const inW=wishlist.includes(id);
+  document.getElementById('mInfo').innerHTML=`
+    <div style="padding:4px 0 16px"><div style="font-family:var(--ff-u);font-size:7.5px;letter-spacing:3px;color:var(--gold);margin-bottom:9px">${p.cat.split(',')[0].toUpperCase()}</div>
+    <div style="font-family:var(--ff-d);font-size:20px;color:var(--ink);letter-spacing:1.5px;margin-bottom:7px">${p.name}</div>
+    <div style="font-family:var(--ff-b);font-size:14px;font-style:italic;color:var(--il);margin-bottom:16px">${p.mat}</div>
+    <div style="font-family:var(--ff-d);font-size:21px;color:var(--gold);margin-bottom:${p.mrp?'4':'18'}px">₹${p.price.toLocaleString('en-IN')}</div>
+    ${p.mrp?`<div style="font-family:var(--ff-u);font-size:10px;color:var(--if);text-decoration:line-through;margin-bottom:18px">₹${p.mrp.toLocaleString('en-IN')}</div>`:''}
+    <div style="font-family:var(--ff-b);font-size:14px;font-style:italic;color:var(--im);line-height:1.85;padding:16px 0;border-top:1px solid var(--bs);border-bottom:1px solid var(--bs);margin-bottom:18px">${p.desc}</div>
+    <div class="modal-acts">
+      <a onclick="addToCart(${id});closeModal()" class="btn btn-k"><span>Add to Bag</span></a>
+      <a onclick="closeModal();openProductPage(${id})" class="btn btn-g"><span>View Full Details</span></a>
+      <a onclick="toggleWish(event,${id})" class="btn" style="border:1px solid var(--bs);color:var(--il);text-align:center" onclick="toggleWish(event,${id})"><span>${inW?'♥ In Wishlist':'♡ Add to Wishlist'}</span></a>
+    </div></div>`;
+  document.getElementById('modalOv').classList.add('open');
+}
+function closeModal(){ document.getElementById('modalOv').classList.remove('open'); }
+document.getElementById('modalOv').addEventListener('click',e=>{ if(e.target===e.currentTarget) closeModal(); });
+
+/* ═══════════════ FORMS ═══════════════ */
+function subscribeNL(){ const em=document.getElementById('nlEmail').value.trim(); if(!em||!em.includes('@')){ showToast('Please enter a valid email'); return; } document.getElementById('nlEmail').value=''; showToast('Welcome to the Inner Circle ✦'); }
+function submitContact(){ const n=document.getElementById('cName').value.trim(); if(!n){ showToast('Please enter your name'); return; } ['cName','cEmail','cPhone','cMsg'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; }); document.getElementById('cInterest').selectedIndex=0; showToast('Enquiry received — we\'ll be in touch within 24 hours'); }
+function trackOrder(){ const ord=document.getElementById('trackOrd').value.trim(); const em=document.getElementById('trackEmail').value.trim(); if(!ord||!em){ showToast('Please enter your order number and email'); return; } document.getElementById('trackResult').style.display='block'; showToast('Order found — see status below'); }
+
+/* ═══════════════ TOAST ═══════════════ */
+let toastT;
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2800); }
+
+/* ═══════════════ CURSOR ═══════════════ */
+const cur=document.getElementById('cur'),curt=document.getElementById('curt');
+document.addEventListener('mousemove',e=>{ cur.style.left=e.clientX+'px'; cur.style.top=e.clientY+'px'; setTimeout(()=>{curt.style.left=e.clientX+'px';curt.style.top=e.clientY+'px'},80); });
+function addCursorListeners(){ document.querySelectorAll('a,button,.cat-t,.pc,.ed,.usp,.gift-card,.occ,.val-c').forEach(el=>{ el.addEventListener('mouseenter',()=>cur.classList.add('x')); el.addEventListener('mouseleave',()=>cur.classList.remove('x')); }); }
+
+/* ═══════════════ NAV SCROLL ═══════════════ */
+window.addEventListener('scroll',()=>{ document.getElementById('mainNav').classList.toggle('top',window.scrollY<10); });
+
+/* ═══════════════ SCROLL REVEAL ═══════════════ */
+function observeReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);} });
+  },{threshold:.08});
+  document.querySelectorAll('.rv:not(.in)').forEach(el=>obs.observe(el));
+}
+
+/* ═══════════════ KEY SHORTCUTS ═══════════════ */
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeSearch(); closeCartDrawer(); closeWishDrawer(); closeModal(); } });
+
+/* ═══════════════ INIT ═══════════════ */
+renderHome('all');
+renderShopGrid(P);
+document.getElementById('mainNav').classList.add('top');
+observeReveal();
+addCursorListeners();
+// Re-add cursor listeners when DOM changes
+const mutObs=new MutationObserver(()=>addCursorListeners());
+mutObs.observe(document.body,{childList:true,subtree:true});
+</script>
+</body>
+</html>
