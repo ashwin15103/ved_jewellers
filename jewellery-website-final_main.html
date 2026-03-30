@@ -1,0 +1,2291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auréa Jewels — Fine Jewellery</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --gold-dark: #9B7A42;
+    --ivory: #FAF7F2;
+    --charcoal: #1C1C1E;
+    --warm-gray: #6B6560;
+    --cream: #F5F0E8;
+    --border: rgba(201,169,110,0.25);
+    --ff-serif: 'Cormorant Garamond', Georgia, serif;
+    --ff-sans: 'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--ff-sans);
+    background: var(--ivory);
+    color: var(--charcoal);
+    overflow-x: hidden;
+    font-weight: 300;
+  }
+
+  /* PAGE SYSTEM */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* MARQUEE */
+  .marquee-bar {
+    background: var(--charcoal);
+    color: var(--gold-light);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 9px 0;
+    overflow: hidden;
+  }
+  .marquee-inner {
+    display: flex;
+    animation: marquee 28s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  .marquee-inner span { padding: 0 40px; }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,247,242,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .nav-logo {
+    font-family: var(--ff-serif);
+    font-size: 26px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    color: var(--charcoal);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .nav-logo em { color: var(--gold); font-style: italic; }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 36px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+    cursor: pointer;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold-dark); }
+
+  .nav-icons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  .nav-icons button, .nav-icons a {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--charcoal);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+  }
+  .nav-icons button:hover, .nav-icons a:hover { color: var(--gold); }
+
+  /* CART BADGE */
+  .cart-badge {
+    position: absolute;
+    top: -8px; right: -8px;
+    width: 16px; height: 16px;
+    background: var(--gold);
+    color: var(--charcoal);
+    font-size: 9px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+  }
+  .cart-badge.visible { display: flex; }
+
+  /* BUTTONS */
+  .btn-primary {
+    background: var(--charcoal);
+    color: var(--gold-light);
+    font-family: var(--ff-sans);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    padding: 16px 36px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-dark); color: var(--ivory); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--charcoal);
+    font-family: var(--ff-sans);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    padding: 15px 36px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold-dark); }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--charcoal);
+    font-family: var(--ff-sans);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    padding: 14px 32px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .btn-gold:hover { background: var(--gold-dark); color: var(--ivory); }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-family: var(--ff-serif);
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--charcoal);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .section-sub {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  /* PAGE HERO BANNER */
+  .page-hero {
+    background: var(--charcoal);
+    padding: 80px 60px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(201,169,110,0.08) 0%, transparent 70%);
+  }
+  .page-hero h1 {
+    font-family: var(--ff-serif);
+    font-size: clamp(36px,5vw,64px);
+    font-weight: 300;
+    color: var(--gold-light);
+    position: relative;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+  .page-hero p {
+    font-size: 14px;
+    color: rgba(232,213,176,0.6);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.8;
+    position: relative;
+  }
+  .page-hero .breadcrumb {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(201,169,110,0.5);
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .page-hero .breadcrumb span { color: var(--gold); }
+
+  /* PRODUCT GRID (shared) */
+  .product-section {
+    padding: 72px 60px;
+    background: var(--ivory);
+  }
+  .prod-grid-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .prod-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .prod-card {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .prod-card:hover { transform: translateY(-6px); }
+  .prod-img {
+    aspect-ratio: 3/4;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .prod-wishlist {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 32px; height: 32px;
+    background: rgba(250,247,242,0.85);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .prod-card:hover .prod-wishlist { opacity: 1; }
+  .prod-wishlist.wishlisted { opacity: 1; }
+  .prod-wishlist.wishlisted svg { fill: var(--gold); stroke: var(--gold); }
+  .prod-badge {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: var(--charcoal);
+    color: var(--gold-light);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    z-index: 2;
+  }
+  .prod-add-btn {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--charcoal);
+    color: var(--gold-light);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+  }
+  .prod-card:hover .prod-add-btn { opacity: 1; transform: translateY(0); }
+  .prod-name {
+    font-family: var(--ff-serif);
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+  .prod-material {
+    font-size: 11px;
+    color: var(--warm-gray);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .prod-price {
+    font-size: 15px;
+    color: var(--gold-dark);
+    font-weight: 400;
+  }
+  .prod-price del {
+    color: var(--warm-gray);
+    font-size: 12px;
+    font-weight: 300;
+    margin-left: 8px;
+  }
+
+  /* FILTERS — home page tab strip (kept only for home bestsellers) */
+  .filters-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 12px 22px;
+    font-family: var(--ff-sans);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    cursor: pointer;
+    margin-bottom: -1px;
+    transition: all 0.3s ease;
+  }
+  .filter-btn.active { color: var(--gold-dark); border-bottom-color: var(--gold); }
+  .filter-btn:hover { color: var(--gold-dark); }
+
+  /* SHOP SIDEBAR LAYOUT */
+  .shop-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 0;
+    align-items: start;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+  }
+  .shop-sidebar {
+    position: sticky;
+    top: 72px;
+    background: var(--ivory);
+    border-right: 1px solid var(--border);
+    padding: 36px 28px 60px;
+    min-height: calc(100vh - 72px);
+  }
+  .sb-header {
+    font-size: 9px;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sb-clear {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    font-family: var(--ff-sans);
+  }
+  .sb-clear:hover { color: var(--gold-dark); }
+  .sb-group { margin-bottom: 32px; }
+  .sb-group-title {
+    font-family: var(--ff-serif);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .sb-group-title .arrow {
+    font-size: 10px;
+    color: var(--warm-gray);
+    transition: transform 0.25s;
+  }
+  .sb-group-title.collapsed .arrow { transform: rotate(-90deg); }
+  .sb-group-body { display: flex; flex-direction: column; gap: 0; }
+  .sb-group-body.hidden { display: none; }
+  .sb-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .sb-checkbox-row:hover .sb-label { color: var(--gold-dark); }
+  .sb-checkbox-row input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    accent-color: var(--gold-dark);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .sb-label {
+    font-size: 13px;
+    color: var(--charcoal);
+    transition: color 0.2s;
+    flex: 1;
+    font-family: var(--ff-sans);
+    font-weight: 300;
+  }
+  .sb-count {
+    font-size: 11px;
+    color: var(--warm-gray);
+    font-family: var(--ff-sans);
+  }
+  /* Price range slider */
+  .sb-price-range { padding: 4px 0 8px; }
+  .sb-price-slider {
+    width: 100%;
+    accent-color: var(--gold-dark);
+    cursor: pointer;
+    margin: 10px 0 6px;
+    height: 2px;
+  }
+  .sb-price-vals {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--warm-gray);
+    font-family: var(--ff-sans);
+    letter-spacing: 0.5px;
+  }
+  /* Sort bar above grid */
+  .shop-grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 40px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sg-count {
+    font-size: 12px;
+    color: var(--warm-gray);
+    letter-spacing: 1px;
+    font-family: var(--ff-sans);
+  }
+  .sg-sort {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--charcoal);
+    font-family: var(--ff-sans);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    padding: 8px 14px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .sg-sort:focus { border-color: var(--gold); }
+  /* Active filter chips */
+  .active-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 40px;
+    border-bottom: 1px solid var(--border);
+    min-height: 0;
+  }
+  .active-chips:empty { display: none; }
+  .chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(201,169,110,0.1);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-family: var(--ff-sans);
+  }
+  .chip-remove {
+    background: none;
+    border: none;
+    color: var(--warm-gray);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  .chip-remove:hover { color: var(--gold-dark); }
+  /* Grid inside sidebar layout */
+  .shop-grid-area { padding: 0 40px; }
+  .shop-grid-area .prod-grid { margin-top: 32px; grid-template-columns: repeat(3, 1fr); }
+
+  @media (max-width: 900px) {
+    .shop-layout { grid-template-columns: 1fr; }
+    .shop-sidebar { display: none; }
+    .shop-grid-area .prod-grid { grid-template-columns: 1fr 1fr; }
+    .shop-grid-header, .active-chips, .shop-grid-area { padding-left: 20px; padding-right: 20px; }
+  }
+
+  /* PRODUCT DETAIL */
+  .pd-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 60px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .pd-img-main {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 100px;
+  }
+  .pd-thumbs {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .pd-thumb {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.3s;
+    padding: 8px;
+  }
+  .pd-thumb.active { border-color: var(--gold); }
+  .pd-thumb:hover { border-color: var(--gold); }
+  .pd-info { padding-top: 8px; }
+  .pd-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .pd-name { font-family: var(--ff-serif); font-size: 36px; font-weight: 300; color: var(--charcoal); margin-bottom: 8px; line-height: 1.2; }
+  .pd-material { font-size: 13px; color: var(--warm-gray); letter-spacing: 1px; margin-bottom: 20px; }
+  .pd-price { font-size: 28px; color: var(--gold-dark); margin-bottom: 4px; }
+  .pd-mrp { font-size: 14px; color: var(--warm-gray); text-decoration: line-through; margin-bottom: 6px; }
+  .pd-save { font-size: 12px; color: #5a8a4a; letter-spacing: 1px; margin-bottom: 24px; }
+  .pd-divider { height: 1px; background: var(--border); margin: 24px 0; }
+  .pd-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--warm-gray); margin-bottom: 10px; }
+  .pd-sizes { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .pd-size {
+    padding: 9px 18px;
+    border: 1px solid var(--border);
+    font-size: 12px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: transparent;
+    font-family: var(--ff-sans);
+  }
+  .pd-size:hover, .pd-size.sel { border-color: var(--gold); color: var(--gold-dark); }
+  .pd-desc { font-size: 14px; line-height: 1.9; color: var(--warm-gray); margin-bottom: 24px; font-style: italic; font-family: var(--ff-serif); font-size: 16px; }
+  .pd-actions { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .pd-specs { border-top: 1px solid var(--border); padding-top: 20px; }
+  .pd-spec-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .pd-spec-row:last-child { border-bottom: none; }
+  .pd-sk { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--warm-gray); }
+  .pd-sv { font-size: 13px; color: var(--charcoal); }
+
+  /* CART PAGE */
+  .cart-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 60px 80px;
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 48px;
+    align-items: start;
+  }
+  .cart-item {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .cart-item-img {
+    background: var(--cream);
+    width: 100px; height: 120px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border);
+  }
+  .cart-item-name { font-family: var(--ff-serif); font-size: 17px; margin-bottom: 4px; }
+  .cart-item-mat { font-size: 12px; color: var(--warm-gray); letter-spacing: 1px; margin-bottom: 14px; }
+  .qty-control { display: flex; align-items: center; gap: 12px; }
+  .qty-btn {
+    width: 28px; height: 28px;
+    border: 1px solid var(--border);
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+  }
+  .qty-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .qty-num { font-size: 14px; min-width: 20px; text-align: center; }
+  .cart-item-remove { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--warm-gray); background: none; border: none; cursor: pointer; margin-top: 10px; display: block; }
+  .cart-item-remove:hover { color: var(--gold-dark); }
+  .cart-item-price { font-size: 16px; color: var(--gold-dark); white-space: nowrap; }
+  .cart-summary-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 28px;
+    position: sticky;
+    top: 100px;
+  }
+  .cs-title { font-family: var(--ff-serif); font-size: 20px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .cs-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 13px; }
+  .cs-row .label { color: var(--warm-gray); letter-spacing: 1px; text-transform: uppercase; font-size: 11px; }
+  .cs-total { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--border); margin: 16px 0 24px; }
+  .cs-total-label { font-family: var(--ff-serif); font-size: 17px; }
+  .cs-total-val { font-family: var(--ff-serif); font-size: 26px; color: var(--gold-dark); }
+  .cart-empty { text-align: center; padding: 80px 0; }
+  .cart-empty p { font-family: var(--ff-serif); font-size: 22px; color: var(--warm-gray); margin-bottom: 24px; }
+
+  /* WISHLIST */
+  .wishlist-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+
+  /* SEARCH OVERLAY */
+  .search-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(250,247,242,0.97);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(12px);
+  }
+  .search-overlay.open { opacity: 1; pointer-events: all; }
+  .search-inner { width: 100%; max-width: 580px; padding: 0 24px; text-align: center; }
+  .search-title { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--warm-gray); margin-bottom: 24px; }
+  .search-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--ff-serif);
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--charcoal);
+    padding: 12px 0;
+    outline: none;
+    text-align: center;
+  }
+  .search-input::placeholder { color: rgba(107,101,96,0.4); }
+  .search-close {
+    position: absolute;
+    top: 28px; right: 36px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--warm-gray);
+  }
+  .search-close:hover { color: var(--gold); }
+  .search-results { margin-top: 24px; text-align: left; }
+  .search-result-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .search-result-item:hover { background: var(--cream); }
+  .search-result-name { font-family: var(--ff-serif); font-size: 16px; }
+  .search-result-price { font-size: 13px; color: var(--gold-dark); }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(16px);
+    background: var(--charcoal);
+    color: var(--gold-light);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    opacity: 0;
+    transition: all 0.35s;
+    z-index: 9999;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ─── HOME PAGE ─── */
+  .hero {
+    height: calc(100vh - 100px);
+    min-height: 560px;
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .hero-left {
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 80px;
+    position: relative;
+  }
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--gold);
+  }
+  .hero-title {
+    font-family: var(--ff-serif);
+    font-size: clamp(52px, 6vw, 82px);
+    font-weight: 300;
+    line-height: 1.08;
+    color: var(--charcoal);
+    margin-bottom: 28px;
+  }
+  .hero-title em { color: var(--gold); }
+  .hero-desc {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--warm-gray);
+    max-width: 380px;
+    margin-bottom: 44px;
+  }
+  .hero-ctas { display: flex; gap: 16px; align-items: center; }
+  .hero-right {
+    background: var(--charcoal);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-ring-anim { animation: floatRing 6s ease-in-out infinite; }
+  @keyframes floatRing { 0%,100%{transform:translateY(0px)} 50%{transform:translateY(-16px)} }
+  .hero-badge {
+    position: absolute;
+    bottom: 40px; right: 40px;
+    background: rgba(201,169,110,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    text-align: center;
+  }
+
+  /* CATEGORIES */
+  .categories { background: var(--ivory); padding: 72px 60px; }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .cat-item { text-align: center; cursor: pointer; transition: transform 0.3s ease; }
+  .cat-item:hover { transform: translateY(-4px); }
+  .cat-icon {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    margin: 0 auto 12px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s ease;
+  }
+  .cat-item:hover .cat-icon { background: var(--gold-light); border-color: var(--gold); }
+  .cat-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--warm-gray); }
+
+  /* COLLECTIONS */
+  .collections { background: var(--charcoal); padding: 80px 60px; }
+  .collections .section-title { color: var(--gold-light); }
+  .collections .section-sub { color: var(--gold); }
+  .coll-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 3px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .coll-card { position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 1; }
+  .coll-card:first-child { grid-row: 1 / 3; aspect-ratio: auto; }
+  .coll-card-bg {
+    width: 100%; height: 100%;
+    transition: transform 0.6s ease;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 220px;
+  }
+  .coll-card:hover .coll-card-bg { transform: scale(1.05); }
+  .coll-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(28,28,30,0.75) 0%, transparent 60%);
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px;
+    transition: background 0.3s;
+  }
+  .coll-card:hover .coll-card-overlay { background: linear-gradient(to top, rgba(28,28,30,0.88) 0%, transparent 60%); }
+  .coll-card-tag { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .coll-card-name { font-family: var(--ff-serif); font-size: 24px; font-weight: 300; color: var(--ivory); margin-bottom: 4px; }
+  .coll-card:first-child .coll-card-name { font-size: 38px; }
+  .coll-card-link { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-light); opacity: 0; transition: opacity 0.3s ease; }
+  .coll-card:hover .coll-card-link { opacity: 1; }
+
+  /* USP */
+  .usp-strip { background: var(--cream); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 40px 60px; }
+  .usp-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; max-width: 1000px; margin: 0 auto; text-align: center; }
+  .usp-item { padding: 0 30px; border-right: 1px solid var(--border); cursor: pointer; }
+  .usp-item:last-child { border-right: none; }
+  .usp-icon { margin: 0 auto 12px; width: 40px; height: 40px; }
+  .usp-title { font-family: var(--ff-serif); font-size: 16px; font-weight: 400; color: var(--charcoal); margin-bottom: 4px; }
+  .usp-desc { font-size: 12px; color: var(--warm-gray); line-height: 1.6; }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--ivory); padding: 80px 60px; text-align: center; }
+  .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; max-width: 1100px; margin: 0 auto; }
+  .testi-card { background: var(--cream); border: 1px solid var(--border); padding: 36px 32px; text-align: left; position: relative; }
+  .testi-quote { font-family: var(--ff-serif); font-size: 48px; color: var(--gold-light); line-height: 1; margin-bottom: 12px; }
+  .testi-text { font-family: var(--ff-serif); font-size: 15px; font-weight: 300; font-style: italic; line-height: 1.7; color: var(--charcoal); margin-bottom: 20px; }
+  .testi-stars { color: var(--gold); font-size: 13px; letter-spacing: 3px; margin-bottom: 10px; }
+  .testi-name { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--warm-gray); }
+
+  /* NEWSLETTER */
+  .newsletter { background: var(--charcoal); padding: 80px 60px; text-align: center; }
+  .newsletter .section-title { color: var(--gold-light); margin-bottom: 12px; }
+  .newsletter-desc { font-size: 14px; color: rgba(232,213,176,0.6); margin-bottom: 36px; }
+  .newsletter-form { display: flex; gap: 0; max-width: 480px; margin: 0 auto; }
+  .newsletter-input {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-right: none;
+    color: var(--gold-light);
+    font-family: var(--ff-sans);
+    font-size: 13px;
+    padding: 0 20px;
+    outline: none;
+    height: 52px;
+  }
+  .newsletter-input::placeholder { color: rgba(201,169,110,0.4); }
+  .newsletter-btn {
+    background: var(--gold);
+    color: var(--charcoal);
+    border: none;
+    font-family: var(--ff-sans);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0 28px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    height: 52px;
+  }
+  .newsletter-btn:hover { background: var(--gold-dark); color: var(--ivory); }
+
+  /* FOOTER */
+  footer { background: #111111; padding: 60px 60px 32px; color: rgba(232,213,176,0.5); }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; max-width: 1200px; margin: 0 auto 48px; }
+  .footer-brand { font-family: var(--ff-serif); font-size: 28px; color: var(--gold-light); margin-bottom: 16px; }
+  .footer-brand em { color: var(--gold); font-style: italic; }
+  .footer-tagline { font-size: 12px; line-height: 1.8; max-width: 260px; color: rgba(232,213,176,0.4); }
+  .footer-col-title { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 13px; color: rgba(232,213,176,0.45); text-decoration: none; transition: color 0.3s ease; cursor: pointer; }
+  .footer-links a:hover { color: var(--gold-light); }
+  .footer-bottom { border-top: 1px solid rgba(201,169,110,0.1); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; font-size: 11px; color: rgba(232,213,176,0.25); }
+
+  /* ABOUT / CONTACT / MISC PAGES */
+  .info-section { padding: 72px 60px; max-width: 900px; margin: 0 auto; }
+  .info-section h2 { font-family: var(--ff-serif); font-size: 28px; font-weight: 300; color: var(--charcoal); margin-bottom: 16px; }
+  .info-section p { font-size: 14px; line-height: 1.9; color: var(--warm-gray); margin-bottom: 18px; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1000px; margin: 0 auto; padding: 72px 60px; }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--ff-sans);
+    font-size: 13px;
+    color: var(--charcoal);
+    padding: 12px 0;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .form-input:focus { border-bottom-color: var(--gold); }
+  .form-input::placeholder { color: var(--warm-gray); }
+  textarea.form-input { resize: vertical; min-height: 100px; }
+  .store-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1100px; margin: 0 auto; padding: 0 60px 72px; }
+  .store-card { border: 1px solid var(--border); padding: 28px; }
+  .store-city { font-family: var(--ff-serif); font-size: 20px; margin-bottom: 10px; color: var(--charcoal); }
+  .store-addr { font-size: 13px; line-height: 1.8; color: var(--warm-gray); margin-bottom: 10px; }
+  .store-hrs { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
+
+  /* SIZE GUIDE TABLE */
+  .size-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+  .size-table th { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); background: var(--cream); }
+  .size-table td { font-size: 13px; padding: 10px 16px; border-bottom: 1px solid var(--border); color: var(--charcoal); }
+  .size-table tr:hover td { background: var(--cream); }
+
+  /* TRACK ORDER */
+  .track-steps { max-width: 560px; margin: 36px auto 0; }
+  .track-step { display: flex; gap: 20px; padding-bottom: 28px; align-items: flex-start; }
+  .track-step-dot-col { display: flex; flex-direction: column; align-items: center; }
+  .step-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--border); background: var(--ivory); flex-shrink: 0; }
+  .step-dot.done { background: var(--gold); border-color: var(--gold); }
+  .step-dot.active { background: var(--ivory); border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,169,110,0.2); }
+  .step-line { flex: 1; width: 1px; background: var(--border); margin: 4px auto 0; min-height: 30px; }
+  .step-title { font-family: var(--ff-serif); font-size: 15px; color: var(--charcoal); margin-bottom: 3px; }
+  .step-desc { font-size: 12px; color: var(--warm-gray); }
+
+  /* ANIMATIONS */
+  .fade-in { opacity: 0; transform: translateY(24px); animation: fadeIn 0.8s ease forwards; }
+  @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+  .delay-4 { animation-delay: 0.55s; }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 60px 32px; }
+    .cat-grid { grid-template-columns: repeat(4,1fr); }
+    .coll-grid { grid-template-columns: 1fr 1fr; }
+    .coll-card:first-child { grid-row: auto; }
+    .prod-grid { grid-template-columns: 1fr 1fr; }
+    .usp-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .usp-item { border-right: none; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .categories, .collections, .products, .testimonials, .newsletter, footer, .usp-strip { padding-left: 20px; padding-right: 20px; }
+    .pd-wrap { grid-template-columns: 1fr; }
+    .cart-wrap { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr; }
+    .store-cards { grid-template-columns: 1fr; padding: 0 20px 60px; }
+    .wishlist-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <button class="search-close" onclick="closeSearch()">✕</button>
+  <div class="search-inner">
+    <div class="search-title">Search the Collection</div>
+    <input class="search-input" type="text" placeholder="Rings, earrings, gold…" id="searchInput" oninput="doSearch(this.value)"/>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-inner">
+    <span>Free shipping on orders above ₹5,000</span><span>✦</span>
+    <span>BIS Hallmarked 18K &amp; 22K Gold</span><span>✦</span>
+    <span>Certified Diamonds — IGI &amp; GIA</span><span>✦</span>
+    <span>Easy 30-day returns</span><span>✦</span>
+    <span>Free shipping on orders above ₹5,000</span><span>✦</span>
+    <span>BIS Hallmarked 18K &amp; 22K Gold</span><span>✦</span>
+    <span>Certified Diamonds — IGI &amp; GIA</span><span>✦</span>
+    <span>Easy 30-day returns</span><span>✦</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a onclick="goTo('home')" class="nav-logo">Aur<em>é</em>a</a>
+  <ul class="nav-links">
+    <li><a onclick="goTo('rings')" id="nl-rings">Rings</a></li>
+    <li><a onclick="goTo('earrings')" id="nl-earrings">Earrings</a></li>
+    <li><a onclick="goTo('necklaces')" id="nl-necklaces">Necklaces</a></li>
+    <li><a onclick="goTo('bangles')" id="nl-bangles">Bangles</a></li>
+    <li><a onclick="goTo('diamond')" id="nl-diamond">Diamond</a></li>
+    <li><a onclick="goTo('gold')" id="nl-gold">Gold</a></li>
+    <li><a onclick="goTo('gifting')" id="nl-gifting">Gifting</a></li>
+  </ul>
+  <div class="nav-icons">
+    <button onclick="openSearch()" title="Search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </button>
+    <button onclick="goTo('wishlist')" title="Wishlist">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+    <button onclick="goTo('cart')" title="Cart" style="position:relative">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <a onclick="goTo('login')" style="font-size:11px;letter-spacing:1.5px;cursor:pointer">Login</a>
+  </div>
+</nav>
+
+<!-- ══════════════════ HOME PAGE ══════════════════ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow fade-in">New Collection 2025</div>
+      <h1 class="hero-title fade-in delay-1">Crafted<br>for<br><em>Eternity</em></h1>
+      <p class="hero-desc fade-in delay-2">Fine jewellery that tells your story. Each piece handcrafted with certified diamonds, BIS hallmarked gold, and gemstones sourced responsibly from around the world.</p>
+      <div class="hero-ctas fade-in delay-3">
+        <a onclick="goTo('shop')" class="btn-primary">Shop Collection</a>
+        <a onclick="goTo('collections')" class="btn-ghost">View Lookbook</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+        <div class="hero-ring-anim">
+          <svg width="380" height="380" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="190" cy="190" r="140" fill="rgba(201,169,110,0.04)" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+            <circle cx="190" cy="190" r="110" fill="rgba(201,169,110,0.03)" stroke="rgba(201,169,110,0.08)" stroke-width="0.5"/>
+            <ellipse cx="190" cy="230" rx="80" ry="22" fill="none" stroke="#9B7A42" stroke-width="1.5" opacity="0.6"/>
+            <path d="M110 230 Q100 190 130 165" fill="none" stroke="#C9A96E" stroke-width="14" stroke-linecap="round" opacity="0.9"/>
+            <path d="M270 230 Q280 190 250 165" fill="none" stroke="#C9A96E" stroke-width="14" stroke-linecap="round" opacity="0.9"/>
+            <path d="M112 230 Q102 192 132 167" fill="none" stroke="#E8D5B0" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+            <path d="M268 230 Q278 192 248 167" fill="none" stroke="#E8D5B0" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+            <ellipse cx="190" cy="165" rx="52" ry="16" fill="#C9A96E" opacity="0.95"/>
+            <ellipse cx="190" cy="162" rx="52" ry="16" fill="#B89055" opacity="0.8"/>
+            <line x1="165" y1="162" x2="158" y2="132" stroke="#C9A96E" stroke-width="5" stroke-linecap="round"/>
+            <line x1="215" y1="162" x2="222" y2="132" stroke="#C9A96E" stroke-width="5" stroke-linecap="round"/>
+            <line x1="178" y1="155" x2="174" y2="122" stroke="#C9A96E" stroke-width="5" stroke-linecap="round"/>
+            <line x1="202" y1="155" x2="206" y2="122" stroke="#C9A96E" stroke-width="5" stroke-linecap="round"/>
+            <polygon points="190,105 225,138 190,158 155,138" fill="rgba(220,240,255,0.92)" stroke="#C9A96E" stroke-width="1"/>
+            <line x1="190" y1="105" x2="190" y2="158" stroke="rgba(150,200,255,0.4)" stroke-width="0.5"/>
+            <line x1="155" y1="138" x2="225" y2="138" stroke="rgba(150,200,255,0.4)" stroke-width="0.5"/>
+            <polygon points="190,115 195,130 190,125 185,130" fill="rgba(255,255,255,0.6)"/>
+            <polygon points="155,138 142,148 155,155 168,148" fill="rgba(200,230,255,0.7)" stroke="#C9A96E" stroke-width="0.5"/>
+            <polygon points="225,138 238,148 225,155 212,148" fill="rgba(200,230,255,0.7)" stroke="#C9A96E" stroke-width="0.5"/>
+            <circle cx="155" cy="100" r="2" fill="#C9A96E" opacity="0.8"/>
+            <circle cx="230" cy="90" r="1.5" fill="#E8D5B0" opacity="0.6"/>
+            <line x1="148" y1="96" x2="162" y2="104" stroke="#C9A96E" stroke-width="0.8" opacity="0.7"/>
+            <line x1="155" y1="90" x2="155" y2="108" stroke="#C9A96E" stroke-width="0.8" opacity="0.7"/>
+          </svg>
+        </div>
+      </div>
+      <div class="hero-badge">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:#C9A96E;margin-bottom:4px;">10,000+</div>
+        <div>Designs</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="categories">
+    <p class="section-sub">Shop By Category</p>
+    <h2 class="section-title">Find Your Perfect Piece</h2>
+    <div class="cat-grid">
+      <div class="cat-item" onclick="goTo('rings')">
+        <div class="cat-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="18" r="8" stroke="#C9A96E" stroke-width="1.2" fill="none"/><path d="M10 18 Q14 10 18 18" stroke="#C9A96E" stroke-width="1.2" fill="none"/><circle cx="14" cy="10" r="3" stroke="#9B7A42" stroke-width="1.2" fill="rgba(201,169,110,0.2)"/></svg></div>
+        <div class="cat-label">Rings</div>
+      </div>
+      <div class="cat-item" onclick="goTo('earrings')">
+        <div class="cat-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><ellipse cx="14" cy="12" rx="5" ry="7" stroke="#C9A96E" stroke-width="1.2" fill="none"/><path d="M9 12 L7 22" stroke="#C9A96E" stroke-width="1.2" stroke-linecap="round"/><path d="M19 12 L21 22" stroke="#C9A96E" stroke-width="1.2" stroke-linecap="round"/><circle cx="14" cy="5" r="2" fill="#C9A96E" opacity="0.5"/></svg></div>
+        <div class="cat-label">Earrings</div>
+      </div>
+      <div class="cat-item" onclick="goTo('necklaces')">
+        <div class="cat-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 8 Q14 4 22 8 L20 20 Q14 24 8 20 Z" stroke="#C9A96E" stroke-width="1.2" fill="none"/><circle cx="14" cy="14" r="3" stroke="#9B7A42" stroke-width="1" fill="rgba(201,169,110,0.15)"/></svg></div>
+        <div class="cat-label">Pendants</div>
+      </div>
+      <div class="cat-item" onclick="goTo('bangles')">
+        <div class="cat-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M5 14 Q5 6 14 6 Q23 6 23 14" stroke="#C9A96E" stroke-width="1.2" fill="none"/><ellipse cx="14" cy="14" rx="9" ry="3" stroke="#9B7A42" stroke-width="1" fill="none"/></svg></div>
+        <div class="cat-label">Bangles</div>
+      </div>
+      <div class="cat-item" onclick="goTo('necklaces')">
+        <div class="cat-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14 Q14 20 22 14" stroke="#C9A96E" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M5 14 C5 9 9 5 14 5 C19 5 23 9 23 14" stroke="#9B7A42" stroke-width="1" fill="none"/><circle cx="14" cy="5" r="2.5" fill="rgba(201,169,110,0.4)" stroke="#C9A96E" stroke-width="1"/></svg></div>
+        <div class="cat-label">Necklaces</div>
+      </div>
+      <div class="cat-item" onclick="goTo('diamond')">
+        <div class="cat-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M8 10 L14 6 L20 10 L18 20 L10 20 Z" stroke="#C9A96E" stroke-width="1.2" fill="rgba(201,169,110,0.1)"/><line x1="14" y1="6" x2="14" y2="20" stroke="#9B7A42" stroke-width="0.8" opacity="0.6"/><line x1="8" y1="10" x2="20" y2="10" stroke="#9B7A42" stroke-width="0.8" opacity="0.6"/></svg></div>
+        <div class="cat-label">Diamond</div>
+      </div>
+      <div class="cat-item" onclick="goTo('gold')">
+        <div class="cat-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="8" stroke="#C9A96E" stroke-width="1.2" fill="none"/><circle cx="14" cy="14" r="4" fill="rgba(201,169,110,0.3)" stroke="#9B7A42" stroke-width="1"/></svg></div>
+        <div class="cat-label">Gold Coins</div>
+      </div>
+      <div class="cat-item" onclick="goTo('gifting')">
+        <div class="cat-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M8 8 L14 4 L20 8 L20 20 L14 24 L8 20 Z" stroke="#C9A96E" stroke-width="1.2" fill="rgba(201,169,110,0.08)"/><path d="M8 8 L14 12 L20 8" stroke="#9B7A42" stroke-width="0.8" opacity="0.7"/><line x1="14" y1="12" x2="14" y2="24" stroke="#9B7A42" stroke-width="0.8" opacity="0.7"/></svg></div>
+        <div class="cat-label">Gifts</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="collections">
+    <p class="section-sub">Curated for You</p>
+    <h2 class="section-title" style="margin-bottom:48px;">Latest Collections</h2>
+    <div class="coll-grid">
+      <div class="coll-card" style="min-height:500px;" onclick="goTo('collections')">
+        <div class="coll-card-bg" style="background:linear-gradient(145deg,#2a1f12 0%,#1a1208 100%);height:100%;"><svg width="200" height="260" viewBox="0 0 200 260" fill="none" style="opacity:0.7"><path d="M20 50 Q100 30 180 50 Q190 120 140 180 Q100 210 60 180 Q10 120 20 50Z" stroke="#C9A96E" stroke-width="1.2" fill="none"/><circle cx="100" cy="190" r="20" fill="rgba(201,169,110,0.2)" stroke="#C9A96E" stroke-width="1.5"/><polygon points="100,175 115,190 100,200 85,190" fill="rgba(220,240,255,0.6)" stroke="#C9A96E" stroke-width="0.8"/></svg></div>
+        <div class="coll-card-overlay"><div class="coll-card-tag">Spring 2025</div><div class="coll-card-name">Lumina<br>Collection</div><div class="coll-card-link">Explore →</div></div>
+      </div>
+      <div class="coll-card" onclick="goTo('diamond')">
+        <div class="coll-card-bg" style="background:linear-gradient(145deg,#1a1230 0%,#0d0b1f 100%);flex:1;"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" style="opacity:0.75"><circle cx="50" cy="50" r="35" stroke="#C9A96E" stroke-width="1.5" fill="none"/><circle cx="50" cy="50" r="22" stroke="#9B7A42" stroke-width="1" fill="rgba(201,169,110,0.1)"/><circle cx="50" cy="50" r="8" fill="rgba(200,230,255,0.7)" stroke="#C9A96E" stroke-width="1"/></svg></div>
+        <div class="coll-card-overlay"><div class="coll-card-tag">Diamond</div><div class="coll-card-name">Solitaire Edit</div><div class="coll-card-link">Shop now →</div></div>
+      </div>
+      <div class="coll-card" onclick="goTo('gold')">
+        <div class="coll-card-bg" style="background:linear-gradient(145deg,#1f1510 0%,#120d08 100%);flex:1;"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" style="opacity:0.75"><path d="M50 20 L60 40 L80 45 L65 60 L68 80 L50 70 L32 80 L35 60 L20 45 L40 40 Z" stroke="#C9A96E" stroke-width="1.5" fill="rgba(201,169,110,0.12)"/></svg></div>
+        <div class="coll-card-overlay"><div class="coll-card-tag">Festive</div><div class="coll-card-name">Bold Gold</div><div class="coll-card-link">Shop now →</div></div>
+      </div>
+      <div class="coll-card" onclick="goTo('necklaces')">
+        <div class="coll-card-bg" style="background:linear-gradient(145deg,#0f1a1a 0%,#081010 100%);flex:1;"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" style="opacity:0.75"><ellipse cx="50" cy="55" rx="28" ry="8" stroke="#C9A96E" stroke-width="1" fill="none" opacity="0.5"/><path d="M22 55 Q18 40 30 32" stroke="#C9A96E" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M78 55 Q82 40 70 32" stroke="#C9A96E" stroke-width="5" stroke-linecap="round" fill="none"/><ellipse cx="50" cy="32" rx="20" ry="7" fill="#C9A96E" opacity="0.7"/><circle cx="50" cy="20" r="10" fill="rgba(200,230,255,0.5)" stroke="#C9A96E" stroke-width="1"/></svg></div>
+        <div class="coll-card-overlay"><div class="coll-card-tag">Mangalsutra</div><div class="coll-card-name">Modern Ritual</div><div class="coll-card-link">Shop now →</div></div>
+      </div>
+      <div class="coll-card" onclick="goTo('gifting')">
+        <div class="coll-card-bg" style="background:linear-gradient(145deg,#1a1020 0%,#0d0813 100%);flex:1;"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" style="opacity:0.75"><rect x="30" y="35" width="40" height="30" rx="4" stroke="#C9A96E" stroke-width="1.5" fill="none"/><circle cx="50" cy="50" r="8" fill="rgba(200,220,255,0.6)" stroke="#9B7A42" stroke-width="1"/></svg></div>
+        <div class="coll-card-overlay"><div class="coll-card-tag">Gemstone</div><div class="coll-card-name">Colour Story</div><div class="coll-card-link">Shop now →</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS ON HOME -->
+  <section class="products" style="padding:80px 60px;">
+    <div class="prod-header" style="display:flex;justify-content:space-between;align-items:flex-end;max-width:1200px;margin:0 auto 48px;">
+      <div><p class="section-sub" style="text-align:left;margin-bottom:4px;">Bestsellers</p><h2 class="section-title" style="text-align:left;font-size:28px;">Most Loved Pieces</h2></div>
+      <div class="filters-bar" style="margin-bottom:0;">
+        <button class="filter-btn active" onclick="homeFilter(this,'all')">All</button>
+        <button class="filter-btn" onclick="homeFilter(this,'diamond')">Diamond</button>
+        <button class="filter-btn" onclick="homeFilter(this,'gold')">Gold</button>
+        <button class="filter-btn" onclick="homeFilter(this,'platinum')">Platinum</button>
+      </div>
+    </div>
+    <div class="prod-grid" id="homeProdGrid" style="max-width:1200px;margin:0 auto;"></div>
+    <div style="text-align:center;margin-top:48px;"><a onclick="goTo('shop')" class="btn-ghost">View All Jewellery</a></div>
+  </section>
+
+  <div class="usp-strip">
+    <div class="usp-grid">
+      <div class="usp-item" onclick="goTo('about')">
+        <div class="usp-icon"><svg viewBox="0 0 40 40" fill="none"><path d="M20 5 L24 15 L35 15 L26 22 L29 33 L20 27 L11 33 L14 22 L5 15 L16 15 Z" stroke="#C9A96E" stroke-width="1.2" fill="rgba(201,169,110,0.1)"/></svg></div>
+        <div class="usp-title">Certified Diamonds</div>
+        <div class="usp-desc">IGI &amp; GIA certified stones with full transparency on 4Cs</div>
+      </div>
+      <div class="usp-item" onclick="goTo('about')">
+        <div class="usp-icon"><svg viewBox="0 0 40 40" fill="none"><path d="M20 8 L32 14 L32 26 C32 32 20 36 20 36 C20 36 8 32 8 26 L8 14 Z" stroke="#C9A96E" stroke-width="1.2" fill="rgba(201,169,110,0.1)"/><path d="M14 20 L18 24 L26 16" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="usp-title">BIS Hallmarked</div>
+        <div class="usp-desc">All gold jewellery certified under Bureau of Indian Standards</div>
+      </div>
+      <div class="usp-item" onclick="goTo('contact')">
+        <div class="usp-icon"><svg viewBox="0 0 40 40" fill="none"><path d="M10 28 C10 20 8 14 20 10 C32 14 30 20 30 28 L20 32 Z" stroke="#C9A96E" stroke-width="1.2" fill="rgba(201,169,110,0.08)"/></svg></div>
+        <div class="usp-title">Free Insured Delivery</div>
+        <div class="usp-desc">Complimentary insured shipping on all orders nationwide</div>
+      </div>
+      <div class="usp-item" onclick="goTo('returns')">
+        <div class="usp-icon"><svg viewBox="0 0 40 40" fill="none"><path d="M8 20 Q8 10 20 8 Q32 10 32 20 Q32 30 20 32 Q8 30 8 20Z" stroke="#C9A96E" stroke-width="1.2" fill="rgba(201,169,110,0.1)"/><path d="M14 22 L20 20 L20 12" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="usp-title">30-Day Returns</div>
+        <div class="usp-desc">Easy, no-questions-asked returns within 30 days of purchase</div>
+      </div>
+    </div>
+  </div>
+
+  <section class="testimonials">
+    <p class="section-sub">What Our Customers Say</p>
+    <h2 class="section-title" style="margin-bottom:48px;">Stories of Joy</h2>
+    <div class="testi-grid">
+      <div class="testi-card"><div class="testi-quote">"</div><p class="testi-text">I got my engagement ring from Auréa and I haven't stopped getting compliments. The diamond clarity is stunning and the service was exceptional.</p><div class="testi-stars">★★★★★</div><div class="testi-name">Priya M. — Mumbai</div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><p class="testi-text">Ordered a mangalsutra online and was nervous, but the video call consultation helped so much. Arrived beautifully packaged and exactly as shown.</p><div class="testi-stars">★★★★★</div><div class="testi-name">Deepa R. — Bengaluru</div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><p class="testi-text">The gold bangle I gifted my mother on her 60th birthday was a masterpiece. She hasn't taken it off since. Thank you for making the moment perfect.</p><div class="testi-stars">★★★★★</div><div class="testi-name">Karan S. — Delhi</div></div>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <p class="section-sub" style="color:var(--gold);">Stay in the Loop</p>
+    <h2 class="section-title">New Arrivals &amp; Exclusive Offers</h2>
+    <p class="newsletter-desc">Subscribe for early access to new collections, styling guides, and member-only deals.</p>
+    <div class="newsletter-form">
+      <input class="newsletter-input" type="email" placeholder="Your email address" id="nlEmail">
+      <button class="newsletter-btn" onclick="subscribeNL()">Subscribe</button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Aur<em>é</em>a Jewels</div>
+        <p class="footer-tagline">Fine jewellery crafted for every story. Hallmarked gold, certified diamonds, and gemstones — delivered to your door across India.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Shop</div>
+        <ul class="footer-links">
+          <li><a onclick="goTo('rings')">Rings</a></li>
+          <li><a onclick="goTo('earrings')">Earrings</a></li>
+          <li><a onclick="goTo('necklaces')">Necklaces</a></li>
+          <li><a onclick="goTo('bangles')">Bangles</a></li>
+          <li><a onclick="goTo('diamond')">Diamond</a></li>
+          <li><a onclick="goTo('gold')">Gold Coins</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Help</div>
+        <ul class="footer-links">
+          <li><a onclick="goTo('track')">Track Order</a></li>
+          <li><a onclick="goTo('returns')">Returns</a></li>
+          <li><a onclick="goTo('size-guide')">Size Guide</a></li>
+          <li><a onclick="goTo('care-guide')">Care Guide</a></li>
+          <li><a onclick="goTo('contact')">Store Locator</a></li>
+          <li><a onclick="goTo('contact')">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a onclick="goTo('about')">About Us</a></li>
+          <li><a onclick="showToast('Careers page coming soon')">Careers</a></li>
+          <li><a onclick="showToast('Press page coming soon')">Press</a></li>
+          <li><a onclick="goTo('about')">Sustainability</a></li>
+          <li><a onclick="showToast('Privacy Policy — coming soon')">Privacy Policy</a></li>
+          <li><a onclick="showToast('Terms — coming soon')">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Auréa Jewels Pvt. Ltd. All rights reserved.</span>
+      <span>BIS Hallmarked · IGI Certified · Secure Payments</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════ SHOP / CATEGORY PAGES ══════════════════ -->
+<div class="page" id="page-shop">
+  <div class="page-hero">
+    <div class="breadcrumb">Home › <span id="shopBreadcrumb">All Jewellery</span></div>
+    <h1 id="shopPageTitle">All Jewellery</h1>
+    <p id="shopPageDesc">Explore our complete collection of fine jewellery — handcrafted with certified stones and hallmarked gold.</p>
+  </div>
+
+  <div class="shop-layout">
+    <!-- SIDEBAR -->
+    <aside class="shop-sidebar">
+      <div class="sb-header">
+        Filters
+        <button class="sb-clear" onclick="clearAllFilters()">Clear all</button>
+      </div>
+
+      <!-- Metal -->
+      <div class="sb-group">
+        <div class="sb-group-title" onclick="toggleSbGroup(this)">Metal <span class="arrow">▾</span></div>
+        <div class="sb-group-body">
+          <label class="sb-checkbox-row"><input type="checkbox" data-filter="metal" value="18k-white" onchange="applyShopFilters()"><span class="sb-label">18K White Gold</span><span class="sb-count">3</span></label>
+          <label class="sb-checkbox-row"><input type="checkbox" data-filter="metal" value="18k-yellow" onchange="applyShopFilters()"><span class="sb-label">18K Yellow Gold</span><span class="sb-count">2</span></label>
+          <label class="sb-checkbox-row"><input type="checkbox" data-filter="metal" value="18k-rose" onchange="applyShopFilters()"><span class="sb-label">18K Rose Gold</span><span class="sb-count">1</span></label>
+          <label class="sb-checkbox-row"><input type="checkbox" data-filter="metal" value="22k-yellow" onchange="applyShopFilters()"><span class="sb-label">22K Yellow Gold</span><span class="sb-count">3</span></label>
+        </div>
+      </div>
+
+      <!-- Stone Type -->
+      <div class="sb-group">
+        <div class="sb-group-title" onclick="toggleSbGroup(this)">Stone Type <span class="arrow">▾</span></div>
+        <div class="sb-group-body">
+          <label class="sb-checkbox-row"><input type="checkbox" data-filter="stone" value="diamond" onchange="applyShopFilters()"><span class="sb-label">Diamond</span><span class="sb-count">4</span></label>
+          <label class="sb-checkbox-row"><input type="checkbox" data-filter="stone" value="ruby" onchange="applyShopFilters()"><span class="sb-label">Ruby</span><span class="sb-count">2</span></label>
+          <label class="sb-checkbox-row"><input type="checkbox" data-filter="stone" value="topaz" onchange="applyShopFilters()"><span class="sb-label">Sapphire / Topaz</span><span class="sb-count">1</span></label>
+          <label class="sb-checkbox-row"><input type="checkbox" data-filter="stone" value="plain" onchange="applyShopFilters()"><span class="sb-label">Plain Gold</span><span class="sb-count">2</span></label>
+        </div>
+      </div>
+
+      <!-- Price Range -->
+      <div class="sb-group">
+        <div class="sb-group-title" onclick="toggleSbGroup(this)">Price Range <span class="arrow">▾</span></div>
+        <div class="sb-group-body">
+          <div class="sb-price-range">
+            <input type="range" class="sb-price-slider" id="priceSlider" min="0" max="200000" step="5000" value="200000" oninput="updatePriceSlider(this.value)">
+            <div class="sb-price-vals"><span>₹0</span><span id="priceSliderVal">₹2,00,000+</span></div>
+          </div>
+          <div style="height:1px;background:var(--border);margin:12px 0;"></div>
+          <label class="sb-checkbox-row"><input type="checkbox" data-filter="price" value="under-30k" onchange="applyShopFilters()"><span class="sb-label">Under ₹30,000</span></label>
+          <label class="sb-checkbox-row"><input type="checkbox" data-filter="price" value="30k-80k" onchange="applyShopFilters()"><span class="sb-label">₹30,000 – ₹80,000</span></label>
+          <label class="sb-checkbox-row"><input type="checkbox" data-filter="price" value="above-80k" onchange="applyShopFilters()"><span class="sb-label">Above ₹80,000</span></label>
+        </div>
+      </div>
+
+      <!-- Availability -->
+      <div class="sb-group">
+        <div class="sb-group-title" onclick="toggleSbGroup(this)">Availability <span class="arrow">▾</span></div>
+        <div class="sb-group-body">
+          <label class="sb-checkbox-row"><input type="checkbox" data-filter="avail" value="on-sale" onchange="applyShopFilters()"><span class="sb-label">On Sale</span><span class="sb-count">2</span></label>
+          <label class="sb-checkbox-row"><input type="checkbox" data-filter="avail" value="new" onchange="applyShopFilters()"><span class="sb-label">New Arrivals</span><span class="sb-count">3</span></label>
+        </div>
+      </div>
+    </aside>
+
+    <!-- GRID AREA -->
+    <div>
+      <div class="shop-grid-header">
+        <span class="sg-count" id="sgCount">8 pieces</span>
+        <select class="sg-sort" id="sgSort" onchange="applyShopFilters()">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="newest">Newest First</option>
+          <option value="sale">On Sale First</option>
+        </select>
+      </div>
+      <div class="active-chips" id="activeChips"></div>
+      <div class="shop-grid-area">
+        <div class="prod-grid" id="shopGrid"></div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-grid">
+      <div><div class="footer-brand">Aur<em>é</em>a Jewels</div><p class="footer-tagline">Fine jewellery crafted for every story.</p></div>
+      <div><div class="footer-col-title">Shop</div><ul class="footer-links"><li><a onclick="goTo('rings')">Rings</a></li><li><a onclick="goTo('earrings')">Earrings</a></li><li><a onclick="goTo('necklaces')">Necklaces</a></li><li><a onclick="goTo('diamond')">Diamond</a></li></ul></div>
+      <div><div class="footer-col-title">Help</div><ul class="footer-links"><li><a onclick="goTo('track')">Track Order</a></li><li><a onclick="goTo('returns')">Returns</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div>
+      <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a onclick="goTo('about')">About Us</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Auréa Jewels Pvt. Ltd.</span><span>BIS Hallmarked · IGI Certified</span></div>
+  </footer>
+</div>
+
+<!-- ══════════════════ PRODUCT DETAIL PAGE ══════════════════ -->
+<div class="page" id="page-product">
+  <div class="pd-wrap" id="pdContent"></div>
+  <footer>
+    <div class="footer-grid">
+      <div><div class="footer-brand">Aur<em>é</em>a Jewels</div><p class="footer-tagline">Fine jewellery crafted for every story.</p></div>
+      <div><div class="footer-col-title">Help</div><ul class="footer-links"><li><a onclick="goTo('size-guide')">Size Guide</a></li><li><a onclick="goTo('care-guide')">Care Guide</a></li><li><a onclick="goTo('returns')">Returns</a></li></ul></div>
+      <div><div class="footer-col-title">Shop</div><ul class="footer-links"><li><a onclick="goTo('shop')">All Jewellery</a></li><li><a onclick="goTo('diamond')">Diamond</a></li><li><a onclick="goTo('gold')">Gold</a></li></ul></div>
+      <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a onclick="goTo('contact')">Book Consultation</a></li><li><a onclick="goTo('track')">Track Order</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Auréa Jewels Pvt. Ltd.</span></div>
+  </footer>
+</div>
+
+<!-- ══════════════════ COLLECTIONS PAGE ══════════════════ -->
+<div class="page" id="page-collections">
+  <div class="page-hero">
+    <div class="breadcrumb">Home › <span>Collections</span></div>
+    <h1>Our Collections</h1>
+    <p>Each season a new story — discover our curated edits across diamonds, gold, and gemstones.</p>
+  </div>
+  <section class="collections" style="background:var(--charcoal);">
+    <div class="coll-grid">
+      <div class="coll-card" style="min-height:500px;" onclick="goTo('diamond')"><div class="coll-card-bg" style="background:linear-gradient(145deg,#2a1f12,#1a1208);height:100%;"><svg width="200" height="260" viewBox="0 0 200 260" fill="none" style="opacity:0.7"><path d="M20 50 Q100 30 180 50 Q190 120 140 180 Q100 210 60 180 Q10 120 20 50Z" stroke="#C9A96E" stroke-width="1.2" fill="none"/><circle cx="100" cy="190" r="20" fill="rgba(201,169,110,0.2)" stroke="#C9A96E" stroke-width="1.5"/><polygon points="100,175 115,190 100,200 85,190" fill="rgba(220,240,255,0.6)" stroke="#C9A96E" stroke-width="0.8"/></svg></div><div class="coll-card-overlay"><div class="coll-card-tag">Spring 2025</div><div class="coll-card-name">Lumina Collection</div><div class="coll-card-link">Shop Now →</div></div></div>
+      <div class="coll-card" onclick="goTo('diamond')"><div class="coll-card-bg" style="background:linear-gradient(145deg,#1a1230,#0d0b1f);flex:1;"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" style="opacity:0.75"><circle cx="50" cy="50" r="35" stroke="#C9A96E" stroke-width="1.5" fill="none"/><circle cx="50" cy="50" r="8" fill="rgba(200,230,255,0.7)" stroke="#C9A96E" stroke-width="1"/></svg></div><div class="coll-card-overlay"><div class="coll-card-tag">Diamond</div><div class="coll-card-name">Solitaire Edit</div><div class="coll-card-link">Shop Now →</div></div></div>
+      <div class="coll-card" onclick="goTo('gold')"><div class="coll-card-bg" style="background:linear-gradient(145deg,#1f1510,#120d08);flex:1;"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" style="opacity:0.75"><path d="M50 20 L60 40 L80 45 L65 60 L68 80 L50 70 L32 80 L35 60 L20 45 L40 40 Z" stroke="#C9A96E" stroke-width="1.5" fill="rgba(201,169,110,0.12)"/></svg></div><div class="coll-card-overlay"><div class="coll-card-tag">Festive</div><div class="coll-card-name">Bold Gold</div><div class="coll-card-link">Shop Now →</div></div></div>
+      <div class="coll-card" onclick="goTo('necklaces')"><div class="coll-card-bg" style="background:linear-gradient(145deg,#0f1a1a,#081010);flex:1;"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" style="opacity:0.75"><ellipse cx="50" cy="55" rx="28" ry="8" stroke="#C9A96E" stroke-width="1" fill="none" opacity="0.5"/><path d="M22 55 Q18 40 30 32" stroke="#C9A96E" stroke-width="5" stroke-linecap="round" fill="none"/><ellipse cx="50" cy="32" rx="20" ry="7" fill="#C9A96E" opacity="0.7"/></svg></div><div class="coll-card-overlay"><div class="coll-card-tag">Mangalsutra</div><div class="coll-card-name">Modern Ritual</div><div class="coll-card-link">Shop Now →</div></div></div>
+      <div class="coll-card" onclick="goTo('gifting')"><div class="coll-card-bg" style="background:linear-gradient(145deg,#1a1020,#0d0813);flex:1;"><svg width="100" height="100" viewBox="0 0 100 100" fill="none" style="opacity:0.75"><rect x="30" y="35" width="40" height="30" rx="4" stroke="#C9A96E" stroke-width="1.5" fill="none"/><circle cx="50" cy="50" r="8" fill="rgba(200,220,255,0.6)" stroke="#9B7A42" stroke-width="1"/></svg></div><div class="coll-card-overlay"><div class="coll-card-tag">Gemstone</div><div class="coll-card-name">Colour Story</div><div class="coll-card-link">Shop Now →</div></div></div>
+    </div>
+  </section>
+  <footer><div class="footer-grid"><div><div class="footer-brand">Aur<em>é</em>a Jewels</div></div><div><div class="footer-col-title">Shop</div><ul class="footer-links"><li><a onclick="goTo('shop')">All Jewellery</a></li></ul></div><div><div class="footer-col-title">Help</div><ul class="footer-links"><li><a onclick="goTo('contact')">Contact</a></li></ul></div><div></div></div><div class="footer-bottom"><span>© 2025 Auréa Jewels Pvt. Ltd.</span></div></footer>
+</div>
+
+<!-- ══════════════════ GIFTING PAGE ══════════════════ -->
+<div class="page" id="page-gifting">
+  <div class="page-hero">
+    <div class="breadcrumb">Home › <span>Gifting</span></div>
+    <h1>The Gift of Fine Jewellery</h1>
+    <p>For every milestone and every person you love — curated sets and gift ideas from Auréa.</p>
+  </div>
+  <div class="product-section">
+    <div class="prod-grid-wrap">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:56px;">
+        <div style="border:1px solid var(--border);padding:32px 24px;text-align:center;cursor:pointer;" onclick="goTo('rings')">
+          <div style="font-family:var(--ff-serif);font-size:22px;color:var(--charcoal);margin-bottom:8px;">Under ₹30,000</div>
+          <p style="font-size:13px;color:var(--warm-gray);line-height:1.7;margin-bottom:16px;">Elegant earrings, delicate pendants, gold coins — perfect for festive gifting.</p>
+          <span style="font-size:12px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;">Browse →</span>
+        </div>
+        <div style="border:1px solid var(--gold);padding:32px 24px;text-align:center;cursor:pointer;background:var(--cream);" onclick="goTo('bangles')">
+          <div style="font-family:var(--ff-serif);font-size:22px;color:var(--charcoal);margin-bottom:8px;">₹30,000 – ₹80,000</div>
+          <p style="font-size:13px;color:var(--warm-gray);line-height:1.7;margin-bottom:16px;">Bracelets, necklaces, and ring sets — expressions of love for special occasions.</p>
+          <span style="font-size:12px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;">Browse →</span>
+        </div>
+        <div style="border:1px solid var(--border);padding:32px 24px;text-align:center;cursor:pointer;" onclick="goTo('diamond')">
+          <div style="font-family:var(--ff-serif);font-size:22px;color:var(--charcoal);margin-bottom:8px;">Above ₹80,000</div>
+          <p style="font-size:13px;color:var(--warm-gray);line-height:1.7;margin-bottom:16px;">Solitaire rings, diamond necklaces — for life's most defining moments.</p>
+          <span style="font-size:12px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;">Browse →</span>
+        </div>
+      </div>
+      <h3 style="font-family:var(--ff-serif);font-size:28px;font-weight:300;text-align:center;margin-bottom:12px;">Most Gifted Pieces</h3>
+      <p style="text-align:center;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:40px;">Loved by thousands</p>
+      <div class="prod-grid" id="giftingGrid"></div>
+    </div>
+  </div>
+  <footer><div class="footer-grid"><div><div class="footer-brand">Aur<em>é</em>a Jewels</div></div><div><div class="footer-col-title">Shop</div><ul class="footer-links"><li><a onclick="goTo('shop')">All Jewellery</a></li><li><a onclick="goTo('diamond')">Diamond</a></li></ul></div><div><div class="footer-col-title">Help</div><ul class="footer-links"><li><a onclick="goTo('contact')">Contact</a></li><li><a onclick="goTo('returns')">Returns</a></li></ul></div><div></div></div><div class="footer-bottom"><span>© 2025 Auréa Jewels Pvt. Ltd.</span></div></footer>
+</div>
+
+<!-- ══════════════════ CART PAGE ══════════════════ -->
+<div class="page" id="page-cart">
+  <div class="page-hero" style="padding:60px 60px 40px;">
+    <div class="breadcrumb">Home › <span>Your Bag</span></div>
+    <h1>Your Bag</h1>
+  </div>
+  <div class="cart-wrap" id="cartContent"></div>
+  <footer><div class="footer-grid"><div><div class="footer-brand">Aur<em>é</em>a Jewels</div></div><div><div class="footer-col-title">Help</div><ul class="footer-links"><li><a onclick="goTo('returns')">Returns</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div><div><div class="footer-col-title">Continue</div><ul class="footer-links"><li><a onclick="goTo('shop')">Shop All</a></li></ul></div><div></div></div><div class="footer-bottom"><span>© 2025 Auréa Jewels Pvt. Ltd.</span></div></footer>
+</div>
+
+<!-- ══════════════════ WISHLIST PAGE ══════════════════ -->
+<div class="page" id="page-wishlist">
+  <div class="page-hero" style="padding:60px 60px 40px;">
+    <div class="breadcrumb">Home › <span>Wishlist</span></div>
+    <h1>Your Wishlist</h1>
+  </div>
+  <div class="product-section">
+    <div class="prod-grid-wrap">
+      <div class="wishlist-grid" id="wishlistContent"></div>
+    </div>
+  </div>
+  <footer><div class="footer-grid"><div><div class="footer-brand">Aur<em>é</em>a Jewels</div></div><div><div class="footer-col-title">Shop</div><ul class="footer-links"><li><a onclick="goTo('shop')">All Jewellery</a></li></ul></div><div></div><div></div></div><div class="footer-bottom"><span>© 2025 Auréa Jewels Pvt. Ltd.</span></div></footer>
+</div>
+
+<!-- ══════════════════ ABOUT PAGE ══════════════════ -->
+<div class="page" id="page-about">
+  <div class="page-hero">
+    <div class="breadcrumb">Home › <span>About Us</span></div>
+    <h1>Our Story</h1>
+    <p>Est. 1987 — three decades of handcrafted excellence from the heart of Jaipur.</p>
+  </div>
+  <div class="info-grid">
+    <div>
+      <h2>From a Single Workshop</h2>
+      <p>Auréa Jewels began in a small workshop in Jaipur's famed jewellery quarter — a family's obsession with perfection and beauty translated into gold and gemstone. What started with a single bench and a handful of artisans has grown into one of India's most trusted fine jewellery brands.</p>
+      <p>Every piece we craft carries the same promise made in that first workshop: that jewellery should be more than ornament. It should be an heirloom, a memory, a story passed from one generation to the next.</p>
+      <a onclick="goTo('contact')" class="btn-primary" style="margin-top:16px;">Visit Our Atelier</a>
+    </div>
+    <div>
+      <div style="background:var(--cream);border:1px solid var(--border);padding:40px;text-align:center;">
+        <div style="font-family:var(--ff-serif);font-size:56px;font-weight:300;color:var(--gold);margin-bottom:4px;">37</div>
+        <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--warm-gray);margin-bottom:32px;">Years of Excellence</div>
+        <div style="font-family:var(--ff-serif);font-size:56px;font-weight:300;color:var(--gold);margin-bottom:4px;">10K+</div>
+        <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--warm-gray);margin-bottom:32px;">Designs Crafted</div>
+        <div style="font-family:var(--ff-serif);font-size:56px;font-weight:300;color:var(--gold);margin-bottom:4px;">100%</div>
+        <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--warm-gray);">Certified Stones</div>
+      </div>
+    </div>
+  </div>
+  <div style="background:var(--cream);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="info-grid">
+      <div>
+        <h2>Our Values</h2>
+        <p><strong style="color:var(--gold-dark);">Craftsmanship First.</strong> Every piece is hand-finished by master artisans trained across generations. We reject shortcuts and embrace tradition.</p>
+        <p><strong style="color:var(--gold-dark);">Responsible Sourcing.</strong> All our diamonds are conflict-free. Our gold is ethically mined. We trace every stone back to its origin.</p>
+        <p><strong style="color:var(--gold-dark);">Transparent Certification.</strong> Every diamond is accompanied by an IGI or GIA certificate. Every gold piece carries a BIS hallmark. No exceptions.</p>
+      </div>
+      <div>
+        <h2>The Artisans</h2>
+        <p>Our team of 120+ artisans — karigars — work across our three ateliers in Jaipur, Mumbai, and Bengaluru. Many are second and third-generation craftsmen, their skills honed across decades.</p>
+        <p>We invest in their training, their tools, and their wellbeing. Because great jewellery can only come from great people.</p>
+        <a onclick="goTo('contact')" class="btn-ghost" style="margin-top:16px;">Book a Workshop Tour</a>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-grid"><div><div class="footer-brand">Aur<em>é</em>a Jewels</div></div><div><div class="footer-col-title">Shop</div><ul class="footer-links"><li><a onclick="goTo('shop')">All Jewellery</a></li></ul></div><div><div class="footer-col-title">Help</div><ul class="footer-links"><li><a onclick="goTo('contact')">Contact</a></li></ul></div><div></div></div><div class="footer-bottom"><span>© 2025 Auréa Jewels Pvt. Ltd.</span></div></footer>
+</div>
+
+<!-- ══════════════════ CONTACT PAGE ══════════════════ -->
+<div class="page" id="page-contact">
+  <div class="page-hero">
+    <div class="breadcrumb">Home › <span>Contact Us</span></div>
+    <h1>Book a Consultation</h1>
+    <p>Visit us at one of our ateliers, or reach us online. Every enquiry is answered personally.</p>
+  </div>
+  <div class="info-grid">
+    <div>
+      <h2>Send an Enquiry</h2>
+      <div class="contact-form">
+        <input class="form-input" type="text" placeholder="Your full name" id="cName">
+        <input class="form-input" type="email" placeholder="Email address" id="cEmail">
+        <input class="form-input" type="tel" placeholder="Phone number">
+        <select class="form-input" style="color:var(--warm-gray);">
+          <option>Select your interest</option>
+          <option>Engagement Ring</option>
+          <option>Bespoke Commission</option>
+          <option>Bridal Suite</option>
+          <option>Diamond Purchase</option>
+          <option>General Enquiry</option>
+        </select>
+        <textarea class="form-input" placeholder="Tell us more about what you're looking for…"></textarea>
+        <button onclick="submitContact()" class="btn-primary" style="align-self:flex-start;">Send Enquiry</button>
+      </div>
+    </div>
+    <div>
+      <h2>Reach Us Directly</h2>
+      <div style="margin-bottom:24px;"><div style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Phone</div><p style="font-size:14px;color:var(--warm-gray);">+91 1800 419 0066<br><span style="font-size:12px;">Mon–Sat, 10am–7pm IST</span></p></div>
+      <div style="margin-bottom:24px;"><div style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Email</div><p style="font-size:14px;color:var(--warm-gray);"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="462e232a2a29062733342327682f28">[email&#160;protected]</a><br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="80e2e5f3f0efebe5c0e1f5f2e5e1aee9ee">[email&#160;protected]</a></p></div>
+      <div><div style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Flagship Atelier</div><p style="font-size:14px;color:var(--warm-gray);">14 Bhulabhai Desai Road, Breach Candy<br>Mumbai 400 026</p></div>
+    </div>
+  </div>
+  <div style="padding:0 60px 16px;"><h3 style="font-family:var(--ff-serif);font-size:28px;font-weight:300;text-align:center;margin-bottom:8px;">Our Ateliers</h3><p style="text-align:center;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:36px;">Find Us</p></div>
+  <div class="store-cards">
+    <div class="store-card"><div class="store-city">Mumbai</div><div class="store-addr">14 Bhulabhai Desai Road<br>Breach Candy, Mumbai 400 026</div><div class="store-hrs">Mon–Sat 10am–7pm · Sun 11am–5pm</div></div>
+    <div class="store-card"><div class="store-city">Delhi</div><div class="store-addr">The Crescent, DLF Emporio<br>Nelson Mandela Marg, New Delhi 110 070</div><div class="store-hrs">Mon–Sat 10am–8pm · Sun 11am–6pm</div></div>
+    <div class="store-card"><div class="store-city">Bengaluru</div><div class="store-addr">UB City, Vittal Mallya Road<br>Bengaluru 560 001</div><div class="store-hrs">Mon–Sat 10am–8pm · Sun 12pm–6pm</div></div>
+  </div>
+  <footer><div class="footer-grid"><div><div class="footer-brand">Aur<em>é</em>a Jewels</div></div><div><div class="footer-col-title">Shop</div><ul class="footer-links"><li><a onclick="goTo('shop')">All Jewellery</a></li></ul></div><div><div class="footer-col-title">Help</div><ul class="footer-links"><li><a onclick="goTo('track')">Track Order</a></li><li><a onclick="goTo('returns')">Returns</a></li></ul></div><div></div></div><div class="footer-bottom"><span>© 2025 Auréa Jewels Pvt. Ltd.</span></div></footer>
+</div>
+
+<!-- ══════════════════ TRACK ORDER ══════════════════ -->
+<div class="page" id="page-track">
+  <div class="page-hero">
+    <div class="breadcrumb">Home › <span>Track Order</span></div>
+    <h1>Track Your Order</h1>
+    <p>Enter your order number and email to see the live status of your Auréa piece.</p>
+  </div>
+  <div class="info-section" style="max-width:600px;">
+    <div style="background:var(--cream);border:1px solid var(--border);padding:36px;">
+      <div class="contact-form">
+        <input class="form-input" type="text" placeholder="Order Number (e.g. AUR-2025-00123)" id="trackOrder">
+        <input class="form-input" type="email" placeholder="Email address used at checkout">
+        <button onclick="trackOrderSubmit()" class="btn-primary" style="align-self:flex-start;">Track Order</button>
+      </div>
+    </div>
+    <div id="trackResult" style="display:none;margin-top:36px;">
+      <h3 style="font-family:var(--ff-serif);font-size:20px;font-weight:300;margin-bottom:6px;">Order AUR-2025-01234</h3>
+      <p style="font-size:13px;color:var(--warm-gray);margin-bottom:28px;">The Celeste Solitaire Ring · 18K White Gold · 0.50ct Diamond</p>
+      <div class="track-steps">
+        <div class="track-step"><div class="track-step-dot-col"><div class="step-dot done"></div><div class="step-line"></div></div><div><div class="step-title">Order Confirmed</div><div class="step-desc">March 26, 2025 · 11:32am</div></div></div>
+        <div class="track-step"><div class="track-step-dot-col"><div class="step-dot done"></div><div class="step-line"></div></div><div><div class="step-title">In Crafting</div><div class="step-desc">Piece entered our Jaipur atelier</div></div></div>
+        <div class="track-step"><div class="track-step-dot-col"><div class="step-dot active"></div><div class="step-line"></div></div><div><div class="step-title">Quality Check</div><div class="step-desc">Diamond certification being verified — Est. 1 day</div></div></div>
+        <div class="track-step"><div class="track-step-dot-col"><div class="step-dot"></div><div class="step-line"></div></div><div><div class="step-title">Dispatched</div><div class="step-desc">Expected March 31, 2025</div></div></div>
+        <div class="track-step"><div class="track-step-dot-col"><div class="step-dot"></div></div><div><div class="step-title">Delivered</div><div class="step-desc">Expected April 2, 2025</div></div></div>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-grid"><div><div class="footer-brand">Aur<em>é</em>a Jewels</div></div><div><div class="footer-col-title">Help</div><ul class="footer-links"><li><a onclick="goTo('returns')">Returns</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div><div></div><div></div></div><div class="footer-bottom"><span>© 2025 Auréa Jewels Pvt. Ltd.</span></div></footer>
+</div>
+
+<!-- ══════════════════ RETURNS PAGE ══════════════════ -->
+<div class="page" id="page-returns">
+  <div class="page-hero">
+    <div class="breadcrumb">Home › <span>Returns & Exchanges</span></div>
+    <h1>Returns &amp; Exchanges</h1>
+    <p>Simple, hassle-free returns within 30 days of delivery. No questions asked.</p>
+  </div>
+  <div class="info-grid">
+    <div>
+      <h2>How It Works</h2>
+      <div style="display:flex;flex-direction:column;gap:18px;margin-top:8px;">
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;background:var(--cream);border:1px solid var(--border);"><div style="font-family:var(--ff-serif);font-size:28px;color:var(--gold);min-width:32px;line-height:1;">01</div><div><div style="font-weight:500;margin-bottom:4px;font-size:14px;">Initiate Your Return</div><div style="font-size:13px;color:var(--warm-gray);line-height:1.7;">Email <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="98eafdecedeaf6ebd8f9edeafdf9b6f1f6">[email&#160;protected]</a> or call 1800 419 0066 within 30 days of delivery.</div></div></div>
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;background:var(--cream);border:1px solid var(--border);"><div style="font-family:var(--ff-serif);font-size:28px;color:var(--gold);min-width:32px;line-height:1;">02</div><div><div style="font-weight:500;margin-bottom:4px;font-size:14px;">We Arrange Pickup</div><div style="font-size:13px;color:var(--warm-gray);line-height:1.7;">Our insured courier collects the piece from your address — completely free.</div></div></div>
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;background:var(--cream);border:1px solid var(--border);"><div style="font-family:var(--ff-serif);font-size:28px;color:var(--gold);min-width:32px;line-height:1;">03</div><div><div style="font-weight:500;margin-bottom:4px;font-size:14px;">Inspection &amp; Refund</div><div style="font-size:13px;color:var(--warm-gray);line-height:1.7;">Refund processed within 5–7 business days to your original payment method.</div></div></div>
+      </div>
+    </div>
+    <div>
+      <h2>Common Questions</h2>
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div style="padding:16px 0;border-bottom:1px solid var(--border);"><div style="font-weight:500;font-size:14px;margin-bottom:6px;">Can I return a bespoke piece?</div><p style="font-size:13px;color:var(--warm-gray);line-height:1.7;">Bespoke and customised pieces are non-returnable as they are made to order. We work closely with you throughout to ensure you love the result.</p></div>
+        <div style="padding:16px 0;border-bottom:1px solid var(--border);"><div style="font-weight:500;font-size:14px;margin-bottom:6px;">What condition must the piece be in?</div><p style="font-size:13px;color:var(--warm-gray);line-height:1.7;">Unworn, in original packaging, with all certificates and receipts. We inspect every return upon arrival.</p></div>
+        <div style="padding:16px 0;border-bottom:1px solid var(--border);"><div style="font-weight:500;font-size:14px;margin-bottom:6px;">Can I exchange for a different piece?</div><p style="font-size:13px;color:var(--warm-gray);line-height:1.7;">Yes — full-value exchanges on any piece in our collection. If the new piece is of higher value, you simply pay the difference.</p></div>
+        <div style="padding:16px 0;"><div style="font-weight:500;font-size:14px;margin-bottom:6px;">What about resizing?</div><p style="font-size:13px;color:var(--warm-gray);line-height:1.7;">One complimentary resize within 60 days of purchase. Contact our team to arrange.</p></div>
+      </div>
+      <a onclick="goTo('contact')" class="btn-primary" style="margin-top:24px;display:inline-block;">Contact Client Care</a>
+    </div>
+  </div>
+  <footer><div class="footer-grid"><div><div class="footer-brand">Aur<em>é</em>a Jewels</div></div><div><div class="footer-col-title">Help</div><ul class="footer-links"><li><a onclick="goTo('track')">Track Order</a></li><li><a onclick="goTo('contact')">Contact</a></li><li><a onclick="goTo('size-guide')">Size Guide</a></li></ul></div><div><div class="footer-col-title">Shop</div><ul class="footer-links"><li><a onclick="goTo('shop')">All Jewellery</a></li></ul></div><div></div></div><div class="footer-bottom"><span>© 2025 Auréa Jewels Pvt. Ltd.</span></div></footer>
+</div>
+
+<!-- ══════════════════ SIZE GUIDE ══════════════════ -->
+<div class="page" id="page-size-guide">
+  <div class="page-hero">
+    <div class="breadcrumb">Home › <span>Size Guide</span></div>
+    <h1>Size Guide</h1>
+    <p>Find your perfect fit with our comprehensive sizing charts for rings, bangles, and necklaces.</p>
+  </div>
+  <div class="info-section">
+    <h2 style="margin-bottom:16px;">Ring Sizes</h2>
+    <p>Measure the inner diameter of an existing ring, or wrap a strip of paper around your finger and measure the length in mm.</p>
+    <table class="size-table">
+      <thead><tr><th>India Size</th><th>US Size</th><th>UK Size</th><th>Diameter (mm)</th><th>Circumference (mm)</th></tr></thead>
+      <tbody>
+        <tr><td>5</td><td>3</td><td>F</td><td>14.1</td><td>44.2</td></tr>
+        <tr><td>7</td><td>4</td><td>H</td><td>14.9</td><td>46.8</td></tr>
+        <tr><td>9</td><td>5</td><td>J</td><td>15.7</td><td>49.3</td></tr>
+        <tr><td>11</td><td>6</td><td>L</td><td>16.5</td><td>51.9</td></tr>
+        <tr><td>13</td><td>7</td><td>N</td><td>17.3</td><td>54.4</td></tr>
+        <tr><td>15</td><td>8</td><td>P</td><td>18.2</td><td>57.2</td></tr>
+        <tr><td>17</td><td>9</td><td>R</td><td>19.0</td><td>59.7</td></tr>
+      </tbody>
+    </table>
+    <div style="background:var(--cream);border:1px solid var(--border);padding:18px;margin-top:16px;"><p style="font-size:13px;color:var(--warm-gray);">💡 <strong style="color:var(--gold-dark);">Pro Tip:</strong> Fingers are larger in the evening and in warm weather. Measure at the end of the day for the most accurate size.</p></div>
+    <h2 style="margin:40px 0 16px;">Bangle Sizes</h2>
+    <p>Measure the widest part of your hand around the knuckles with fingers pressed together.</p>
+    <table class="size-table">
+      <thead><tr><th>Size</th><th>Inner Diameter</th><th>Fits Wrist</th></tr></thead>
+      <tbody>
+        <tr><td>Small (S)</td><td>58mm</td><td>Up to 6 inches</td></tr>
+        <tr><td>Medium (M)</td><td>62mm</td><td>6–6.5 inches</td></tr>
+        <tr><td>Large (L)</td><td>66mm</td><td>6.5–7 inches</td></tr>
+        <tr><td>Extra Large (XL)</td><td>70mm</td><td>7+ inches</td></tr>
+      </tbody>
+    </table>
+    <h2 style="margin:40px 0 16px;">Necklace Lengths</h2>
+    <table class="size-table">
+      <thead><tr><th>Length</th><th>Style</th><th>Falls At</th></tr></thead>
+      <tbody>
+        <tr><td>14" (35cm)</td><td>Collar</td><td>Base of throat</td></tr>
+        <tr><td>16" (40cm)</td><td>Choker</td><td>Below collarbone</td></tr>
+        <tr><td>18" (45cm)</td><td>Princess</td><td>Mid-chest</td></tr>
+        <tr><td>20–24" (50–60cm)</td><td>Matinee</td><td>Lower chest</td></tr>
+        <tr><td>28–36" (70–90cm)</td><td>Opera</td><td>Below the bust</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:24px;font-size:13px;color:var(--warm-gray);">Not sure of your size? <a onclick="goTo('contact')" style="color:var(--gold);cursor:pointer;">Book a consultation</a> and we'll measure you at our atelier.</p>
+  </div>
+  <footer><div class="footer-grid"><div><div class="footer-brand">Aur<em>é</em>a Jewels</div></div><div><div class="footer-col-title">Help</div><ul class="footer-links"><li><a onclick="goTo('care-guide')">Care Guide</a></li><li><a onclick="goTo('returns')">Returns</a></li></ul></div><div><div class="footer-col-title">Shop</div><ul class="footer-links"><li><a onclick="goTo('rings')">Rings</a></li><li><a onclick="goTo('bangles')">Bangles</a></li></ul></div><div></div></div><div class="footer-bottom"><span>© 2025 Auréa Jewels Pvt. Ltd.</span></div></footer>
+</div>
+
+<!-- ══════════════════ CARE GUIDE ══════════════════ -->
+<div class="page" id="page-care-guide">
+  <div class="page-hero">
+    <div class="breadcrumb">Home › <span>Care Guide</span></div>
+    <h1>Jewellery Care Guide</h1>
+    <p>Keep your Auréa pieces radiant for generations with these simple care routines.</p>
+  </div>
+  <div class="info-section">
+    <h2>Caring for Gold</h2>
+    <p>Clean with warm water, a drop of mild dish soap, and a soft toothbrush. Rinse thoroughly and dry with a lint-free cloth. Avoid harsh chemicals, chlorine, and perfume contact.</p>
+    <div style="background:var(--cream);border-left:3px solid var(--gold);padding:16px 20px;margin:16px 0 32px;"><p style="font-size:13px;color:var(--warm-gray);"><strong style="color:var(--gold-dark);">Golden Rule:</strong> Put your jewellery on last when getting ready, and take it off first. Avoid contact with hairspray, lotions, and perfumes.</p></div>
+    <h2>Caring for Diamonds</h2>
+    <p>Diamonds attract grease and oils which reduce brilliance. Soak in warm water and gentle dish soap for 20–30 minutes, scrub gently with a soft brush, rinse and pat dry.</p>
+    <div style="background:var(--cream);border-left:3px solid var(--gold);padding:16px 20px;margin:16px 0 32px;"><p style="font-size:13px;color:var(--warm-gray);"><strong style="color:var(--gold-dark);">Important:</strong> Avoid ultrasonic cleaners if your diamond has inclusions. When in doubt, bring it to our atelier for professional cleaning.</p></div>
+    <h2>Storage</h2>
+    <p>Store each piece separately in the velvet pouch or box it came in. Diamonds can scratch other gems and metals — always store separately. Keep away from direct sunlight and humidity.</p>
+    <p style="margin-top:24px;font-size:13px;color:var(--warm-gray);">We offer complimentary professional cleaning at any of our <a onclick="goTo('contact')" style="color:var(--gold);cursor:pointer;">three ateliers</a>.</p>
+  </div>
+  <footer><div class="footer-grid"><div><div class="footer-brand">Aur<em>é</em>a Jewels</div></div><div><div class="footer-col-title">Help</div><ul class="footer-links"><li><a onclick="goTo('size-guide')">Size Guide</a></li><li><a onclick="goTo('returns')">Returns</a></li></ul></div><div><div class="footer-col-title">Shop</div><ul class="footer-links"><li><a onclick="goTo('shop')">All Jewellery</a></li></ul></div><div></div></div><div class="footer-bottom"><span>© 2025 Auréa Jewels Pvt. Ltd.</span></div></footer>
+</div>
+
+<!-- ══════════════════ LOGIN PAGE ══════════════════ -->
+<div class="page" id="page-login">
+  <div class="page-hero" style="padding:60px 60px 40px;">
+    <div class="breadcrumb">Home › <span>Login</span></div>
+    <h1>Welcome Back</h1>
+    <p>Sign in to your Auréa account to view orders, wishlists, and exclusive member offers.</p>
+  </div>
+  <div style="max-width:480px;margin:60px auto;padding:0 24px;">
+    <div style="background:var(--cream);border:1px solid var(--border);padding:40px;">
+      <div class="contact-form">
+        <input class="form-input" type="email" placeholder="Email address">
+        <input class="form-input" type="password" placeholder="Password">
+        <button onclick="showToast('Login feature coming soon')" class="btn-primary" style="align-self:stretch;text-align:center;">Sign In</button>
+        <div style="text-align:center;font-size:12px;color:var(--warm-gray);margin-top:4px;">Forgot password? <a style="color:var(--gold);cursor:pointer;" onclick="showToast('Password reset coming soon')">Reset here</a></div>
+        <div style="height:1px;background:var(--border);margin:12px 0;"></div>
+        <button onclick="showToast('Account creation coming soon')" class="btn-ghost" style="align-self:stretch;text-align:center;">Create Account</button>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-grid"><div><div class="footer-brand">Aur<em>é</em>a Jewels</div></div><div><div class="footer-col-title">Shop</div><ul class="footer-links"><li><a onclick="goTo('shop')">All Jewellery</a></li></ul></div><div></div><div></div></div><div class="footer-bottom"><span>© 2025 Auréa Jewels Pvt. Ltd.</span></div></footer>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ════════════════════════════
+   DATA
+════════════════════════════ */
+const PRODUCTS = [
+  {
+    id:1, name:"The Celeste Solitaire Ring", mat:"18K White Gold · 0.50ct Diamond",
+    price:58500, mrp:72000, tag:"diamond,rings", badge:"New",
+    desc:"A timeless solitaire ring featuring a brilliant-cut 0.50ct diamond set in 18K white gold. IGI certified. The epitome of understated elegance.",
+    sizes:["5","7","9","11","13","15","17"], bg:"#F0EBE3",
+    specs:{Metal:"18K White Gold",Stone:"0.50ct Diamond",Cert:"IGI Certified",Clarity:"VS1",Colour:"F",Setting:"4-Prong Solitaire"},
+    svg:`<svg width="120" height="160" viewBox="0 0 120 160" fill="none"><ellipse cx="60" cy="108" rx="38" ry="10" fill="none" stroke="#C9A96E" stroke-width="1" opacity="0.5"/><path d="M22 108 Q18 88 34 76" stroke="#C9A96E" stroke-width="8" stroke-linecap="round" fill="none"/><path d="M98 108 Q102 88 86 76" stroke="#C9A96E" stroke-width="8" stroke-linecap="round" fill="none"/><ellipse cx="60" cy="76" rx="26" ry="8" fill="#C9A96E" opacity="0.8"/><polygon points="60,45 82,67 60,77 38,67" fill="rgba(220,240,255,0.9)" stroke="#C9A96E" stroke-width="1"/><line x1="60" y1="45" x2="60" y2="77" stroke="rgba(150,200,255,0.4)" stroke-width="0.8"/><line x1="38" y1="67" x2="82" y2="67" stroke="rgba(150,200,255,0.4)" stroke-width="0.8"/><polygon points="60,52 65,64 60,62 55,64" fill="rgba(255,255,255,0.7)"/></svg>`
+  },
+  {
+    id:2, name:"The Dalia Drop Earrings", mat:"22K Yellow Gold · Blue Topaz",
+    price:24300, mrp:0, tag:"gold,earrings", badge:"",
+    desc:"Hand-crafted drop earrings in 22K yellow gold featuring genuine Blue Topaz gemstones. Perfect for festive and bridal occasions.",
+    sizes:[], bg:"#F0EBE0",
+    specs:{Metal:"22K Yellow Gold",Stone:"Blue Topaz",Weight:"4.2g",Setting:"Bezel Set",Occasion:"Festive / Bridal"},
+    svg:`<svg width="100" height="140" viewBox="0 0 100 140" fill="none"><circle cx="50" cy="30" r="10" fill="rgba(201,169,110,0.3)" stroke="#C9A96E" stroke-width="1.5"/><circle cx="50" cy="30" r="5" fill="rgba(220,240,255,0.8)" stroke="#9B7A42" stroke-width="1"/><line x1="50" y1="40" x2="50" y2="60" stroke="#C9A96E" stroke-width="2"/><path d="M35 60 Q50 55 65 60 L60 110 Q50 120 40 110 Z" stroke="#C9A96E" stroke-width="1.5" fill="rgba(201,169,110,0.12)"/><circle cx="50" cy="85" r="8" fill="rgba(180,220,255,0.6)" stroke="#C9A96E" stroke-width="1"/></svg>`
+  },
+  {
+    id:3, name:"The Aria Tennis Bangle", mat:"18K Rose Gold · Diamond Studded",
+    price:112000, mrp:140000, tag:"diamond,bangles", badge:"Sale",
+    desc:"An elegant tennis bangle in 18K rose gold studded with 0.42ct pave-set brilliant-cut diamonds. BIS hallmarked.",
+    sizes:["S","M","L","XL"], bg:"#F5F0E8",
+    specs:{Metal:"18K Rose Gold",Stone:"Pave Diamonds 0.42ct",Cert:"BIS Hallmarked + IGI",Size:"S/M/L/XL",Closure:"Rigid Bangle"},
+    svg:`<svg width="120" height="120" viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="42" stroke="#C9A96E" stroke-width="8" fill="none"/><circle cx="60" cy="60" r="42" stroke="#E8D5B0" stroke-width="2" fill="none" opacity="0.5" stroke-dasharray="4 8"/><circle cx="60" cy="18" r="6" fill="rgba(200,230,255,0.8)" stroke="#C9A96E" stroke-width="1"/><circle cx="60" cy="102" r="4" fill="rgba(201,169,110,0.5)" stroke="#9B7A42" stroke-width="1"/><circle cx="18" cy="60" r="4" fill="rgba(201,169,110,0.5)" stroke="#9B7A42" stroke-width="1"/><circle cx="102" cy="60" r="4" fill="rgba(201,169,110,0.5)" stroke="#9B7A42" stroke-width="1"/></svg>`
+  },
+  {
+    id:4, name:"The Sera Pendant Necklace", mat:"22K Gold · Ruby Gemstone",
+    price:31800, mrp:0, tag:"gold,necklaces", badge:"",
+    desc:"A delicate pendant featuring a natural Mozambique ruby in a halo setting on 22K yellow gold. Comes with a matching 22K chain.",
+    sizes:[], bg:"#EDE8E0",
+    specs:{Metal:"22K Yellow Gold",Stone:"Mozambique Ruby",ChainLength:"18 inches",Setting:"Halo",Cert:"GIA Certified"},
+    svg:`<svg width="120" height="140" viewBox="0 0 120 140" fill="none"><path d="M20 20 Q60 15 100 20" stroke="#C9A96E" stroke-width="1.2" fill="none"/><path d="M20 20 L30 80" stroke="#C9A96E" stroke-width="1.2"/><path d="M100 20 L90 80" stroke="#C9A96E" stroke-width="1.2"/><path d="M30 80 Q60 85 90 80" stroke="#C9A96E" stroke-width="1.2" fill="none"/><line x1="60" y1="83" x2="60" y2="100" stroke="#C9A96E" stroke-width="1.2"/><path d="M50 100 L60 88 L70 100 L60 112 Z" fill="rgba(201,169,110,0.3)" stroke="#C9A96E" stroke-width="1.2"/><circle cx="60" cy="100" r="6" fill="rgba(200,230,255,0.8)" stroke="#9B7A42" stroke-width="1"/></svg>`
+  },
+  {
+    id:5, name:"The Empress Cocktail Ring", mat:"18K Yellow Gold · Ruby & Diamond",
+    price:76500, mrp:92000, tag:"diamond,rings,gold", badge:"Bestseller",
+    desc:"A regal cocktail ring with a pigeon-blood ruby centre flanked by brilliant-cut diamonds in 18K yellow gold.",
+    sizes:["5","7","9","11","13","15"], bg:"#F0E8E4",
+    specs:{Metal:"18K Yellow Gold",CentreStone:"Pigeon-Blood Ruby",SideStones:"0.20ct Diamonds",Origin:"Mozambique",Setting:"Cocktail"},
+    svg:`<svg width="110" height="140" viewBox="0 0 110 140" fill="none"><ellipse cx="55" cy="110" rx="34" ry="9" fill="none" stroke="#C9A96E" stroke-width=".8" opacity=".35"/><path d="M21 110 Q17 88 31 77" stroke="#C9A96E" stroke-width="7" stroke-linecap="round"/><path d="M89 110 Q93 88 79 77" stroke="#C9A96E" stroke-width="7" stroke-linecap="round"/><ellipse cx="55" cy="77" rx="23" ry="7" fill="#C9A96E" opacity=".82"/><circle cx="55" cy="56" r="18" fill="#EDE4D3" stroke="#C9A96E" stroke-width="1.4"/><polygon points="55,40 68,54 55,62 42,54" fill="rgba(190,70,70,.75)" stroke="#9B7A42" stroke-width=".8"/><circle cx="36" cy="72" r="5" fill="rgba(120,175,215,.6)" stroke="#C9A96E" stroke-width=".7"/><circle cx="74" cy="72" r="5" fill="rgba(120,175,215,.6)" stroke="#C9A96E" stroke-width=".7"/></svg>`
+  },
+  {
+    id:6, name:"The Lumina Diamond Necklace", mat:"18K White Gold · 1ct Diamond",
+    price:185000, mrp:220000, tag:"diamond,necklaces", badge:"New",
+    desc:"A statement necklace featuring a principal 1ct diamond in a halo setting on an 18K white gold chain. IGI certified VVS2, E colour.",
+    sizes:[], bg:"#E8EDF4",
+    specs:{Metal:"18K White Gold",Stone:"1.00ct Diamond",Cert:"IGI Certified",Clarity:"VVS2",Colour:"E",Setting:"Halo"},
+    svg:`<svg width="140" height="120" viewBox="0 0 140 120" fill="none"><path d="M20 60 Q70 44 120 60" stroke="#B8933A" stroke-width="1.4" fill="none"/><path d="M20 60 Q14 90 30 105" stroke="#B8933A" stroke-width="1.4"/><path d="M120 60 Q126 90 110 105" stroke="#B8933A" stroke-width="1.4"/><path d="M30 105 Q70 114 110 105" stroke="#B8933A" stroke-width="1.4" fill="none"/><circle cx="70" cy="95" r="18" fill="rgba(120,175,215,.65)" stroke="#C9A96E" stroke-width="1"/><polygon points="70,79 84,93 70,102 56,93" fill="rgba(255,255,255,.55)"/></svg>`
+  },
+  {
+    id:7, name:"The Solstice Diamond Studs", mat:"18K White Gold · 0.30ct each",
+    price:42600, mrp:52000, tag:"diamond,earrings", badge:"",
+    desc:"Brilliant-cut diamond stud earrings in 18K white gold. 0.30ct each (0.60ct pair). IGI certified. A timeless wardrobe essential.",
+    sizes:[], bg:"#ECF0F4",
+    specs:{Metal:"18K White Gold",Stone:"0.30ct each (0.60ct pair)",Cert:"IGI Certified",Clarity:"VS2",Colour:"G",Setting:"Martini"},
+    svg:`<svg width="90" height="90" viewBox="0 0 90 90" fill="none"><circle cx="45" cy="45" r="30" fill="rgba(120,175,215,.15)" stroke="#C9A96E" stroke-width=".8"/><polygon points="45,28 58,42 45,52 32,42" fill="rgba(120,175,215,.85)" stroke="#C9A96E" stroke-width=".8"/><polygon points="45,28 53,36 45,41 37,36" fill="rgba(255,255,255,.6)"/></svg>`
+  },
+  {
+    id:8, name:"The Auric Bangle Set", mat:"22K Yellow Gold · Plain Set of 3",
+    price:58900, mrp:0, tag:"gold,bangles", badge:"New",
+    desc:"A set of three interlocking 22K gold bangles in graduating widths. BIS hallmarked. Perfect for daily wear and gifting.",
+    sizes:["S","M","L","XL"], bg:"#F0EAD8",
+    specs:{Metal:"22K Yellow Gold",Weight:"22g (set of 3)",Cert:"BIS Hallmarked",Sizes:"S / M / L / XL",Finish:"High Polish"},
+    svg:`<svg width="120" height="100" viewBox="0 0 120 100" fill="none"><circle cx="60" cy="50" r="38" stroke="#C9A96E" stroke-width="5" fill="none"/><circle cx="60" cy="50" r="30" stroke="#B8933A" stroke-width="3.5" fill="none" opacity=".6"/><circle cx="60" cy="50" r="22" stroke="#DFC28A" stroke-width="2.5" fill="none" opacity=".4"/></svg>`
+  }
+];
+
+let cart = [], wishlist = [], currentPage = 'home', currentProductId = null;
+
+/* ════════════════════════════
+   ROUTER
+════════════════════════════ */
+const PAGE_MAP = {
+  home:'home', shop:'shop', rings:'shop', earrings:'shop', necklaces:'shop',
+  bangles:'shop', diamond:'shop', gold:'shop', gifting:'gifting',
+  collections:'collections', product:'product', cart:'cart', wishlist:'wishlist',
+  about:'about', contact:'contact', track:'track', returns:'returns',
+  'size-guide':'size-guide', 'care-guide':'care-guide', login:'login'
+};
+
+const CATEGORY_CONFIG = {
+  shop:     { title:'All Jewellery',          desc:'Explore our complete collection of certified diamond jewellery and hallmarked gold.',  filter:'all'       },
+  rings:    { title:'Rings',                  desc:'From solitaires to cocktail rings — find your perfect ring in our curated collection.', filter:'rings'     },
+  earrings: { title:'Earrings',               desc:'Studs, drops, and hoops in certified diamonds and hallmarked gold.',                    filter:'earrings'  },
+  necklaces:{ title:'Necklaces & Pendants',   desc:'Delicate chains, statement pendants, and mangalsutra — for every occasion.',           filter:'necklaces' },
+  bangles:  { title:'Bangles & Bracelets',    desc:'Gold bangles, diamond tennis bracelets — crafted for beauty and tradition.',            filter:'bangles'   },
+  diamond:  { title:'Diamond Collection',     desc:'IGI & GIA certified diamonds across rings, earrings, necklaces, and bracelets.',        filter:'diamond'   },
+  gold:     { title:'Gold Collection',        desc:'BIS hallmarked 18K and 22K gold pieces — from plain gold to gemstone-studded.',         filter:'gold'      },
+};
+
+function goTo(dest, productId) {
+  const pageKey = PAGE_MAP[dest] || 'home';
+  window.scrollTo(0,0);
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + pageKey).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const nl = document.getElementById('nl-' + dest);
+  if (nl) nl.classList.add('active');
+  currentPage = dest;
+  if (CATEGORY_CONFIG[dest]) setupShopPage(dest);
+  if (dest === 'product' && productId) openProductDetail(productId);
+  if (dest === 'cart') renderCart();
+  if (dest === 'wishlist') renderWishlist();
+  if (dest === 'gifting') renderGiftingGrid();
+  setTimeout(runScrollAnimations, 80);
+}
+
+/* ════════════════════════════
+   SHOP PAGE — SIDEBAR FILTERS
+════════════════════════════ */
+let shopCategoryFilter = null;
+let shopPriceMax = 200000;
+
+function setupShopPage(dest) {
+  const cfg = CATEGORY_CONFIG[dest];
+  document.getElementById('shopPageTitle').textContent = cfg.title;
+  document.getElementById('shopPageDesc').textContent = cfg.desc;
+  document.getElementById('shopBreadcrumb').textContent = cfg.title;
+  shopCategoryFilter = cfg.filter === 'all' ? null : cfg.filter;
+  document.querySelectorAll('.shop-sidebar input[type="checkbox"]').forEach(cb => cb.checked = false);
+  shopPriceMax = 200000;
+  const slider = document.getElementById('priceSlider');
+  if (slider) slider.value = 200000;
+  if (document.getElementById('priceSliderVal')) document.getElementById('priceSliderVal').textContent = '₹2,00,000+';
+  if (document.getElementById('sgSort')) document.getElementById('sgSort').value = 'featured';
+  if (document.getElementById('activeChips')) document.getElementById('activeChips').innerHTML = '';
+  renderShopGrid();
+}
+
+function toggleSbGroup(titleEl) {
+  titleEl.classList.toggle('collapsed');
+  titleEl.nextElementSibling.classList.toggle('hidden');
+}
+
+function updatePriceSlider(val) {
+  shopPriceMax = parseInt(val);
+  document.getElementById('priceSliderVal').textContent =
+    parseInt(val) >= 200000 ? '₹2,00,000+' : '₹' + parseInt(val).toLocaleString('en-IN');
+  applyShopFilters();
+}
+
+function getCheckedVals(filterType) {
+  return [...document.querySelectorAll('.shop-sidebar input[data-filter="' + filterType + '"]:checked')].map(cb => cb.value);
+}
+
+function productMatchesMetal(p, vals) {
+  if (!vals.length) return true;
+  const m = p.mat.toLowerCase();
+  return vals.some(function(v) {
+    if (v==='18k-white')  return m.includes('18k white');
+    if (v==='18k-yellow') return m.includes('18k yellow');
+    if (v==='18k-rose')   return m.includes('18k rose');
+    if (v==='22k-yellow') return m.includes('22k');
+    return false;
+  });
+}
+function productMatchesStone(p, vals) {
+  if (!vals.length) return true;
+  const m = p.mat.toLowerCase() + ' ' + p.name.toLowerCase();
+  return vals.some(function(v) {
+    if (v==='diamond') return m.includes('diamond');
+    if (v==='ruby')    return m.includes('ruby');
+    if (v==='topaz')   return m.includes('topaz') || m.includes('sapphire');
+    if (v==='plain')   return !m.includes('diamond') && !m.includes('ruby') && !m.includes('topaz');
+    return false;
+  });
+}
+function productMatchesPrice(p, vals) {
+  if (!vals.length) return true;
+  return vals.some(function(v) {
+    if (v==='under-30k') return p.price < 30000;
+    if (v==='30k-80k')   return p.price >= 30000 && p.price <= 80000;
+    if (v==='above-80k') return p.price > 80000;
+    return false;
+  });
+}
+function productMatchesAvail(p, vals) {
+  if (!vals.length) return true;
+  return vals.some(function(v) {
+    if (v==='on-sale') return p.mrp && p.mrp > p.price;
+    if (v==='new')     return p.badge === 'New';
+    return false;
+  });
+}
+
+const CHIP_LABELS = {
+  '18k-white':'18K White Gold','18k-yellow':'18K Yellow Gold','18k-rose':'18K Rose Gold','22k-yellow':'22K Yellow Gold',
+  'diamond':'Diamond','ruby':'Ruby','topaz':'Sapphire / Topaz','plain':'Plain Gold',
+  'under-30k':'Under ₹30,000','30k-80k':'₹30k – ₹80k','above-80k':'Above ₹80,000',
+  'on-sale':'On Sale','new':'New Arrivals'
+};
+
+function renderActiveChips(metalVals, stoneVals, priceVals, availVals) {
+  const all = [...metalVals, ...stoneVals, ...priceVals, ...availVals];
+  document.getElementById('activeChips').innerHTML = all.map(function(v) {
+    return '<div class="chip">' + (CHIP_LABELS[v]||v) + '<button class="chip-remove" onclick="removeChip(\'' + v + '\')">✕</button></div>';
+  }).join('');
+}
+
+function removeChip(val) {
+  const cb = document.querySelector('.shop-sidebar input[value="' + val + '"]');
+  if (cb) cb.checked = false;
+  applyShopFilters();
+}
+
+function clearAllFilters() {
+  document.querySelectorAll('.shop-sidebar input[type="checkbox"]').forEach(cb => cb.checked = false);
+  shopPriceMax = 200000;
+  const slider = document.getElementById('priceSlider');
+  if (slider) slider.value = 200000;
+  if (document.getElementById('priceSliderVal')) document.getElementById('priceSliderVal').textContent = '₹2,00,000+';
+  if (document.getElementById('activeChips')) document.getElementById('activeChips').innerHTML = '';
+  applyShopFilters();
+}
+
+function applyShopFilters() {
+  const metalVals = getCheckedVals('metal');
+  const stoneVals = getCheckedVals('stone');
+  const priceVals = getCheckedVals('price');
+  const availVals = getCheckedVals('avail');
+  const sgSort = document.getElementById('sgSort');
+  const sortVal = sgSort ? sgSort.value : 'featured';
+
+  let items = shopCategoryFilter
+    ? PRODUCTS.filter(p => p.tag.split(',').some(t => t.trim() === shopCategoryFilter))
+    : PRODUCTS.slice();
+
+  items = items.filter(p =>
+    productMatchesMetal(p, metalVals) &&
+    productMatchesStone(p, stoneVals) &&
+    productMatchesPrice(p, priceVals) &&
+    productMatchesAvail(p, availVals) &&
+    p.price <= shopPriceMax
+  );
+
+  if (sortVal === 'price-asc')  items.sort((a,b) => a.price - b.price);
+  if (sortVal === 'price-desc') items.sort((a,b) => b.price - a.price);
+  if (sortVal === 'newest')     items.sort((a,b) => b.id - a.id);
+  if (sortVal === 'sale')       items.sort((a,b) => (b.mrp?1:0) - (a.mrp?1:0));
+
+  renderActiveChips(metalVals, stoneVals, priceVals, availVals);
+
+  const grid = document.getElementById('shopGrid');
+  if (grid) {
+    grid.innerHTML = items.length
+      ? items.map(p => productCardHTML(p)).join('')
+      : '<div style="grid-column:1/-1;padding:80px 0;text-align:center;font-family:\'Cormorant Garamond\',serif;font-size:22px;color:#6B6560;">No pieces match your filters.<br><button onclick="clearAllFilters()" style="margin-top:20px;font-family:\'Jost\',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;background:none;border:1px solid rgba(201,169,110,0.25);color:#9B7A42;padding:12px 24px;cursor:pointer;">Clear All Filters</button></div>';
+  }
+  const countEl = document.getElementById('sgCount');
+  if (countEl) countEl.textContent = items.length + ' piece' + (items.length !== 1 ? 's' : '');
+  runScrollAnimations();
+}
+
+function renderShopGrid() { applyShopFilters(); }
+
+/* ════════════════════════════
+   HOME GRID
+════════════════════════════ */
+function homeFilter(btn, filter) {
+  document.querySelectorAll('#page-home .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const items = filter === 'all' ? PRODUCTS
+    : PRODUCTS.filter(p => p.tag.split(',').some(t => t.trim() === filter));
+  document.getElementById('homeProdGrid').innerHTML = items.map(p => productCardHTML(p)).join('');
+  runScrollAnimations();
+}
+
+function renderGiftingGrid() {
+  const el = document.getElementById('giftingGrid');
+  if (el) el.innerHTML = PRODUCTS.slice(0, 4).map(p => productCardHTML(p)).join('');
+}
+
+/* ════════════════════════════
+   PRODUCT CARD HTML
+════════════════════════════ */
+function productCardHTML(p) {
+  const inWish = wishlist.some(w => w.id === p.id);
+  return '<div class="prod-card">' +
+    '<div class="prod-img" style="background:' + p.bg + '">' +
+    (p.badge ? '<div class="prod-badge">' + p.badge + '</div>' : '') +
+    '<div class="prod-wishlist ' + (inWish ? 'wishlisted' : '') + '" onclick="toggleWish(event,' + p.id + ')">' +
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="' + (inWish ? '#C9A96E' : 'none') + '" stroke="#C9A96E" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' +
+    '</div>' +
+    '<div onclick="goTo(\'product\',' + p.id + ')" style="display:flex;align-items:center;justify-content:center;flex:1;cursor:pointer;width:100%;height:100%;">' + p.svg + '</div>' +
+    '<button class="prod-add-btn" onclick="addToCart(' + p.id + ')">Add to Bag</button>' +
+    '</div>' +
+    '<div onclick="goTo(\'product\',' + p.id + ')" style="cursor:pointer;">' +
+    '<div class="prod-name">' + p.name + '</div>' +
+    '<div class="prod-material">' + p.mat + '</div>' +
+    '<div class="prod-price">₹' + p.price.toLocaleString('en-IN') + (p.mrp ? ' <del>₹' + p.mrp.toLocaleString('en-IN') + '</del>' : '') + '</div>' +
+    '</div></div>';
+}
+
+/* ════════════════════════════
+   PRODUCT DETAIL
+════════════════════════════ */
+function openProductDetail(id) {
+  currentProductId = id;
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  const save = p.mrp ? Math.round((1 - p.price / p.mrp) * 100) : 0;
+  const inWish = wishlist.some(w => w.id === id);
+  const sizesHTML = p.sizes.length
+    ? '<div class="pd-label">Select Size <a onclick="goTo(\'size-guide\')" style="color:var(--gold);cursor:pointer;font-size:11px;letter-spacing:2px;margin-left:8px;">Size Guide ↗</a></div><div class="pd-sizes">' +
+      p.sizes.map(s => '<button class="pd-size" onclick="selectSize(this)">' + s + '</button>').join('') + '</div>' : '';
+  const specsHTML = Object.entries(p.specs).map(([k, v]) =>
+    '<div class="pd-spec-row"><span class="pd-sk">' + k + '</span><span class="pd-sv">' + v + '</span></div>'
+  ).join('');
+  const bigSvg = p.svg
+    .replace(/width="\d+"/, 'width="260"')
+    .replace(/height="\d+"/, 'height="300"');
+  const thumbSvg = p.svg
+    .replace(/width="\d+"/, 'width="52"')
+    .replace(/height="\d+"/, 'height="64"');
+
+  document.getElementById('pdContent').innerHTML =
+    '<div>' +
+    '<div class="pd-img-main" style="background:' + p.bg + '">' + bigSvg + '</div>' +
+    '<div class="pd-thumbs">' +
+    [1,2,3,4].map((n,i) => '<div class="pd-thumb' + (i===0?' active':'') + '" onclick="selectThumb(this)" style="background:' + p.bg + '">' + thumbSvg + '</div>').join('') +
+    '</div></div>' +
+    '<div class="pd-info">' +
+    '<div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--warm-gray);margin-bottom:16px;">' +
+    '<a onclick="goTo(\'home\')" style="color:var(--warm-gray);cursor:pointer;text-decoration:none;">Home</a> › ' +
+    '<a onclick="goTo(\'shop\')" style="color:var(--warm-gray);cursor:pointer;text-decoration:none;">Shop</a> › ' +
+    '<span style="color:var(--gold);">' + p.name + '</span></div>' +
+    '<div class="pd-tag">' + p.tag.split(',')[0].toUpperCase() + '</div>' +
+    '<div class="pd-name">' + p.name + '</div>' +
+    '<div class="pd-material">' + p.mat + '</div>' +
+    '<div class="pd-price">₹' + p.price.toLocaleString('en-IN') + '</div>' +
+    (p.mrp ? '<div class="pd-mrp">₹' + p.mrp.toLocaleString('en-IN') + '</div><div class="pd-save">Save ' + save + '%</div>' : '') +
+    '<div class="pd-divider"></div>' +
+    sizesHTML +
+    '<p class="pd-desc">' + p.desc + '</p>' +
+    '<div class="pd-actions">' +
+    '<button onclick="addToCart(' + id + ')" class="btn-primary" style="border:none;cursor:pointer;">Add to Bag</button>' +
+    '<button onclick="toggleWish(event,' + id + ')" class="btn-ghost" style="cursor:pointer;">' + (inWish ? '♥ Remove from Wishlist' : '♡ Add to Wishlist') + '</button>' +
+    '</div>' +
+    '<div class="pd-specs">' + specsHTML + '</div>' +
+    '<div style="margin-top:20px;display:flex;gap:24px;flex-wrap:wrap;">' +
+    '<div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);">✓ BIS / IGI Certified</div>' +
+    '<div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);">✓ Free Insured Delivery</div>' +
+    '<div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);">↩ 30-Day Returns</div>' +
+    '</div></div>';
+}
+
+function selectSize(el) {
+  document.querySelectorAll('.pd-size').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function selectThumb(el) {
+  document.querySelectorAll('.pd-thumb').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ════════════════════════════
+   CART
+════════════════════════════ */
+function addToCart(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  const ex = cart.find(x => x.id === id);
+  if (ex) ex.qty++;
+  else cart.push(Object.assign({}, p, {qty: 1}));
+  updateCartBadge();
+  showToast(p.name + ' added to bag');
+}
+
+function updateCartBadge() {
+  const total = cart.reduce((s, x) => s + x.qty, 0);
+  const badge = document.getElementById('cartBadge');
+  badge.textContent = total;
+  badge.classList.toggle('visible', total > 0);
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(x => x.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter(x => x.id !== id);
+  updateCartBadge();
+  renderCart();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(x => x.id !== id);
+  updateCartBadge();
+  renderCart();
+}
+
+function renderCart() {
+  const wrap = document.getElementById('cartContent');
+  if (!cart.length) {
+    wrap.innerHTML = '<div class="cart-empty" style="grid-column:1/-1"><p>Your bag is empty.</p><a onclick="goTo(\'shop\')" class="btn-primary">Continue Shopping</a></div>';
+    return;
+  }
+  const sub = cart.reduce((s, x) => s + x.price * x.qty, 0);
+  const ship = sub >= 50000 ? 0 : 499;
+  const total = sub + ship;
+  wrap.innerHTML =
+    '<div><h2 style="font-family:\'Cormorant Garamond\',serif;font-size:22px;font-weight:300;margin-bottom:24px;">' + cart.length + ' item' + (cart.length > 1 ? 's' : '') + '</h2>' +
+    cart.map(function(item) {
+      const thumbSvg = item.svg.replace(/width="\d+"/, 'width="72"').replace(/height="\d+"/, 'height="88"');
+      return '<div class="cart-item">' +
+        '<div class="cart-item-img" style="background:' + item.bg + '">' + thumbSvg + '</div>' +
+        '<div><div class="cart-item-name">' + item.name + '</div><div class="cart-item-mat">' + item.mat + '</div>' +
+        '<div class="qty-control"><button class="qty-btn" onclick="changeQty(' + item.id + ',-1)">−</button><span class="qty-num">' + item.qty + '</span><button class="qty-btn" onclick="changeQty(' + item.id + ',1)">+</button></div>' +
+        '<button class="cart-item-remove" onclick="removeFromCart(' + item.id + ')">Remove</button></div>' +
+        '<div class="cart-item-price">₹' + (item.price * item.qty).toLocaleString('en-IN') + '</div></div>';
+    }).join('') + '</div>' +
+    '<div><div class="cart-summary-box"><div class="cs-title">Order Summary</div>' +
+    '<div class="cs-row"><span class="label">Subtotal</span><span>₹' + sub.toLocaleString('en-IN') + '</span></div>' +
+    '<div class="cs-row"><span class="label">Shipping</span><span>' + (ship === 0 ? 'Free' : '₹' + ship) + '</span></div>' +
+    '<div class="cs-row"><span class="label">Duties &amp; Taxes</span><span>Included</span></div>' +
+    (sub < 50000 ? '<div style="font-size:12px;color:var(--gold);margin-bottom:8px;">Add ₹' + (50000 - sub).toLocaleString('en-IN') + ' more for free shipping</div>' : '<div style="font-size:12px;color:#5a8a4a;margin-bottom:8px;">✓ You qualify for free shipping</div>') +
+    '<div class="cs-total"><span class="cs-total-label">Total</span><span class="cs-total-val">₹' + total.toLocaleString('en-IN') + '</span></div>' +
+    '<button onclick="showToast(\'Secure checkout — coming soon!\')" class="btn-primary" style="width:100%;text-align:center;border:none;cursor:pointer;margin-bottom:10px;">Proceed to Checkout</button>' +
+    '<a onclick="goTo(\'shop\')" class="btn-ghost" style="width:100%;text-align:center;display:block;">Continue Shopping</a>' +
+    '<div style="margin-top:16px;text-align:center;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--warm-gray);">🔒 Secure · BIS Certified · Free Returns</div>' +
+    '</div></div>';
+}
+
+/* ════════════════════════════
+   WISHLIST
+════════════════════════════ */
+function toggleWish(e, id) {
+  e.stopPropagation();
+  const p = PRODUCTS.find(x => x.id === id);
+  const idx = wishlist.findIndex(x => x.id === id);
+  if (idx > -1) { wishlist.splice(idx, 1); showToast('Removed from wishlist'); }
+  else { wishlist.push(p); showToast(p.name + ' added to wishlist'); }
+  if (currentPage === 'cart') renderCart();
+  else if (currentPage === 'wishlist') renderWishlist();
+  else { document.getElementById('homeProdGrid').innerHTML = PRODUCTS.map(pr => productCardHTML(pr)).join(''); }
+}
+
+function renderWishlist() {
+  const wrap = document.getElementById('wishlistContent');
+  if (!wishlist.length) {
+    wrap.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 0;"><p style="font-family:\'Cormorant Garamond\',serif;font-size:22px;color:var(--warm-gray);margin-bottom:24px;">Your wishlist is empty.</p><a onclick="goTo(\'shop\')" class="btn-primary">Explore Jewellery</a></div>';
+    return;
+  }
+  wrap.innerHTML = wishlist.map(p => productCardHTML(p)).join('');
+}
+
+/* ════════════════════════════
+   SEARCH
+════════════════════════════ */
+function openSearch() {
+  document.getElementById('searchOverlay').classList.add('open');
+  setTimeout(function() { document.getElementById('searchInput').focus(); }, 200);
+}
+function closeSearch() {
+  document.getElementById('searchOverlay').classList.remove('open');
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchResults').innerHTML = '';
+}
+function doSearch(q) {
+  const res = document.getElementById('searchResults');
+  if (!q.trim()) { res.innerHTML = ''; return; }
+  const matches = PRODUCTS.filter(p =>
+    p.name.toLowerCase().includes(q.toLowerCase()) ||
+    p.mat.toLowerCase().includes(q.toLowerCase()) ||
+    p.tag.toLowerCase().includes(q.toLowerCase())
+  );
+  if (!matches.length) { res.innerHTML = '<div style="padding:16px;font-size:13px;color:var(--warm-gray);">No results found</div>'; return; }
+  res.innerHTML = matches.map(p =>
+    '<div class="search-result-item" onclick="closeSearch();goTo(\'product\',' + p.id + ')">' +
+    '<span class="search-result-name">' + p.name + '</span>' +
+    '<span class="search-result-price">₹' + p.price.toLocaleString('en-IN') + '</span></div>'
+  ).join('');
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeSearch(); });
+
+/* ════════════════════════════
+   FORMS
+════════════════════════════ */
+function subscribeNL() {
+  const email = document.getElementById('nlEmail').value.trim();
+  if (!email || !email.includes('@')) { showToast('Please enter a valid email'); return; }
+  document.getElementById('nlEmail').value = '';
+  showToast('Welcome to our inner circle ✦');
+}
+
+function submitContact() {
+  const name = document.getElementById('cName').value.trim();
+  if (!name) { showToast('Please enter your name'); return; }
+  document.getElementById('cName').value = '';
+  document.getElementById('cEmail').value = '';
+  showToast('Enquiry received — we\'ll be in touch within 24 hours');
+}
+
+function trackOrderSubmit() {
+  const ord = document.getElementById('trackOrder').value.trim();
+  if (!ord) { showToast('Please enter your order number'); return; }
+  document.getElementById('trackResult').style.display = 'block';
+  showToast('Order found — see status below');
+  setTimeout(function() { document.getElementById('trackResult').scrollIntoView({behavior:'smooth'}); }, 200);
+}
+
+/* ════════════════════════════
+   TOAST
+════════════════════════════ */
+var toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() { t.classList.remove('show'); }, 2800);
+}
+
+/* ════════════════════════════
+   SCROLL ANIMATIONS
+════════════════════════════ */
+function runScrollAnimations() {
+  const obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.cat-item, .coll-card, .prod-card, .testi-card, .usp-item').forEach(function(el, i) {
+    if (el.style.opacity !== '1') {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease ' + ((i % 4) * 0.08) + 's, transform 0.6s ease ' + ((i % 4) * 0.08) + 's';
+      obs.observe(el);
+    }
+  });
+}
+
+/* ════════════════════════════
+   INIT
+════════════════════════════ */
+document.getElementById('homeProdGrid').innerHTML = PRODUCTS.map(p => productCardHTML(p)).join('');
+runScrollAnimations();
+
+</script>
+</body>
+</html>
